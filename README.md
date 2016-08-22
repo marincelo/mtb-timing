@@ -1,29 +1,3 @@
-<<<<<<< HEAD
-# README
+[![Build Status](https://travis-ci.org/marincelo/mtb-timing.svg?branch=master)](https://travis-ci.org/marincelo/mtb-timing)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-=======
-# mtb-timing
-Web app for MTB race timing.
->>>>>>> origin/master
+# MTB liga Dalmacije timing
