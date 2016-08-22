@@ -1,15 +1,15 @@
-%h1 Listing racers
+%h1 Racers
 
-%table
+%table.mdl-data-table.mdl-js-data-table.mdl-data-table--selectable.mdl-shadow--2dp
   %thead
     %tr
+      %th.mdl-data-table__cell--non-numeric Start number
       %th First name
       %th Last name
       %th Year of birth
       %th Gender
       %th Email
       %th Phone number
-      %th Start number
       %th
       %th
       %th
@@ -17,13 +17,16 @@
   %tbody
     - @racers.each do |racer|
       %tr
+        %td.mdl-data-table__cell--non-numeric
+          = racer.start_number
         %td= racer.first_name
         %td= racer.last_name
         %td= racer.year_of_birth
         %td= racer.gender
         %td= racer.email
-        %td= racer.phone_number
-        %td= racer.start_number
+        %td
+          %a{href: "tel:#{racer.phone_number}"}
+            = racer.phone_number
         %td= link_to 'Show', racer
         %td= link_to 'Edit', edit_racer_path(racer)
         %td= link_to 'Destroy', racer, :method => :delete, :data => { :confirm => 'Are you sure?' }
