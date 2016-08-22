@@ -36,6 +36,7 @@ gem 'rack-zippy'
 gem 'haml-rails'
 gem 'react-rails'
 gem 'momentjs-rails'
+gem 'sprockets-es6'
 gem 'font-awesome-rails'
 gem 'material_design_lite-rails', '~> 1.2'
 
@@ -64,8 +65,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'better_errors'
-  gem 'quiet_assets'
 end
 
 group :production do

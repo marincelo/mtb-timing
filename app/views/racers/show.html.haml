@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @racer.first_name
+%p
+  %b Last name:
+  = @racer.last_name
+%p
+  %b Year of birth:
+  = @racer.year_of_birth
+%p
+  %b Gender:
+  = @racer.gender
+%p
+  %b Email:
+  = @racer.email
+%p
+  %b Phone number:
+  = @racer.phone_number
+%p
+  %b Start number:
+  = @racer.start_number
+
+= link_to 'Edit', edit_racer_path(@racer)
+\|
+= link_to 'Back', racers_path

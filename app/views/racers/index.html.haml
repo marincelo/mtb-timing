@@ -1,0 +1,33 @@
+%h1 Listing racers
+
+%table
+  %thead
+    %tr
+      %th First name
+      %th Last name
+      %th Year of birth
+      %th Gender
+      %th Email
+      %th Phone number
+      %th Start number
+      %th
+      %th
+      %th
+
+  %tbody
+    - @racers.each do |racer|
+      %tr
+        %td= racer.first_name
+        %td= racer.last_name
+        %td= racer.year_of_birth
+        %td= racer.gender
+        %td= racer.email
+        %td= racer.phone_number
+        %td= racer.start_number
+        %td= link_to 'Show', racer
+        %td= link_to 'Edit', edit_racer_path(racer)
+        %td= link_to 'Destroy', racer, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Racer', new_racer_path
