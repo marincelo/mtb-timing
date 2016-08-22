@@ -15,4 +15,4 @@ production:
   <<: *default
   database: mtb_production
   username: mtb_timinf
-  password: <%= ENV['MTB_TIMING_DATABASE_PASSWORD'] %>
+  password: <%= ENV['MTB_TIMING _DATABASE_PASSWORD'] %>
