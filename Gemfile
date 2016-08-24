@@ -55,6 +55,7 @@ group :development, :test do
   gem 'byebug', platform: :mri
   gem 'rspec-rails'
   gem 'rspec-collection_matchers'
+  gem 'rails-controller-testing'
   gem 'rubocop', require: false
 end
 
