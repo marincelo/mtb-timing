@@ -61,3 +61,7 @@ bower.json
 
 # Ignore Byebug command history file.
 .byebug_history
+
+# kovic - db credentials in config/database.yml
+config/database.yml
+
