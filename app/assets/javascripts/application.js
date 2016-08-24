@@ -13,5 +13,6 @@
 //= require material
 //= require react
 //= require react_ujs
+//= require react-flux
 //= require components
 //= require_tree .

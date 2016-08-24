@@ -35,6 +35,7 @@ gem 'rack-zippy'
 #Frontend
 gem 'haml-rails'
 gem 'react-rails'
+gem 'react-flux-rails'
 gem 'momentjs-rails'
 gem 'sprockets-es6'
 gem 'font-awesome-rails'

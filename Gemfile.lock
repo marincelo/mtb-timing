@@ -160,6 +160,7 @@ GEM
     rb-fsevent (0.9.7)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    react-flux-rails (2.6.4)
     react-rails (1.8.2)
       babel-transpiler (>= 0.7.0)
       coffee-script-source (~> 1.8)
@@ -272,6 +273,7 @@ DEPENDENCIES
   rails (~> 5.0.0, >= 5.0.0.1)
   rails-controller-testing
   rails_12factor
+  react-flux-rails
   react-rails
   redis (~> 3.0)
   rspec-collection_matchers
