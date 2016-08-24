@@ -5,7 +5,12 @@ default: &default
 
 development:
   <<: *default
-  database: mtb_development
+  database: d5pep2oeu531l3
+  host: ec2-54-243-204-221.compute-1.amazonaws.com
+  port: 5432
+  username: mmczqfravmnhyq
+  password: pjV1BZjKKJ_UK87ehB1Gkx0rXb
+  
 
 test:
   <<: *default
