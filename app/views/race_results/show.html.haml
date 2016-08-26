@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Racer:
+  = @race_result.racer
+%p
+  %b Race:
+  = @race_result.race
+%p
+  %b Status:
+  = @race_result.status
+%p
+  %b Lap times:
+  = @race_result.lap_times
+
+= link_to 'Edit', edit_race_result_path(@race_result)
+\|
+= link_to 'Back', race_results_path
