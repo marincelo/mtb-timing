@@ -1,7 +1,7 @@
 class DraftResult extends React.Component {
 
   componentDidMount() {
-    // alert('AJAXING to the backend!');
+    alert('AJAXING to the backend!');
   }
 
   render() {

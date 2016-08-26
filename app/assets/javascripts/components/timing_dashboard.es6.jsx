@@ -10,19 +10,8 @@ class TimingDashboard extends React.Component {
   render () {
     return (
       <div>
-        {
-          // big input
-        }
         <input type="text" id="raceResultInput" onKeyUp={ this.createRaceResult } />
-
-        {
-          // list of results waiting to be persisted
-        }
         <DraftResults />
-        {
-          // list of persisted results
-        }
-
       </div>
     );
   }

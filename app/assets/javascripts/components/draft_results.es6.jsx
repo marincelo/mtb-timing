@@ -5,7 +5,7 @@ class DraftResults extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.state = {
       draftResults: DraftResultStore.getRaceResults()
-    }
+    };
   }
 
   onChange() {
@@ -32,6 +32,6 @@ class DraftResults extends React.Component {
           })
         }
       </ul>
-    )
+    );
   }
 }
