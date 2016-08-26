@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'dashboard#index'
+
   resources :race_results
   resources :races
   resources :racers
