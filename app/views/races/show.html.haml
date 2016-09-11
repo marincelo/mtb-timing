@@ -1,17 +1,26 @@
 %p#notice= notice
 
-%p
-  %b Name:
+%h1
+  = @race.laps == 1 ? 'XCM' : 'XCO'
   = @race.name
-%p
-  %b Date:
-  = @race.date
-%p
-  %b Laps:
-  = @race.laps
-%p
-  %b Easy laps:
-  = @race.easy_laps
+
+%table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
+  %thead
+    %tr
+      %th.mdl-data-table__cell--non-numeric Startni broj
+      %th Ime
+      %th Prezime
+      %th Vrijeme
+  %tbody
+    - @race.race_results.each do |race_result|
+      %tr
+        %td.mdl-data-table__cell--non-numeric
+          = race_result.racer.start_number
+        %td= race_result.racer.first_name
+        %td= race_result.racer.last_name
+        %td= race_result.lap_times.try(:last)
+
+
 
 = link_to 'Edit', edit_race_path(@race)
 \|

@@ -1,5 +1,7 @@
 class Racer < ApplicationRecord
   belongs_to :user
+  has_many :race_results
+  has_many :races, through: :race_results
 
   validates :email, presence: true, uniqueness: true
   validates :phone_number, presence: true, uniqueness: true
@@ -32,7 +34,7 @@ class Racer < ApplicationRecord
         racer = Racer.where('gender = 2 AND year_of_birth < 1977 AND year_of_birth >= 1967').last
         racer.present? ? racer.start_number + 1 : 500
       else
-        fail 'Uknown category'
+        fail 'Unknown category'
       end
     end
   end

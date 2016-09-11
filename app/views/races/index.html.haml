@@ -11,7 +11,12 @@
       %a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect
         = race.laps == 1 ? 'XCM' : 'XCO'
       .mdl-layout-spacer
-      = link_to race do
-        %i#register.material-icons assignment
-        .mdl-tooltip.mdl-tooltip--large{ for: 'register'}
-          Prijavi se za utrku
+        = form_for RaceResult.new do |f|
+          = f.hidden_field :racer_id, value: current_user.racer.id
+          = f.hidden_field :race_id, value: race.id
+          = f.hidden_field :status, value: 1
+          .actions
+            = f.submit do
+              %i#register.material-icons assignment
+              .mdl-tooltip.mdl-tooltip--large{ for: 'register'}
+                Prijavi se za utrku

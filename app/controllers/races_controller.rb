@@ -1,5 +1,5 @@
 class RacesController < ApplicationController
-  before_action :set_race, only: [:show, :edit, :update, :destroy]
+  before_action :set_race, only: [:show, :edit, :update, :destroy, :add_racer]
 
   # GET /races
   # GET /races.json
@@ -59,6 +59,11 @@ class RacesController < ApplicationController
       format.html { redirect_to races_url, notice: 'Race was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def add_racer
+    @race.racers << current_user.racer
+    redirect_to @race
   end
 
   private

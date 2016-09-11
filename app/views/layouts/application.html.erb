@@ -28,7 +28,8 @@
                 <a class="mdl-navigation__link" href="/races">Utrke</a>
                 <a class="mdl-navigation__link" href="">Link</a>
                 <a class="mdl-navigation__link" href="#">
-                    <%=current_user.try(:email)%>
+                    <%=current_user.try(:racer).try(:first_name)%>
+                    <%=current_user.try(:racer).try(:last_name)%>
                 </a>
             </nav>
             </div>
