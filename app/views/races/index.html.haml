@@ -1,27 +1,17 @@
-%h1 Listing races
-
-%table
-  %thead
-    %tr
-      %th Name
-      %th Date
-      %th Laps
-      %th Easy laps
-      %th
-      %th
-      %th
-
-  %tbody
-    - @races.each do |race|
-      %tr
-        %td= race.name
-        %td= race.date
-        %td= race.laps
-        %td= race.easy_laps
-        %td= link_to 'Show', race
-        %td= link_to 'Edit', edit_race_path(race)
-        %td= link_to 'Destroy', race, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Race', new_race_path
+- @races.each do |race|
+  .demo-card-event.mdl-card.mdl-shadow--2dp
+    .mdl-card__title.mdl-card--expand
+      %h4.text-center
+        = race.name
+        %hr
+        - race.date.to_formatted_s(:db).split(' ').each do |d|
+          = d
+          %br
+    .mdl-card__actions.mdl-card--border
+      %a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect
+        = race.laps == 1 ? 'XCM' : 'XCO'
+      .mdl-layout-spacer
+      = link_to race do
+        %i#register.material-icons assignment
+        .mdl-tooltip.mdl-tooltip--large{ for: 'register'}
+          Prijavi se za utrku
