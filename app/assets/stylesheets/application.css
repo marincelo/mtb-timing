@@ -18,3 +18,8 @@
 * {
     font-family: Roboto, 'sans';
 }
+
+.page-content {
+  width: 80%;
+  margin: 2em auto;
+}

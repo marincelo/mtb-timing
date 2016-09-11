@@ -25,6 +25,8 @@ class RaceResultsController < ApplicationController
   # POST /race_results.json
   def create
     @race_result = RaceResult.new(race_result_params)
+    p race_result_params
+    @race_result.racer = Racer.find_by(start_number: race_result_params[:racer_start_number])
 
     respond_to do |format|
       if @race_result.save
@@ -69,6 +71,6 @@ class RaceResultsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def race_result_params
-      params.require(:race_result).permit(:racer_id, :race_id, :status, :lap_times)
+      params.require(:race_result).permit(:racer_id, :racer_start_number, :race_id, :status, :lap_times)
     end
 end

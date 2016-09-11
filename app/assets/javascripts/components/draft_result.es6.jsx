@@ -1,7 +1,36 @@
 class DraftResult extends React.Component {
 
   componentDidMount() {
-    alert('AJAXING to the backend!');
+    let data = {
+      race_result: {
+        racer_start_number: this.props.result.racerNumber,
+        lap_times: [this.props.result.time]
+      }
+    };
+
+    let xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
+    xhr.onreadystatechange = (() => {
+      if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 400) {
+        console.log(xhr.responseText);
+        alert('gud');
+      }
+      else if (xhr.readyState === 4 && xhr.status > 399) {
+        alert('xhr error');
+        if(xhr.status === 401 || xhr.status === 403) {
+        }
+        else if (xhr.status >= 500) {
+        }
+        else {
+        }
+      }
+    });
+
+    xhr.open('POST', 'race_results', true);
+    xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify(data));
   }
 
   render() {

@@ -23,15 +23,18 @@ class DraftResults extends React.Component {
 
   render() {
     return (
-      <ul
-        className="mdl-list draft-result-list"
-      >
-        {
-          this.state.draftResults.map((result)=>{
-            return <DraftResult key={`draft-result-${result.time.getTime()}`} result={result} />;
-          })
-        }
-      </ul>
+      <div>
+        <h2>Cekanje na sinkronizaciju</h2>
+        <ul
+          className="mdl-list draft-result-list"
+        >
+          {
+            this.state.draftResults.map((result)=>{
+              return <DraftResult key={`draft-result-${result.time.getTime()}`} result={result} />;
+            })
+          }
+        </ul>
+      </div>
     );
   }
 }
