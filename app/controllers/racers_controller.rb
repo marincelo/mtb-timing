@@ -25,11 +25,18 @@ class RacersController < ApplicationController
   # POST /racers.json
   def create
     @racer = Racer.new(racer_params)
+    @racer.user = User.create!(email: @racer.email, password: 'mtb4life')
 
     respond_to do |format|
       if @racer.save
-        format.html { redirect_to @racer, notice: 'Racer was successfully created.' }
-        format.json { render :show, status: :created, location: @racer }
+        if user_signed_in?
+          format.html { redirect_to @racer, notice: 'Racer was successfully created.' }
+          format.json { render :show, status: :created, location: @racer }
+        else
+          sign_in @racer.user
+          format.html { redirect_to races_path }
+          format.json { render :show, status: :created, location: @racer }
+        end
       else
         format.html { render :new }
         format.json { render json: @racer.errors, status: :unprocessable_entity }
@@ -69,6 +76,6 @@ class RacersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def racer_params
-      params.require(:racer).permit(:first_name, :last_name, :year_of_birth, :gender, :email, :phone_number, :start_number)
+      params.require(:racer).permit(:first_name, :last_name, :year_of_birth, :gender, :email, :phone_number)
     end
 end

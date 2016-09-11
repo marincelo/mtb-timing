@@ -7,25 +7,35 @@
           %li= msg
 
   .field
-    = f.label :first_name
-    = f.text_field :first_name
+    .mdl-textfield.mdl-js-textfield
+      %input#email.mdl-textfield__input{type: 'email', name: 'racer[email]', required: true}
+      %label.mdl-textfield__label{for: 'email'} Email
+
   .field
-    = f.label :last_name
-    = f.text_field :last_name
+    .mdl-textfield.mdl-js-textfield
+      %input#first_name.mdl-textfield__input{type: 'text', name: 'racer[first_name]', required: true}
+      %label.mdl-textfield__label{for: 'first_name'} Ime
   .field
-    = f.label :year_of_birth
-    = f.number_field :year_of_birth
+    .mdl-textfield.mdl-js-textfield
+      %input#last_name.mdl-textfield__input{type: 'text', name: 'racer[last_name]', required: true}
+      %label.mdl-textfield__label{for: 'last_name'} Prezime
   .field
-    = f.label :gender
-    = f.number_field :gender
+    .mdl-textfield.mdl-js-textfield
+      %input#year_of_birth.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[year_of_birth]', required: true}
+      %label.mdl-textfield__label{for: 'year_of_birth'} Godina rodenja
+      %span.mdl-textfield__error Unesi broj!
   .field
-    = f.label :email
-    = f.text_field :email
+    %label.mdl-radio.mdl-js-radio.mdl-js-ripple-effect{:for => 'spol-zenski'}
+      %input#spol-zenski.mdl-radio__button{name: 'racer[gender]', :type => "radio", value: 1, required: true}
+      %span.mdl-radio__label Zensko
+
+    %label.mdl-radio.mdl-js-radio.mdl-js-ripple-effect{:for => 'spol-muski'}
+      %input#spol-muski.mdl-radio__button{name: 'racer[gender]', type: 'radio', value: 2, required: true}
+      %span.mdl-radio__label Musko
   .field
-    = f.label :phone_number
-    = f.text_field :phone_number
-  .field
-    = f.label :start_number
-    = f.number_field :start_number
+    .mdl-textfield.mdl-js-textfield
+      %input#phone_number.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[phone_number]', required: true}
+      %label.mdl-textfield__label{for: 'phone_number'} Broj mobitela
+      %span.mdl-textfield__error Unesi ispravan broj u formatu 385911234567!
   .actions
-    = f.submit 'Save'
+    = f.submit 'Spremi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'

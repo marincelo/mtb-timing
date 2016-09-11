@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160911132241) do
+ActiveRecord::Schema.define(version: 20160911142046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(version: 20160911132241) do
     t.integer  "racer_id"
     t.integer  "race_id"
     t.integer  "status"
-    t.text     "lap_times"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "lap_times",  default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.index ["race_id"], name: "index_race_results_on_race_id", using: :btree
     t.index ["racer_id"], name: "index_race_results_on_racer_id", using: :btree
   end
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20160911132241) do
     t.integer  "start_number"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_racers_on_user_id", using: :btree
   end
 
   create_table "races", force: :cascade do |t|
@@ -66,4 +68,5 @@ ActiveRecord::Schema.define(version: 20160911132241) do
 
   add_foreign_key "race_results", "racers"
   add_foreign_key "race_results", "races"
+  add_foreign_key "racers", "users"
 end
