@@ -23,58 +23,20 @@
             %a.mdl-navigation__link{:href => "/racers/new"} Registracija
             %a.mdl-navigation__link{:href => "/races"} Utrke
             %a.mdl-navigation__link{:href => "/racers/login"} Login
-            %a.mdl-navigation__link{:href => "#"}
-              = current_user.try(:racer).try(:first_name)
-              = current_user.try(:racer).try(:last_name)
+            - if user_signed_in?
+              = link_to racer_path(current_user.try(:racer)), class: 'mdl-navigation__link' do
+                = current_user.try(:racer).try(:first_name)
+                = current_user.try(:racer).try(:last_name)
       .mdl-layout__drawer
         %span.mdl-layout-title MTB liga Dalmacije
         %nav.mdl-navigation
           %a.mdl-navigation__link{:href => "/racers/new"} Registracija
           %a.mdl-navigation__link{:href => "/races"} Utrke
           %a.mdl-navigation__link{:href => "/racers/login"} Login
-          %a.mdl-navigation__link{:href => "#"}
-            = current_user.try(:racer).try(:first_name)
-            = current_user.try(:racer).try(:last_name)
-      %main.mdl-layout__content
-        .page-content
-          = yield
-!!!
-%html
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title MTB Timing
-    = csrf_meta_tags
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    = stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons"
-    = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700"
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    = stylesheet_link_tag "https://code.getmdl.io/1.2.0/material.blue_grey-light_blue.min.css"
-  %body
-    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
-      %header.mdl-layout__header
-        .mdl-layout__header-row
-          / Title
-          %span.mdl-layout-title MTB liga Dalmacije
-          / Add spacer, to align navigation to the right
-          .mdl-layout-spacer
-          / Navigation. We hide it in small screens.
-          %nav.mdl-navigation.mdl-layout--large-screen-only
-            %a.mdl-navigation__link{:href => "/racers/new"} Registracija
-            %a.mdl-navigation__link{:href => "/races"} Utrke
-            %a.mdl-navigation__link{:href => "/racers/login"} Login
+          - if user_signed_in?
             = link_to racer_path(current_user.try(:racer)), class: 'mdl-navigation__link' do
               = current_user.try(:racer).try(:first_name)
               = current_user.try(:racer).try(:last_name)
-      .mdl-layout__drawer
-        %span.mdl-layout-title MTB liga Dalmacije
-        %nav.mdl-navigation
-          %a.mdl-navigation__link{:href => "/racers/new"} Registracija
-          %a.mdl-navigation__link{:href => "/races"} Utrke
-          %a.mdl-navigation__link{:href => "/racers/login"} Login
-          = link_to racer_path(current_user.try(:racer)), class: 'mdl-navigation__link' do
-            = current_user.try(:racer).try(:first_name)
-            = current_user.try(:racer).try(:last_name)
       %main.mdl-layout__content
         .page-content
           = yield
