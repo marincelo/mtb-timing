@@ -1,4 +1,15 @@
-%h1 Registrirani vozaci
+%p#notice= notice
+
+%h1
+  = @club.name
+
+- if @club.user
+  %p
+    %b Admin:
+    = @club.user.racer.first_name
+    = @club.user.racer.last_name
+
+%h4 Registrirani vozaci
 
 %table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
   %thead
@@ -16,7 +27,7 @@
       %th
 
   %tbody
-    - @racers.each do |racer|
+    - @club.racers.each do |racer|
       %tr
         %td.mdl-data-table__cell--non-numeric
           = racer.start_number
@@ -34,6 +45,10 @@
         %td= link_to 'Edit', edit_racer_path(racer)
         %td= link_to 'Destroy', racer, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
+
+%br
 %br
 
-= link_to 'New Racer', new_racer_path
+= link_to 'Edit', edit_club_path(@club)
+\|
+= link_to 'Back', clubs_path

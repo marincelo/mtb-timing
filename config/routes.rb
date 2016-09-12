@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/racers/login' => 'racers#login_form'
   post '/racers/login' => 'racers#login'
 
+  resources :clubs
   resources :race_results
   resources :races
   resources :racers

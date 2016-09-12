@@ -1,0 +1,32 @@
+%h1 Listing clubs
+
+%table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
+  %thead
+    %tr
+      %th Name
+      %th Broj clanova
+      %th Admin
+      %th
+      %th
+      %th
+
+  %tbody
+    - @clubs.each do |club|
+      %tr
+        %td= club.name
+        %td= club.racers.count
+        %td
+          - if club.user.present?
+            = club.user.racer.first_name
+            = club.user.racer.last_name
+        %td= link_to 'Show', club
+        %td= link_to 'Edit', edit_club_path(club)
+        %td= link_to 'Destroy', club, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Club', new_club_path
+
+%br
+
+= link_to 'New Racer', new_racer_path

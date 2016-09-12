@@ -9,7 +9,12 @@
 
 %h4
   %b Klub:
-  = @racer.club.try(:name) || 'Nema'
+  - if @racer.club.present?
+    = link_to club_path(@racer.club) do
+      = @racer.club.try(:name)
+  - else
+    Nema
+
 %h4
   %b Godina rodenja:
   = @racer.year_of_birth
