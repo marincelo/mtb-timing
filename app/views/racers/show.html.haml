@@ -1,26 +1,47 @@
 %p#notice= notice
 
-%p
-  %b First name:
+%h1
+  %b
+    = @racer.start_number
+  = '-'
   = @racer.first_name
-%p
-  %b Last name:
   = @racer.last_name
-%p
-  %b Year of birth:
+
+%h4
+  %b Godina rodenja:
   = @racer.year_of_birth
 %p
-  %b Gender:
-  = @racer.gender
+  %b Spol:
+  = @racer.gender == 1 ?  'Zensko' : 'Musko'
 %p
-  %b Email:
-  = @racer.email
-%p
-  %b Phone number:
-  = @racer.phone_number
-%p
-  %b Start number:
-  = @racer.start_number
+  %b Kontakt:
+  %ul
+    %li
+      = @racer.email
+    %li
+      %a{href: "tel:#{@racer.phone_number}"}
+        = @racer.phone_number
+
+%h4
+  Prijavljene utrke
+
+%table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
+  %thead
+    %tr
+      %th Utrka
+      %th Datum odrzavanja
+      %th Vrijeme
+      %th Rezultat
+  %tbody
+    - @racer.race_results.each do |race_result|
+      %tr
+        %td= race_result.race.name
+        %td= race_result.race.date.to_formatted_s :db
+        %td= race_result.lap_times.try(:last) || '- -'
+        %td= race_result.lap_times.try(:last) || '- -'
+
+
+%br
 
 = link_to 'Edit', edit_racer_path(@racer)
 \|

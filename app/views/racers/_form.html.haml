@@ -8,20 +8,20 @@
 
   .field
     .mdl-textfield.mdl-js-textfield
-      %input#email.mdl-textfield__input{type: 'email', name: 'racer[email]', required: true}
+      %input#email.mdl-textfield__input{type: 'email', name: 'racer[email]', required: true, value: @racer.email}
       %label.mdl-textfield__label{for: 'email'} Email
 
   .field
     .mdl-textfield.mdl-js-textfield
-      %input#first_name.mdl-textfield__input{type: 'text', name: 'racer[first_name]', required: true}
+      %input#first_name.mdl-textfield__input{type: 'text', name: 'racer[first_name]', required: true, value: @racer.first_name}
       %label.mdl-textfield__label{for: 'first_name'} Ime
   .field
     .mdl-textfield.mdl-js-textfield
-      %input#last_name.mdl-textfield__input{type: 'text', name: 'racer[last_name]', required: true}
+      %input#last_name.mdl-textfield__input{type: 'text', name: 'racer[last_name]', required: true, value: @racer.last_name}
       %label.mdl-textfield__label{for: 'last_name'} Prezime
   .field
     .mdl-textfield.mdl-js-textfield
-      %input#year_of_birth.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[year_of_birth]', required: true}
+      %input#year_of_birth.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[year_of_birth]', required: true, value: @racer.year_of_birth}
       %label.mdl-textfield__label{for: 'year_of_birth'} Godina rodenja
       %span.mdl-textfield__error Unesi broj!
   .field
@@ -34,7 +34,7 @@
       %span.mdl-radio__label Musko
   .field
     .mdl-textfield.mdl-js-textfield
-      %input#phone_number.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[phone_number]', required: true}
+      %input#phone_number.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[phone_number]', required: true, value: @racer.phone_number}
       %label.mdl-textfield__label{for: 'phone_number'} Broj mobitela
       %span.mdl-textfield__error Unesi ispravan broj u formatu 385911234567!
   .actions
