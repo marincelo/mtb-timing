@@ -4,7 +4,7 @@ class RacersController < ApplicationController
   # GET /racers
   # GET /racers.json
   def index
-    @racers = Racer.all
+    @racers = Racer.all.order(start_number: :asc)
   end
 
   # GET /racers/1

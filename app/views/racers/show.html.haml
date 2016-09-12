@@ -9,10 +9,13 @@
 
 %h4
   %b Klub:
-  = @racer.club.name
+  = @racer.club.try(:name) || 'Nema'
 %h4
   %b Godina rodenja:
   = @racer.year_of_birth
+%h4
+  %b Kategorija:
+  = @racer.category.upcase
 %p
   %b Kontakt:
   %ul
