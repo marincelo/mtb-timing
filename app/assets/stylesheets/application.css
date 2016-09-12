@@ -48,3 +48,17 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 2em !important;
   color: white !important;
 }
+
+select {
+  background: transparent;
+  border: 0 none;
+  outline: 0 none;
+  border-bottom: 2px solid #555;
+  padding: 1em 2em 1em 0;
+  width: 300px;
+  font-size: 16px;
+}
+
+option {
+  font-size: 18px;
+}

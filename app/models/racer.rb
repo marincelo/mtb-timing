@@ -1,5 +1,6 @@
 class Racer < ApplicationRecord
   belongs_to :user
+  belongs_to :club
   has_many :race_results
   has_many :races, through: :race_results
 

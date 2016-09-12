@@ -8,11 +8,11 @@
   = @racer.last_name
 
 %h4
+  %b Klub:
+  = @racer.club.name
+%h4
   %b Godina rodenja:
   = @racer.year_of_birth
-%p
-  %b Spol:
-  = @racer.gender == 1 ?  'Zensko' : 'Musko'
 %p
   %b Kontakt:
   %ul
