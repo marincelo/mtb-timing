@@ -25,10 +25,12 @@ class RaceResultsController < ApplicationController
   # POST /race_results.json
   def create
     @race_result = RaceResult.new(race_result_params)
+
+    # TODO: remove this
     if race_result_params[:racer_start_number]
       @race_result.racer = Racer.find_by(start_number: race_result_params[:racer_start_number])
     end
-    byebug
+
     respond_to do |format|
       if @race_result.save
         format.html { redirect_to @race_result, notice: 'Race result was successfully created.' }

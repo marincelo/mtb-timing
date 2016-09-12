@@ -4,6 +4,20 @@
   = @race.laps == 1 ? 'XCM' : 'XCO'
   = @race.name
 
+.race-actions
+  = link_to races_path do
+    .mdl-button.mdl-button--raised.mdl-js-button.mdl-js-ripple-effect
+      Natrag
+  = form_for RaceResult.new do |f|
+    = f.hidden_field :racer_id, value: current_user.racer.id
+    = f.hidden_field :race_id, value: @race.id
+    = f.hidden_field :status, value: 1
+    .actions
+      = f.submit 'Prijavi se', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect'
+
+%h4
+  Prijavljeni vozaci
+
 %table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
   %thead
     %tr
@@ -18,10 +32,4 @@
           = race_result.racer.start_number
         %td= race_result.racer.first_name
         %td= race_result.racer.last_name
-        %td= race_result.lap_times.try(:last)
-
-
-
-= link_to 'Edit', edit_race_path(@race)
-\|
-= link_to 'Back', races_path
+        %td= race_result.lap_times.try(:last) || '- -'

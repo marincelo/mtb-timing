@@ -36,3 +36,24 @@
 #register {
   color: white;
 }
+
+#races {
+  .mdl-button-white {
+    background: #efefef;
+  }
+}
+
+.race-actions {
+  margin-bottom: 4em;
+
+  * {
+    display: inline;
+    margin-right: 2em;
+    text-decoration: none;
+  }
+
+  .mdl-button {
+    background: rgb(96,125,139);
+    color: white;
+  }
+}

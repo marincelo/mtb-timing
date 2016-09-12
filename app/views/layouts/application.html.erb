@@ -24,9 +24,9 @@
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
             <nav class="mdl-navigation mdl-layout--large-screen-only">
-                <a class="mdl-navigation__link" href="/racers/new">Prijava</a>
+                <a class="mdl-navigation__link" href="/racers/new">Registracija</a>
                 <a class="mdl-navigation__link" href="/races">Utrke</a>
-                <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="/racers/login">Login</a>
                 <a class="mdl-navigation__link" href="#">
                     <%=current_user.try(:racer).try(:first_name)%>
                     <%=current_user.try(:racer).try(:last_name)%>
@@ -37,10 +37,13 @@
         <div class="mdl-layout__drawer">
             <span class="mdl-layout-title">MTB liga Dalmacije</span>
             <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="/racers/new">Prijava</a>
-            <a class="mdl-navigation__link" href="/races">Utrke</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
+                <a class="mdl-navigation__link" href="/racers/new">Registracija</a>
+                <a class="mdl-navigation__link" href="/races">Utrke</a>
+                <a class="mdl-navigation__link" href="/racers/login">Login</a>
+                <a class="mdl-navigation__link" href="#">
+                    <%=current_user.try(:racer).try(:first_name)%>
+                    <%=current_user.try(:racer).try(:last_name)%>
+                </a>
             </nav>
         </div>
         <main class="mdl-layout__content">

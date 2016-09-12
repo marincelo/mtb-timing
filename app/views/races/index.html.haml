@@ -1,22 +1,21 @@
-- @races.each do |race|
-  .demo-card-event.mdl-card.mdl-shadow--2dp
-    .mdl-card__title.mdl-card--expand
-      %h4.text-center
-        = race.name
-        %hr
-        - race.date.to_formatted_s(:db).split(' ').each do |d|
-          = d
-          %br
-    .mdl-card__actions.mdl-card--border
-      %a.mdl-button.mdl-button--colored.mdl-js-button.mdl-js-ripple-effect
-        = race.laps == 1 ? 'XCM' : 'XCO'
-      .mdl-layout-spacer
-        = form_for RaceResult.new do |f|
-          = f.hidden_field :racer_id, value: current_user.racer.id
-          = f.hidden_field :race_id, value: race.id
-          = f.hidden_field :status, value: 1
-          .actions
-            = f.submit do
-              %i#register.material-icons assignment
-              .mdl-tooltip.mdl-tooltip--large{ for: 'register'}
-                Prijavi se za utrku
+#races
+  - @races.each do |race|
+    .demo-card-event.mdl-card.mdl-shadow--2dp
+      .mdl-card__title.mdl-card--expand
+        %h4.text-center
+          = race.name
+          %hr
+          - race.date.to_formatted_s(:db).split(' ').each do |d|
+            = d
+            %br
+      .mdl-card__actions.mdl-card--border
+        = link_to race do
+          .mdl-button.mdl-button-white.mdl-button--raised.mdl-js-button.mdl-js-ripple-effect
+            Detalji
+        %span{ style: 'margin-left: 2em' }
+          = form_for RaceResult.new do |f|
+            = f.hidden_field :racer_id, value: current_user.racer.id
+            = f.hidden_field :race_id, value: race.id
+            = f.hidden_field :status, value: 1
+            .actions
+              = f.submit 'Prijavi se', class: 'mdl-button mdl-button-white mdl-js-button mdl-button--raised mdl-js-ripple-effect'

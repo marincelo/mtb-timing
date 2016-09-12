@@ -68,6 +68,10 @@ class RacersController < ApplicationController
     end
   end
 
+  def login
+    sign_in Racer.where(year_of_birth: racer_params[:year_of_birth], phone_number: racer_params[:phone_number]).first.user and redirect_to races_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_racer
