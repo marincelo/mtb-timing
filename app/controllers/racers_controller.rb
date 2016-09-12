@@ -29,6 +29,7 @@ class RacersController < ApplicationController
 
     respond_to do |format|
       if @racer.save
+        # RacerMailer.welcome_email(@racer).deliver_later
         if user_signed_in?
           format.html { redirect_to @racer, notice: 'Racer was successfully created.' }
           format.json { render :show, status: :created, location: @racer }
