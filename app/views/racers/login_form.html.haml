@@ -8,9 +8,8 @@
   = hidden_field_tag :authenticity_token, form_authenticity_token
   .field
     .mdl-textfield.mdl-js-textfield
-      %input#year_of_birth.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[year_of_birth]', required: true}
-      %label.mdl-textfield__label{for: 'year_of_birth'} Godina rodenja
-      %span.mdl-textfield__error Unesi broj!
+      %input#email.mdl-textfield__input{type: 'email', name: 'racer[email]', required: true}
+      %label.mdl-textfield__label{for: 'email'} Email
   .field
     .mdl-textfield.mdl-js-textfield
       %input#phone_number.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[phone_number]', required: true}

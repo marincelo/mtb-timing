@@ -1,5 +1,6 @@
 class RacesController < ApplicationController
   before_action :set_race, only: [:show, :edit, :update, :destroy, :add_racer]
+  before_action :check_race_result, only: [:show]
 
   # GET /races
   # GET /races.json
@@ -75,5 +76,13 @@ class RacesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def race_params
       params.require(:race).permit(:name, :date, :laps, :easy_laps)
+    end
+
+    def check_race_result
+      has_race_result = current_user && current_user.racer && current_user.racer.races.include?(@race)
+      @racer_has_race_result = has_race_result
+      if has_race_result
+        @race_result = current_user.racer.race_results.where(race: @race).first
+      end
     end
 end

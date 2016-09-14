@@ -12,11 +12,3 @@
         = link_to race do
           .mdl-button.mdl-button--raised.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent
             Detalji
-        - if user_signed_in?
-          %span{ style: 'margin-left: 2em' }
-            = form_for RaceResult.new do |f|
-              = f.hidden_field :racer_id, value: current_user.racer.id
-              = f.hidden_field :race_id, value: race.id
-              = f.hidden_field :status, value: 1
-              .actions
-                = f.submit 'Prijavi se', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'

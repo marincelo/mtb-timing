@@ -59,9 +59,10 @@ class RaceResultsController < ApplicationController
   # DELETE /race_results/1
   # DELETE /race_results/1.json
   def destroy
+    race = @race_result.race
     @race_result.destroy
     respond_to do |format|
-      format.html { redirect_to race_results_url, notice: 'Race result was successfully destroyed.' }
+      format.html { redirect_to race, notice: 'Odjava je bila uspjesna.' }
       format.json { head :no_content }
     end
   end

@@ -74,7 +74,8 @@ class RacersController < ApplicationController
   end
 
   def login
-    racer = Racer.where(year_of_birth: racer_params[:year_of_birth], phone_number: racer_params[:phone_number]).first
+    filter = {email: racer_params[:email], phone_number: racer_params[:phone_number]}
+    racer = Racer.where(filter).first
     if racer.present?
       sign_in racer.user
       redirect_to races_path
@@ -91,6 +92,6 @@ class RacersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def racer_params
-      params.require(:racer).permit(:first_name, :last_name, :year_of_birth, :gender, :email, :phone_number, :club_id)
+      params.require(:racer).permit(:first_name, :last_name, :year_of_birth, :gender, :email, :phone_number, :club_id, :address)
     end
 end
