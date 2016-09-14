@@ -1,3 +1,6 @@
+%p.notice
+  = notice
+
 = form_for @racer do |f|
   - if @racer.errors.any?
     #error_explanation
@@ -46,6 +49,8 @@
         - Club.all.each do |club|
           %option{ value: club.id }
             = club.name
+  .field
+    = recaptcha_tags
 
   .actions
     = f.submit 'Spremi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'

@@ -42,6 +42,7 @@ gem 'font-awesome-rails'
 gem 'material_design_lite-rails', '~> 1.2'
 
 gem 'faker'
+gem "recaptcha", require: "recaptcha/rails"
 
 # PDF generator
 gem 'wicked_pdf'

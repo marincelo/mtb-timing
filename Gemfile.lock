@@ -168,6 +168,8 @@ GEM
       execjs
       railties (>= 3.2)
       tilt
+    recaptcha (3.3.0)
+      json
     redis (3.3.1)
     ref (2.0.0)
     responders (2.3.0)
@@ -275,6 +277,7 @@ DEPENDENCIES
   rails_12factor
   react-flux-rails
   react-rails
+  recaptcha
   redis (~> 3.0)
   rspec-collection_matchers
   rspec-rails

@@ -24,6 +24,10 @@ class RacersController < ApplicationController
   # POST /racers
   # POST /racers.json
   def create
+    unless verify_recaptcha
+      redirect_to new_racer_url, notice: 'Recaptcha fail.'
+      return
+    end
     @racer = Racer.new(racer_params)
     @racer.user = User.create!(email: @racer.email, password: 'mtb4life')
 
@@ -70,7 +74,13 @@ class RacersController < ApplicationController
   end
 
   def login
-    sign_in Racer.where(year_of_birth: racer_params[:year_of_birth], phone_number: racer_params[:phone_number]).first.user and redirect_to races_path
+    racer = Racer.where(year_of_birth: racer_params[:year_of_birth], phone_number: racer_params[:phone_number]).first
+    if racer.present?
+      sign_in racer.user
+      redirect_to races_path
+    else
+      redirect_to racers_login_path, notice: 'Nije uspjelo. Pokusaj opet.'
+    end
   end
 
   private

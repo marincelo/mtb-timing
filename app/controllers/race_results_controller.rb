@@ -33,7 +33,7 @@ class RaceResultsController < ApplicationController
 
     respond_to do |format|
       if @race_result.save
-        format.html { redirect_to @race_result, notice: 'Race result was successfully created.' }
+        format.html { redirect_to @race_result.race, notice: 'Prijava je zabiljezena.' }
         format.json { render :show, status: :created, location: @race_result }
       else
         format.html { render :new }
