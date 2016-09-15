@@ -26,15 +26,25 @@
 %table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
   %thead
     %tr
-      %th.mdl-data-table__cell--non-numeric Startni broj
+      %th Startni broj
       %th Ime
       %th Prezime
       %th Vrijeme
+      %th Status
+      - if user_signed_in? && current_user.admin
+        %th
   %tbody
     - @race.race_results.each do |race_result|
       %tr
-        %td.mdl-data-table__cell--non-numeric
+        %td
           = race_result.racer.start_number
         %td= race_result.racer.first_name
         %td= race_result.racer.last_name
         %td= race_result.lap_times.try(:last) || '- -'
+        %td= race_result.pretty_status
+        - if user_signed_in? && current_user.admin && race_result.status != 2
+          %td
+            = form_for race_result do |f|
+              = f.hidden_field :status, value: 2
+              .actions
+                = f.submit 'Potvrdi uplatu', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'

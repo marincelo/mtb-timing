@@ -6,6 +6,19 @@ class RaceResult < ApplicationRecord
   validate :disallow_duplicates
 
   def disallow_duplicates
+    return if self.id
     errors.add(:racer, 'prijava vec postoji!') if RaceResult.exists?(racer: self.racer, race: self.race)
+  end
+
+  def pretty_status
+    if status == 1
+      'Prijavljen'
+    elsif status == 2
+      'Startao'
+    elsif status == 3
+      'Zavrsio'
+    else
+      'Nepoznat'
+    end
   end
 end

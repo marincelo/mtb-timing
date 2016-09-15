@@ -1,32 +1,30 @@
-%h1 Listing clubs
+%h1 Registrirani klubovi
 
-%table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
+%table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
   %thead
     %tr
-      %th Name
+      %th Ime
       %th Broj clanova
       %th Admin
-      %th
-      %th
-      %th
+      - if user_signed_in? && current_user.admin
+        %th
+        %th
 
   %tbody
     - @clubs.each do |club|
       %tr
-        %td= club.name
+        %td= link_to club.name, club
         %td= club.racers.count
         %td
           - if club.user.present?
             = club.user.racer.first_name
             = club.user.racer.last_name
-        %td= link_to 'Show', club
-        %td= link_to 'Edit', edit_club_path(club)
-        %td= link_to 'Destroy', club, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          - else
+            = '- -'
+        - if user_signed_in? && current_user.admin
+          %td= link_to 'Edit', edit_club_path(club)
+          %td= link_to 'Destroy', club, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
-
-= link_to 'New Club', new_club_path
-
-%br
-
-= link_to 'New Racer', new_racer_path
+- if user_signed_in? && current_user.admin
+  %br
+  = link_to 'Dodaj klub', new_club_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'

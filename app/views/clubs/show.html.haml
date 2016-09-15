@@ -11,44 +11,37 @@
 
 %h4 Registrirani vozaci
 
-%table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
+%table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
   %thead
     %tr
       %th.mdl-data-table__cell--non-numeric Startni broj
       %th.mdl-data-table__cell--non-numeric Kategorija
       %th Ime
       %th Prezime
-      %th Godina rodenja
-      %th Spol
-      %th Email
-      %th Broj mobitela
-      %th
-      %th
-      %th
+      - if user_signed_in? && current_user.admin
+        %th Email
+        %th Broj mobitela
 
   %tbody
     - @club.racers.each do |racer|
       %tr
         %td.mdl-data-table__cell--non-numeric
-          = racer.start_number
+          = link_to racer.start_number, racer
         %td.mdl-data-table__cell--non-numeric
           = racer.category.try(:upcase)
         %td= racer.first_name
         %td= racer.last_name
-        %td= racer.year_of_birth
-        %td= racer.gender
-        %td= racer.email
-        %td
-          %a{href: "tel:#{racer.phone_number}"}
-            = racer.phone_number
-        %td= link_to 'Show', racer
-        %td= link_to 'Edit', edit_racer_path(racer)
-        %td= link_to 'Destroy', racer, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
+        - if user_signed_in? && current_user.admin
+          %td= racer.email
+          %td
+            %a{href: "tel:#{racer.phone_number}"}
+              = racer.phone_number
 
 %br
 %br
 
-= link_to 'Edit', edit_club_path(@club)
-\|
-= link_to 'Back', clubs_path
+= link_to 'Natrag', clubs_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'
+
+- if user_signed_in? && current_user.admin
+  = link_to 'Izmijeni klub', edit_club_path(@club), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
+

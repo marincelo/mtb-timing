@@ -21,14 +21,15 @@
 %h4
   %b Kategorija:
   = @racer.category.upcase
-%p
-  %b Kontakt:
-  %ul
-    %li
-      = @racer.email
-    %li
-      %a{href: "tel:#{@racer.phone_number}"}
-        = @racer.phone_number
+- if user_signed_in? && (current_user.admin || current_user.racer == @racer)
+  %p
+    %b Kontakt:
+    %ul
+      %li
+        = @racer.email
+      %li
+        %a{href: "tel:#{@racer.phone_number}"}
+          = @racer.phone_number
 
 %h4
   Prijavljene utrke
@@ -50,7 +51,7 @@
 
 
 %br
+= link_to 'Natrag', racers_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
 
-= link_to 'Edit', edit_racer_path(@racer)
-\|
-= link_to 'Back', racers_path
+- if user_signed_in? && (current_user.admin || current_user.racer == @racer)
+  = link_to 'Izmijeni podatke', edit_racer_path(@racer), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'
