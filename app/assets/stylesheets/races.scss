@@ -5,6 +5,7 @@
 .demo-card-event.mdl-card {
   width: 256px;
   height: 256px;
+  margin: auto;
   background: #efefef;
 }
 .demo-card-event > .mdl-card__actions {
@@ -22,7 +23,8 @@
   display: flex;
   box-sizing:border-box;
   align-items: center;
-  background: rgb(96,125,139);
+  text-align: center;
+  background: rgb(0, 188, 212);
 }
 .demo-card-event > .mdl-card__actions > .material-icons {
   padding-right: 10px;
@@ -31,6 +33,12 @@
 .demo-card-event > .mdl-card__actions,
 .demo-card-event > .mdl-card__actions > .mdl-button {
   color: #fff;
+}
+
+.demo-card-event {
+  .mdl-button {
+    width: 207px;
+  }
 }
 
 #register {
