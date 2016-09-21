@@ -14,7 +14,7 @@ class RaceResult < ApplicationRecord
     if status == 1
       'Prijavljen'
     elsif status == 2
-      'Startao'
+      'Na startu'
     elsif status == 3
       'Zavrsio'
     else
