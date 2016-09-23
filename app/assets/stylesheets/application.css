@@ -70,6 +70,14 @@ option {
     width: 100%;
   }
 
+  h1 {
+    padding-left: 5px !important;
+  }
+
+  .field {
+    padding-left: 10px;
+  }
+
   .mdl-data-table th {
     padding: 0 8px 8px 8px !important;
   }
