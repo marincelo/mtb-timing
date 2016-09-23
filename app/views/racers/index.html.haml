@@ -7,6 +7,7 @@
       %th Kategorija
       %th Ime
       %th Prezime
+      %th Klub
       -# %th Godina rodenja
       - if user_signed_in? && current_user.admin
         %th Email
@@ -23,6 +24,7 @@
           = racer.category.try(:upcase)
         %td= racer.first_name
         %td= racer.last_name
+        %td= racer.club.try(:name) || '- -'
         -# %td= racer.year_of_birth
         - if user_signed_in? && current_user.admin
           %td= racer.email

@@ -23,17 +23,26 @@
       %input#last_name.mdl-textfield__input{type: 'text', name: 'racer[last_name]', required: true, value: @racer.last_name}
       %label.mdl-textfield__label{for: 'last_name'} Prezime
   .field
-    .mdl-textfield.mdl-js-textfield
+    .mdl-textfield.mdl-js-textfield{ style: 'width: 60px; margin-right: 20px;' }
+      %input#day_of_birth.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[day_of_birth]', required: true, value: @racer.day_of_birth}
+      %label.mdl-textfield__label{for: 'day_of_birth'} Dan
+      %span.mdl-textfield__error Unesi broj!
+    .mdl-textfield.mdl-js-textfield{ style: 'width: 60px; margin-right: 20px;' }
+      %input#month_of_birth.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[month_of_birth]', required: true, value: @racer.month_of_birth}
+      %label.mdl-textfield__label{for: 'month_of_birth'} Mjesec
+      %span.mdl-textfield__error Unesi broj!
+    .mdl-textfield.mdl-js-textfield{ style: 'width: 140px;' }
       %input#year_of_birth.mdl-textfield__input{pattern: "-?[0-9]*(\\.[0-9]+)?", type: 'text', name: 'racer[year_of_birth]', required: true, value: @racer.year_of_birth}
       %label.mdl-textfield__label{for: 'year_of_birth'} Godina rodenja
       %span.mdl-textfield__error Unesi broj!
+  %br
   .field
     %label.mdl-radio.mdl-js-radio.mdl-js-ripple-effect{:for => 'spol-zenski'}
-      %input#spol-zenski.mdl-radio__button{name: 'racer[gender]', :type => "radio", value: 1, required: true}
+      %input#spol-zenski.mdl-radio__button{name: 'racer[gender]', :type => "radio", value: 1, required: true, checked: @racer.gender == 1}
       %span.mdl-radio__label Zensko
 
     %label.mdl-radio.mdl-js-radio.mdl-js-ripple-effect{:for => 'spol-muski'}
-      %input#spol-muski.mdl-radio__button{name: 'racer[gender]', type: 'radio', value: 2, required: true}
+      %input#spol-muski.mdl-radio__button{name: 'racer[gender]', type: 'radio', value: 2, required: true, checked: @racer.gender == 2}
       %span.mdl-radio__label Musko
   .field
     .mdl-textfield.mdl-js-textfield
@@ -42,19 +51,28 @@
       %span.mdl-textfield__error Unesi ispravan broj u formatu 385911234567!
   .field
     .mdl-textfield.mdl-js-textfield
-      %input#address.mdl-textfield__input{type: 'text', name: 'racer[address]', required: true, value: @racer.address}
+      %input#address.mdl-textfield__input{type: 'text', name: 'racer[address]', value: @racer.address}
       %label.mdl-textfield__label{for: 'address'} Adresa
+  .field
+    .mdl-textfield.mdl-js-textfield{ style: 'width: 105px; margin-right: 20px;' }
+      %input#zip_code.mdl-textfield__input{type: 'text', name: 'racer[zip_code]', value: @racer.zip_code}
+      %label.mdl-textfield__label{for: 'zip_code'} Postanski broj
+    .mdl-textfield.mdl-js-textfield{ style: 'width: 175px' }
+      %input#town.mdl-textfield__input{type: 'text', name: 'racer[town]', value: @racer.town}
+      %label.mdl-textfield__label{for: 'town'} Mjesto stanovanja
 
   .field
     .mdl-textfield
       %select{ name: 'racer[club_id]' }
-        %option{ disabled: true, selected: true, value: 0 }
+        %option{ disabled: true, selected: @racer.club.nil?, value: 0 }
           Klub
         - Club.all.each do |club|
-          %option{ value: club.id }
+          %option{ value: club.id, selected: @racer.club.try(:id) == club.id  }
             = club.name
   .field
     = recaptcha_tags
+
+  %hr
 
   .actions
     = f.submit 'Spremi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'
