@@ -7,10 +7,11 @@
           %li= msg
 
   .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :user
-    = f.text_field :user
+    .mdl-textfield.mdl-js-textfield
+      %input#name.mdl-textfield__input{type: 'text', name: 'club[name]', required: true, value: @club.name}
+      %label.mdl-textfield__label{for: 'name'} Ime kluba
+  / .field
+  /   = f.label :user
+  /   = f.text_field :user
   .actions
-    = f.submit 'Save'
+    = f.submit 'Spremi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'

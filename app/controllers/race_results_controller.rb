@@ -47,7 +47,7 @@ class RaceResultsController < ApplicationController
   def update
     respond_to do |format|
       if @race_result.update(race_result_params)
-        format.html { redirect_to @race_result, notice: 'Race result was successfully updated.' }
+        format.html { redirect_to @race_result.race, notice: 'Uplata uspjesno zaprimljena.' }
         format.json { render :show, status: :ok, location: @race_result }
       else
         format.html { render :edit }
