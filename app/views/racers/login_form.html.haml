@@ -3,6 +3,7 @@
 
 %form{ action: '/racers/login', method: 'POST' }
   = hidden_field_tag :authenticity_token, form_authenticity_token
+  = hidden_field_tag :redirect, params[:redirect]
   .field
     .mdl-textfield.mdl-js-textfield
       %input#email.mdl-textfield__input{type: 'email', name: 'racer[email]', required: true}

@@ -78,7 +78,7 @@ class RacersController < ApplicationController
     racer = Racer.where(filter).first
     if racer.present?
       sign_in racer.user
-      redirect_to races_path
+      redirect_to(params[:redirect] || races_path)
     else
       redirect_to racers_login_path, notice: 'Nije uspjelo. Pokusaj opet.'
     end

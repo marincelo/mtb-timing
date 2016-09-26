@@ -1,5 +1,5 @@
 var ResultStore = flux.createStore({
-    raceResults: xhrResults,
+    raceResults: [],
     exports: {
         getRaceResults: function () {
             return this.raceResults;
