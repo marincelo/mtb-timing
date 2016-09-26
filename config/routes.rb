@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'races#index'
+  root to: 'dashboard#info'
+
+  get '/dashboard' => 'dashboard#index'
+  get '/info' => 'dashboard#info'
 
   get '/racers/login' => 'racers#login_form'
   post '/racers/login' => 'racers#login'
