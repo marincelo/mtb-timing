@@ -46,7 +46,7 @@ class Racer < ApplicationRecord
         data[:start_number] = racer.present? ? racer.start_number + 1 : 400
         data[:category] = Racer.categories[:'40-50']
       elsif year_of_birth < 1967
-        racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1977 AND year_of_birth >= 1967').last
+        racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1967').last
         data[:start_number] = racer.present? ? racer.start_number + 1 : 500
         data[:category] = Racer.categories[:'50+']
       else
