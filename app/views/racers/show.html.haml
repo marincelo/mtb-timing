@@ -44,14 +44,12 @@
   %thead
     %tr
       %th Utrka
-      %th Datum odrzavanja
       %th Vrijeme
       %th Rezultat
   %tbody
     - @racer.race_results.each do |race_result|
       %tr
         %td= race_result.race.name
-        %td= race_result.race.date.to_formatted_s :db
         %td= race_result.lap_times.try(:last) || '- -'
         %td= race_result.lap_times.try(:last) || '- -'
 

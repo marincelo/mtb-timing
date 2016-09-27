@@ -28,6 +28,7 @@
       %th Startni broj
       %th Ime
       %th Prezime
+      %th Klub
       %th Vrijeme
       %th Status
       - if user_signed_in? && current_user.admin
@@ -39,6 +40,7 @@
           = race_result.racer.start_number
         %td= race_result.racer.first_name
         %td= race_result.racer.last_name
+        %td= race_result.racer.club.try(:name)
         %td= race_result.lap_times.try(:last) || '- -'
         %td= race_result.pretty_status
         - if user_signed_in? && current_user.admin && race_result.status != 2
