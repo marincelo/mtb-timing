@@ -67,7 +67,8 @@ option {
 
 @media screen and (max-width: 500px) {
   .page-content {
-    width: 100%;
+    width: calc(100% - 2em);
+    padding: 0 1em;
   }
 
   h1 {
@@ -76,6 +77,10 @@ option {
 
   .field {
     padding-left: 10px;
+  }
+
+  .mdl-data-table {
+    margin: 0 -1em;
   }
 
   .mdl-data-table th {

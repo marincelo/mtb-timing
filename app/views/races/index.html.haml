@@ -5,9 +5,8 @@
         %h4.text-center
           = race.name
           %hr
-          - race.date.to_formatted_s(:db).split(' ').each do |d|
-            = d
-            %br
+          %span
+            = l race.date, format: :short
       .mdl-card__actions.mdl-card--border
         = link_to race do
           .mdl-button.mdl-button--raised.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent

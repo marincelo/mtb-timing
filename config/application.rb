@@ -13,5 +13,6 @@ module MtbTiming
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.react.camelize_props = true
+    config.i18n.default_locale = :hr
   end
 end
