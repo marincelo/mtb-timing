@@ -1,10 +1,9 @@
 class TimingDashboard extends React.Component {
-
   createRaceResult(event) {
     if(event.keyCode == 13 && event.target.value.length) {
       let startNumber = parseInt(event.target.value);
       if(startNumber) {
-        RaceResultActions.newRaceResult(event.target.value, new Date());
+        RaceResultActions.newRaceResult(event.target.value, timeSync.now(), 0);
         event.target.value = '';
       }
       else {
@@ -17,6 +16,7 @@ class TimingDashboard extends React.Component {
     return (
       <div>
         <label htmlFor="raceResultInput">Unesi startni broj</label>
+        <br/>
         <input type="text" id="raceResultInput" onKeyUp={ this.createRaceResult } />
         <DraftResults />
       </div>

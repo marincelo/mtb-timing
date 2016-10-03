@@ -80,7 +80,7 @@ class RacersController < ApplicationController
       sign_in racer.user
       redirect_to(params[:redirect] || races_path)
     else
-      redirect_to racers_login_path, notice: 'Nije uspjelo. Pokusaj opet.'
+      redirect_to login_racers_path, notice: 'Nije uspjelo. Pokusaj opet.'
     end
   end
 

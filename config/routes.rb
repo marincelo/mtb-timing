@@ -3,15 +3,22 @@ Rails.application.routes.draw do
   root to: 'dashboard#info'
 
   get '/dashboard' => 'dashboard#index'
+  post '/timesync' => 'dashboard#timesync'
   get '/info' => 'dashboard#info'
 
-  get '/racers/login' => 'racers#login_form'
-  post '/racers/login' => 'racers#login'
-
   resources :clubs
-  resources :race_results
+  resources :race_results do
+    collection do
+      post :from_timing
+    end
+  end
   resources :races
-  resources :racers
+  resources :racers do
+    collection do
+      get :login, to: 'racers#login_form'
+      post :login
+    end
+  end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

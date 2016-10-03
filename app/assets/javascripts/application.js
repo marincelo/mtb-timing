@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require material
+//= require vendor/timesync
 //= require moment
 //= require react
 //= require react_ujs

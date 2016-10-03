@@ -41,6 +41,10 @@ class RacesController < ApplicationController
   # PATCH/PUT /races/1
   # PATCH/PUT /races/1.json
   def update
+    @race.started_at = Time.at(params[:started_at].to_i/1000) if params[:started_at].present?
+    @race.ended_at = Time.at(params[:ended_at].to_i/1000) if params[:ended_at].present?
+    @race.save!
+
     respond_to do |format|
       if @race.update(race_params)
         format.html { redirect_to @race, notice: 'Race was successfully updated.' }

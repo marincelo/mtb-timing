@@ -17,7 +17,7 @@
       .actions
         = f.submit 'Odjavi se', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
   - else
-    = link_to 'Login za prijavu', racers_login_path(redirect: "/races/#{@race.id}"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
+    = link_to 'Login za prijavu', login_racers_path(redirect: "/races/#{@race.id}"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
 
 %h4
   Prijavljeni vozaci
@@ -41,7 +41,7 @@
         %td= race_result.racer.first_name
         %td= race_result.racer.last_name
         %td= race_result.racer.club.try(:name)
-        %td= race_result.lap_times.try(:last) || '- -'
+        %td= race_result.finish_time
         %td= race_result.pretty_status
         - if user_signed_in? && current_user.admin && race_result.status != 2
           %td

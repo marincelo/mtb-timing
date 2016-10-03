@@ -21,4 +21,8 @@ class RaceResult < ApplicationRecord
       'Nepoznat'
     end
   end
+
+  def finish_time
+    Time.at(lap_times.last.to_i) - race.started_at
+  end
 end
