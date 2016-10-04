@@ -68,6 +68,7 @@ class RaceResultsController < ApplicationController
     racer = Racer.find_by(start_number: params[:start_number])
     race_result = RaceResult.where(race: race, racer: racer).first
     race_result.lap_times = [params[:time].to_i/1000]
+    race_result.status = params[:status]
     race_result.save!
     respond_to do |format|
       format.json { render json: race_result }

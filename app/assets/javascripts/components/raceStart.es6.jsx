@@ -9,10 +9,25 @@ class RaceStart extends React.Component {
   }
 
   selectRace(event) {
-    this.setState({ selectedRaceId: event.target.value })
+    let raceId = event.target.value;
+    // GET race tp check if it has been started
+    let ajax = new Ajax(
+      `/races/${raceId}.json`,
+      (data) => {
+        RaceResultActions.startRace(new Date(data.started_at));
+        RaceResultActions.setRace(raceId);
+        this.setState({ selectedRaceId: raceId, raceStarted: true });
+      },
+      (error, status) => {
+        console.log(error, status);
+      }
+    );
+
+    ajax.get();
   }
 
   startRace() {
+    // PUT started_at to selected race
     let data = {
       started_at: timeSync.now()
     }
@@ -23,13 +38,11 @@ class RaceStart extends React.Component {
         this.setState({raceStarted: true});
         RaceResultActions.startRace(new Date(data.started_at));
         RaceResultActions.setRace(this.state.selectedRaceId);
-        console.log(data);
       },
       (error, status) => {
         console.log(error, status);
       }
     );
-    console.log(data);
 
     ajax.put(data);
   }

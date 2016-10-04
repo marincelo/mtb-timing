@@ -23,6 +23,8 @@ class RaceResult < ApplicationRecord
   end
 
   def finish_time
-    Time.at(lap_times.last.to_i) - race.started_at
+    if race && lap_times.length
+      Time.at(lap_times.last.to_i) - race.started_at
+    end
   end
 end
