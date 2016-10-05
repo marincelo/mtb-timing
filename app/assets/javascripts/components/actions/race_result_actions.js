@@ -1,1 +1,1 @@
-var RaceResultActions = flux.createActions(['newRaceResult', 'startRace', 'setRace']);
+var RaceResultActions = flux.createActions(['newRaceResult', 'removeRaceResult', 'startRace', 'setRace']);

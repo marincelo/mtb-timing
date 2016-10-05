@@ -3,6 +3,7 @@ class DraftResults extends React.Component {
     super();
 
     this.onChange = this.onChange.bind(this);
+
     this.state = {
       draftResults: DraftResultStore.getRaceResults()
     };
@@ -24,7 +25,7 @@ class DraftResults extends React.Component {
   render() {
     return (
       <div>
-        <h2>Cekanje na sinkronizaciju</h2>
+        <h4>Stanje sinkronizacije</h4>
         <table
           className="mdl-data-table mdl-js-data-table mdl-shadow--2dp"
         >
@@ -33,12 +34,13 @@ class DraftResults extends React.Component {
               <td>Startni broj</td>
               <td>Vrijeme</td>
               <td>Status</td>
+              <td></td>
             </tr>
           </thead>
           <tbody>
             {
               this.state.draftResults.map((result)=>{
-                return <DraftResult key={`draft-result-${result.time}`} result={result} />;
+                return <DraftResult key={`draft-result-${result.racerNumber}-${result.time}`} result={result} />;
               })
             }
           </tbody>

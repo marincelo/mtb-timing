@@ -14,9 +14,12 @@ class RaceStart extends React.Component {
     let ajax = new Ajax(
       `/races/${raceId}.json`,
       (data) => {
-        RaceResultActions.startRace(new Date(data.started_at));
+        if(data.started_at) {
+          RaceResultActions.startRace(new Date(data.started_at));
+          this.setState({ raceStarted: true });
+        }
         RaceResultActions.setRace(raceId);
-        this.setState({ selectedRaceId: raceId, raceStarted: true });
+        this.setState({ selectedRaceId: raceId });
       },
       (error, status) => {
         console.log(error, status);
@@ -93,6 +96,10 @@ class RaceStart extends React.Component {
             </button>
           )
           :
+          null
+        }
+        {
+          !this.state.raceStarted && this.state.selectedRaceId ?
           (
             <button
               className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
@@ -101,6 +108,14 @@ class RaceStart extends React.Component {
               Start
             </button>
           )
+          :
+          null
+        }
+        {
+          this.state.raceStarted ?
+          <p> Utrka startala: <b>{(new Date(DraftResultStore.getRaceStartDate())).toLocaleString()}</b></p>
+          :
+          null
         }
       </div>
     );

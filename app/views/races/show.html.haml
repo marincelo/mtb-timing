@@ -37,7 +37,7 @@
     - @race.race_results.each do |race_result|
       %tr
         %td
-          = race_result.racer.start_number
+          = link_to race_result.racer.start_number, race_result.racer
         %td= race_result.racer.first_name
         %td= race_result.racer.last_name
         %td= race_result.racer.club.try(:name)

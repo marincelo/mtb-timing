@@ -3,6 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .demo-card-event.mdl-card {
+  display: inline-block;
+  margin-right: 2em !important;
   width: 256px;
   height: 256px;
   margin: auto;

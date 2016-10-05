@@ -50,8 +50,8 @@
     - @racer.race_results.each do |race_result|
       %tr
         %td= race_result.race.name
-        %td= race_result.lap_times.try(:last) || '- -'
-        %td= race_result.lap_times.try(:last) || '- -'
+        %td= race_result.finish_time
+        %td TODO
 
 
 %br

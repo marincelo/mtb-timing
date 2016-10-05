@@ -23,8 +23,11 @@ class RaceResult < ApplicationRecord
   end
 
   def finish_time
-    if race && lap_times.length
-      Time.at(lap_times.last.to_i) - race.started_at
+    if race && lap_times.length > 0
+      seconds = Time.at(lap_times.last.to_i) - race.started_at
+      Time.at(seconds).utc.strftime("%H:%M:%S")
+    else
+      '- -'
     end
   end
 end
