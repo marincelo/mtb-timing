@@ -24,6 +24,7 @@ var DraftResultStore = flux.createStore({
     },
     startRace: function(raceStartDate) {
         this.raceStartDate = raceStartDate;
+        this.emit('draftResultStore.startRace');
     },
     setRace: function(raceId) {
         this.raceId = raceId;

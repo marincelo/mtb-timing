@@ -23,6 +23,9 @@ class Racer < ApplicationRecord
       racer = Racer.unscoped.where(gender: 1).last
       data[:start_number] = racer.present? ? racer.start_number + 1 : 600
       data[:category] = Racer.categories[:zene]
+      if data[:start_number] == 700
+        data[:start_number] = 6000
+      end
     # male racers
     elsif gender == 2
       if year_of_birth >= 2000
@@ -33,22 +36,41 @@ class Racer < ApplicationRecord
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 2000 AND year_of_birth >= 1997').last
         data[:start_number] = racer.present? ? racer.start_number + 1 : 100
         data[:category] = Racer.categories[:'17-20']
+        # alternative numbers
+        if data[:start_number] == 200
+          data[:start_number] = 1000
+        end
       elsif (1987..1996).include? year_of_birth
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1997 AND year_of_birth >= 1987').last
         data[:start_number] = racer.present? ? racer.start_number + 1 : 200
         data[:category] = Racer.categories[:'20-30']
+        # alternative numbers
+        if data[:start_number] == 300
+          data[:start_number] = 2000
+        end
       elsif (1977..1986).include? year_of_birth
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1987 AND year_of_birth >= 1977').last
         data[:start_number] = racer.present? ? racer.start_number + 1 : 300
         data[:category] = Racer.categories[:'30-40']
+        # alternative numbers
+        if data[:start_number] == 400
+          data[:start_number] = 3000
+        end
       elsif (1967..1976).include? year_of_birth
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1977 AND year_of_birth >= 1967').last
         data[:start_number] = racer.present? ? racer.start_number + 1 : 400
         data[:category] = Racer.categories[:'40-50']
+        # alternative numbers
+        if data[:start_number] == 500
+          data[:start_number] = 4000
+        end
       elsif year_of_birth < 1967
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1967').last
         data[:start_number] = racer.present? ? racer.start_number + 1 : 500
         data[:category] = Racer.categories[:'50+']
+        if data[:start_number] == 600
+          data[:start_number] = 5000
+        end
       else
         fail 'Unknown category'
       end

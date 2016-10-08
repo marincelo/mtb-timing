@@ -71,53 +71,56 @@ class RaceStart extends React.Component {
   render () {
     const {races} = this.props;
     return (
-      <div>
-        <select
-          name=""
-          id=""
-          style={{ width: '180px', marginRight: '2em' }}
-          onChange={ this.selectRace.bind(this) }
-        >
-          <option value="0">Odaberi utrku</option>
+      <span>
+        <span>
+          <select
+            name=""
+            id=""
+            style={{ width: '180px', marginRight: '2em' }}
+            onChange={ this.selectRace.bind(this) }
+          >
+            <option value="0">Odaberi utrku</option>
+            {
+              races.map((race)=>{
+                return <option key={`race-select-${race.id}`} value={race.id}>{race.name}</option>;
+              })
+            }
+          </select>
           {
-            races.map((race)=>{
-              return <option key={`race-select-${race.id}`} value={race.id}>{race.name}</option>;
-            })
+            this.state.raceStarted ?
+            (
+             <button
+                className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect"
+                onClick={ this.endRace.bind(this) }
+              >
+                Finish
+              </button>
+            )
+            :
+            null
           }
-        </select>
-        {
-          this.state.raceStarted ?
-          (
-           <button
-              className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect"
-              onClick={ this.endRace.bind(this) }
-            >
-              Finish
-            </button>
-          )
-          :
-          null
-        }
-        {
-          !this.state.raceStarted && this.state.selectedRaceId ?
-          (
-            <button
-              className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
-              onClick={ this.startRace.bind(this) }
-            >
-              Start
-            </button>
-          )
-          :
-          null
-        }
+          {
+            !this.state.raceStarted && this.state.selectedRaceId ?
+            (
+              <button
+                className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+                onClick={ this.startRace.bind(this) }
+              >
+                Start
+              </button>
+            )
+            :
+            null
+          }
+        </span>
+        <RaceTime />
         {
           this.state.raceStarted ?
           <p> Utrka startala: <b>{(new Date(DraftResultStore.getRaceStartDate())).toLocaleString()}</b></p>
           :
           null
         }
-      </div>
+      </span>
     );
   }
 }
