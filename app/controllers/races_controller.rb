@@ -5,7 +5,7 @@ class RacesController < ApplicationController
   # GET /races
   # GET /races.json
   def index
-    @races = Race.all
+    @races = Race.all.order(date: :asc)
   end
 
   # GET /races/1
@@ -44,6 +44,8 @@ class RacesController < ApplicationController
     @race.started_at = Time.at(params[:started_at].to_i/1000) if params[:started_at].present?
     @race.ended_at = Time.at(params[:ended_at].to_i/1000) if params[:ended_at].present?
     @race.save!
+
+    @race.assign_points if params[:ended_at].present? && @race.ended_at
 
     respond_to do |format|
       if @race.update(race_params)

@@ -1,5 +1,6 @@
 class RaceResultsController < ApplicationController
   before_action :set_race_result, only: [:show, :edit, :update, :destroy]
+  before_action :only_admin, only: [:from_timing]
 
   # GET /race_results
   # GET /race_results.json

@@ -31,6 +31,7 @@
       %th Klub
       %th Vrijeme
       %th Status
+      %th Bodovi
       - if user_signed_in? && current_user.admin
         %th
   %tbody
@@ -43,6 +44,7 @@
         %td= race_result.racer.club.try(:name)
         %td= race_result.finish_time
         %td= race_result.pretty_status
+        %td= race_result.points
         - if user_signed_in? && current_user.admin && race_result.status != 2
           %td
             = form_for race_result do |f|

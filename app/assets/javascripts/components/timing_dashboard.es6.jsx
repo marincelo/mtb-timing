@@ -37,9 +37,12 @@ class TimingDashboard extends React.Component {
   render () {
     return (
       <div className={`${this.state.show ? '' : 'hidden'} mdl-grid`}>
-        <div className="mdl-cell mdl-cell--6-col">
+        <div className="mdl-cell mdl-cell--6-col" style={{border: '1px solid #aaa', padding: '1em', marginLeft: '-1em'}}>
           <h4 style={{marginLeft: '20px'}}>Unesi startni broj</h4>
           <input type="text" id="raceResultInput" onKeyUp={ this.createRaceResult } />
+          <hr/>
+          <TempResults />
+          <hr/>
           <RaceResultForm />
         </div>
         <div className="mdl-cell mdl-cell--6-col">

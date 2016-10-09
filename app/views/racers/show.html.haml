@@ -45,13 +45,15 @@
     %tr
       %th Utrka
       %th Vrijeme
-      %th Rezultat
+      %th Bodovi
+      %th Mjesto
   %tbody
     - @racer.race_results.each do |race_result|
       %tr
         %td= race_result.race.name
         %td= race_result.finish_time
-        %td TODO
+        %td= race_result.points
+        %td= Race.points.index(race_result.points) + 1
 
 
 %br
