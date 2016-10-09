@@ -52,12 +52,12 @@
       %tr
         %td= race_result.race.name
         %td= race_result.finish_time
-        %td= race_result.points
+        %td= race_result.points || '- -'
         %td
-          if race_result.points
+          - if race_result.points
             = Race.points.index(race_result.points) + 1
-          else
-            '- -'
+          - else
+            = '- -'
 
 
 %br
