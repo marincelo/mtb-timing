@@ -59,12 +59,13 @@ class RaceStart extends React.Component {
       `/races/${this.state.selectedRaceId}`,
       (data) => {
         console.log(data);
+        // this.setState({selectedRaceId: 0, raceStarted: false });
+        window.location = `/races/${this.state.selectedRaceId}`;
       },
       (error, status) => {
         console.log(error, status);
       }
     );
-
     ajax.put(data);
   }
 
