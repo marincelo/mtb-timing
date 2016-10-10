@@ -48,7 +48,7 @@ class RaceResults extends React.Component {
                 return (<tr key={`race-result-${raceResult.id}`}>
                   <td>{raceResult.racer.start_number}</td>
                   <td>{raceResult.racer.category.toUpperCase()}</td>
-                  <td>{`${raceResult.racer.first_name} ${raceResult.racer.first_name}`}</td>
+                  <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
                   <td>{raceResult.finish_time}</td>
                   <td></td>
                 </tr>)
