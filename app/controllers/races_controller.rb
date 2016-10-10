@@ -11,6 +11,15 @@ class RacesController < ApplicationController
   # GET /races/1
   # GET /races/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @race, include: {race_results: { include: :racer, methods: [:finish_time] }} }
+    end
+  end
+
+  def get_live
+    race = Race.where.not(started_at: nil).where(ended_at: nil).first
+    render json: race
   end
 
   # GET /races/new

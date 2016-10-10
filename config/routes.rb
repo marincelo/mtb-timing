@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'dashboard#info'
 
-  get '/dashboard' => 'dashboard#index'
+  get '/timing' => 'dashboard#index'
+  get '/live' => 'dashboard#live'
   post '/timesync' => 'dashboard#timesync'
   get '/info' => 'dashboard#info'
 
@@ -12,7 +13,11 @@ Rails.application.routes.draw do
       post :from_timing
     end
   end
-  resources :races
+  resources :races do
+    collection do
+      get :get_live
+    end
+  end
   resources :racers do
     collection do
       get :login, to: 'racers#login_form'

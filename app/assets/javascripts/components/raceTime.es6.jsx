@@ -30,7 +30,7 @@ class RaceTime extends React.Component {
     return(
       <span id="raceTime">
         <h1>
-          {this.state.raceTime}
+          {this.state.raceTime || ''}
         </h1>
       </span>
     )

@@ -48,6 +48,14 @@ class TimingDashboard extends React.Component {
         <div className="mdl-cell mdl-cell--6-col">
           <DraftResults />
         </div>
+        {
+          this.state.show ?
+          (<div className="mdl-cell mdl-cell--12-col">
+            <RaceResults raceId={this.state.show} />
+          </div>)
+          :
+          null
+        }
       </div>
     );
   }
