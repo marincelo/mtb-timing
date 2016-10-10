@@ -12,7 +12,6 @@ class LiveResults extends React.Component {
     this.ajax = new Ajax(
       '/races/get_live',
       (data) => {
-        console.log(data);
         if(data != null) {
           this.setState({race: data});
           RaceResultActions.setRace(data.id);

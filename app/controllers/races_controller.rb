@@ -18,7 +18,7 @@ class RacesController < ApplicationController
   end
 
   def get_live
-    race = Race.where.not(started_at: nil).where(ended_at: nil).where(date: DateTime.now).first
+    race = Race.where.not(started_at: nil).where(ended_at: nil).first
     render json: race
   end
 
