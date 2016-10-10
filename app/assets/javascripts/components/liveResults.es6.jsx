@@ -3,7 +3,8 @@ class LiveResults extends React.Component {
     super();
 
     this.state = {
-      race: undefined
+      race: undefined,
+      message: undefined
     }
   }
 
@@ -11,12 +12,18 @@ class LiveResults extends React.Component {
     this.ajax = new Ajax(
       '/races/get_live',
       (data) => {
-        this.setState({race: data});
-        RaceResultActions.setRace(data.id);
-        RaceResultActions.startRace(new Date(data.started_at));
+        console.log(data);
+        if(data != null) {
+          this.setState({race: data});
+          RaceResultActions.setRace(data.id);
+          RaceResultActions.startRace(new Date(data.started_at));
+        }
+        else {
+          this.setState({message: 'Nema aktivne utrke.'});
+        }
       },
       (error, status) => {
-        alert(error, status);
+        this.setState({message: `${error} ${status}`});
       }
     );
 
@@ -26,6 +33,11 @@ class LiveResults extends React.Component {
   render() {
     return(
       <span id="liveResults">
+        {
+          this.state.message ?
+          <h1>{this.state.message}</h1>
+          : null
+        }
         <RaceTime />
         <hr/>
         {
