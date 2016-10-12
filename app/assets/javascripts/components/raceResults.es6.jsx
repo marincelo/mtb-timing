@@ -51,6 +51,21 @@ class RaceResults extends React.Component {
       });
   }
 
+  _renderActive() {
+    return this.state.race.race_results.filter((a)=>{
+        return a.finish_time === '- -'
+      }).map((raceResult)=>{
+        return (<tr key={`race-result-${raceResult.id}`}>
+          <td>{raceResult.racer.start_number}</td>
+          <td>{raceResult.racer.category.toUpperCase()}</td>
+          <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
+          <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
+          <td>{raceResult.finish_time}</td>
+          <td></td>
+        </tr>)
+      });
+  }
+
   _renderByCategory() {
     const newestFirst = this.state.newestFirst;
     const categories = ['zene', 'u16', '17-20', '20-30', '30-40', '40-50', '50+'];
@@ -138,6 +153,28 @@ class RaceResults extends React.Component {
               this._renderByCategory()
               :
               this._renderSequential()
+            }
+          </tbody>
+        </table>
+
+        <h2>Nisu zavrsili</h2>
+
+        <table
+          className={`${this.state.largeView ? 'large-view' : ''} mdl-data-table wide_table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp`}
+        >
+          <thead>
+            <tr>
+              <td>Broj</td>
+              <td>Kategorija</td>
+              <td>Ime</td>
+              <td>Klub</td>
+              <td>Vrijeme</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              this._renderActive()
             }
           </tbody>
         </table>
