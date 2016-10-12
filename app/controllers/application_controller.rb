@@ -4,6 +4,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def only_admin
-    # fail 'Access denied' unless current_user && current_user.admin
+    fail 'Access denied' unless current_user && current_user.admin
   end
 end
