@@ -13,7 +13,7 @@ class RacesController < ApplicationController
   def show
     respond_to do |format|
       format.html { render :show }
-      format.json { render json: @race, include: {race_results: { include: :racer, methods: [:finish_time] }} }
+      format.json { render json: @race, include: {race_results: { include: {racer: {include: :club}}, methods: [:finish_time] }} }
     end
   end
 

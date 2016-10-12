@@ -2,9 +2,84 @@ class RaceResults extends React.Component {
   constructor() {
     super();
 
+    this._handleSwitchView = this._handleSwitchView.bind(this);
+    this._handleSwitchSize = this._handleSwitchSize.bind(this);
+    this._handleSwitchOrder = this._handleSwitchOrder.bind(this);
+    this._renderSequential = this._renderSequential.bind(this);
+    this._renderByCategory = this._renderByCategory.bind(this);
+
     this.state = {
-      race: { race_results: [] }
+      race: { race_results: [] },
+      categoryView: false,
+      largeView: false,
+      newestFirst: false
     }
+  }
+
+  _handleSwitchView(event) {
+    this.setState({categoryView: event.target.checked})
+  }
+
+  _handleSwitchSize(event) {
+    this.setState({largeView: event.target.checked})
+  }
+
+  _handleSwitchOrder(event) {
+    this.setState({newestFirst: event.target.checked})
+  }
+
+  _renderSequential() {
+    const newestFirst = this.state.newestFirst;
+    return this.state.race.race_results.filter((a)=>{
+        return a.finish_time != '- -'
+      }).sort((a, b)=>{
+        if(newestFirst){
+          return a.finish_time < b.finish_time
+        }
+        else {
+          return a.finish_time > b.finish_time
+        }
+      }).map((raceResult)=>{
+        return (<tr key={`race-result-${raceResult.id}`}>
+          <td>{raceResult.racer.start_number}</td>
+          <td>{raceResult.racer.category.toUpperCase()}</td>
+          <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
+          <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
+          <td>{raceResult.finish_time}</td>
+          <td></td>
+        </tr>)
+      });
+  }
+
+  _renderByCategory() {
+    const newestFirst = this.state.newestFirst;
+    const categories = ['zene', 'u16', '17-20', '20-30', '30-40', '40-50', '50+'];
+    let finishedTimes = this.state.race.race_results.filter((a)=>{
+      return a.finish_time != '- -'
+    });
+
+    return categories.map((category)=>{
+      return [<tr className={`cat-${category.replace('+', '')}`}><td colSpan="6"><b>{category.toUpperCase()}</b></td></tr>].concat(finishedTimes.filter((a)=>{
+          return a.racer.category === category;
+        })
+        .sort((a, b)=>{
+          if(newestFirst){
+            return a.finish_time < b.finish_time
+          }
+          else {
+            return a.finish_time > b.finish_time
+          }
+        }).map((raceResult)=>{
+          return (<tr key={`race-result-${raceResult.id}`}>
+            <td>{raceResult.racer.start_number}</td>
+            <td>{raceResult.racer.category.toUpperCase()}</td>
+            <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
+            <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
+            <td>{raceResult.finish_time}</td>
+            <td></td>
+          </tr>)
+        }));
+    });
   }
 
   componentWillMount() {
@@ -14,7 +89,7 @@ class RaceResults extends React.Component {
         this.setState({race: data})
       },
       (error, status) => {
-        alert(error, status);
+        alert(error + status);
       }
     );
 
@@ -27,32 +102,42 @@ class RaceResults extends React.Component {
     return(
       <div>
         <h2>Trenutni rezultati</h2>
-        <table className="mdl-data-table wide_table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+
+        <label htmlFor="switch1" className="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+          <input type="checkbox" id="switch1" className="mdl-switch__input" onClick={this._handleSwitchView} />
+          <span className="mdl-switch__label">Prikaz po kategorijama</span>
+        </label>
+
+        <label htmlFor="switch2" className="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+          <input type="checkbox" id="switch2" className="mdl-switch__input" onClick={this._handleSwitchSize} />
+          <span className="mdl-switch__label">Veliki prikaz</span>
+        </label>
+
+        <label htmlFor="switch3" className="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+          <input type="checkbox" id="switch3" className="mdl-switch__input" onClick={this._handleSwitchOrder} />
+          <span className="mdl-switch__label">Najnoviji prvi</span>
+        </label>
+        <br/>
+        <br/>
+        <table
+          className={`${this.state.largeView ? 'large-view' : ''} mdl-data-table wide_table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp`}
+        >
           <thead>
             <tr>
               <td>Broj</td>
               <td>Kategorija</td>
-              <td>Ime Prezime</td>
+              <td>Ime</td>
+              <td>Klub</td>
               <td>Vrijeme</td>
               <td></td>
             </tr>
           </thead>
           <tbody>
             {
-              this.state.race.race_results.filter((a)=>{
-                // return a.finish_time != '- -'
-                return true
-              }).sort((a, b)=>{
-                return a.finish_time > b.finish_time
-              }).map((raceResult)=>{
-                return (<tr key={`race-result-${raceResult.id}`}>
-                  <td>{raceResult.racer.start_number}</td>
-                  <td>{raceResult.racer.category.toUpperCase()}</td>
-                  <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
-                  <td>{raceResult.finish_time}</td>
-                  <td></td>
-                </tr>)
-              })
+              this.state.categoryView ?
+              this._renderByCategory()
+              :
+              this._renderSequential()
             }
           </tbody>
         </table>

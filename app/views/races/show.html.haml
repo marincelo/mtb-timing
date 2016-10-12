@@ -45,7 +45,7 @@
         %td= race_result.finish_time
         %td= race_result.pretty_status
         %td= race_result.points
-        - if user_signed_in? && current_user.admin && race_result.status != 2
+        - if user_signed_in? && current_user.admin && race_result.status < 2
           %td
             = form_for race_result do |f|
               = f.hidden_field :status, value: 2

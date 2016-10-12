@@ -6,4 +6,39 @@
       text-align: center;
     }
   }
+
+  label {
+    display: inline-block !important;
+    width: 33%;
+  }
+}
+
+table.large-view {
+  td {
+    font-size: 40px;
+    line-height: 50px;
+    min-height: 50px;
+  }
+}
+
+.cat-zene {
+  background-color: pink;
+}
+.cat-u16 {
+  background-color: powderblue;
+}
+.cat-17-20 {
+  background-color: cyan;
+}
+.cat-20-30 {
+  background-color: lightgreen;
+}
+.cat-30-40 {
+  background-color: lightyellow;
+}
+.cat-40-50 {
+  background-color: lavender;
+}
+.cat-50 {
+  background-color: mediumorchid;
 }
