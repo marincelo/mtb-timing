@@ -18,6 +18,9 @@
         = f.submit 'Odjavi se', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
   - else
     = link_to 'Login za prijavu', login_racers_path(redirect: "/races/#{@race.id}"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
+%a{ href: 'http://www.xczld.info/novosti/i-kolo-3-mtb-maraton-stankovci-2016-raspis/', target: '_blank' }
+  %h4
+    RASPIS UTRKE
 
 %h4
   Prijavljeni vozaci
