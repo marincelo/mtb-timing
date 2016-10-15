@@ -5,18 +5,20 @@
   = link_to races_path do
     .mdl-button.mdl-button--raised.mdl-button--accent.mdl-js-button.mdl-js-ripple-effect
       Natrag
-  - if user_signed_in? && !@racer_has_race_result
+  %h6
+    Prijave i odjave su zakljucane 24 h prije starta
+  -#- if user_signed_in? && !@racer_has_race_result
     = form_for RaceResult.new do |f|
       = f.hidden_field :racer_id, value: current_user.racer.try(:id)
       = f.hidden_field :race_id, value: @race.id
       = f.hidden_field :status, value: 1
       .actions
         = f.submit 'Prijavi se', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'
-  - elsif user_signed_in? && @racer_has_race_result
+  -#- elsif user_signed_in? && @racer_has_race_result
     = form_for @race_result, method: 'DELETE' do |f|
       .actions
         = f.submit 'Odjavi se', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
-  - else
+  -#- else
     = link_to 'Login za prijavu', login_racers_path(redirect: "/races/#{@race.id}"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
 %a{ href: 'http://www.xczld.info/novosti/i-kolo-3-mtb-maraton-stankovci-2016-raspis/', target: '_blank' }
   %h4
