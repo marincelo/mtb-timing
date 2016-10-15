@@ -10,6 +10,7 @@ class TimeSync {
   }
 
   humanTime(millisec) {
+    var millis = millisec%1000;
     var seconds = (millisec / 1000).toFixed(0);
     var minutes = Math.floor(seconds / 60);
     var hours = "";
@@ -23,9 +24,9 @@ class TimeSync {
     seconds = Math.floor(seconds % 60);
     seconds = (seconds >= 10) ? seconds : "0" + seconds;
     if (hours != "") {
-        return hours + ":" + minutes + ":" + seconds;
+        return hours + ":" + minutes + ":" + seconds + '.' + millis;
     }
-    return minutes + ":" + seconds;
+    return minutes + ":" + seconds + '.' + millis;
   }
 }
 
