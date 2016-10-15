@@ -25,12 +25,12 @@
             %a.mdl-navigation__link{:href => "/clubs"} Klubovi
             %a.mdl-navigation__link{:href => "/races"} Utrke
             - if user_signed_in?
-              = link_to racer_path(current_user.try(:racer)), class: 'mdl-navigation__link' do
-                - if current_user.racer.present?
+              - if current_user.racer.present?
+                = link_to racer_path(current_user.try(:racer)), class: 'mdl-navigation__link' do
                   = current_user.racer.try(:first_name)
                   = current_user.racer.try(:last_name)
-                - else
-                  = current_user.email
+              - else
+                = current_user.email
               = link_to 'Logout', destroy_user_session_path, class: 'mdl-navigation__link'
             - else
               %a.mdl-navigation__link{:href => "/racers/new"} Registracija
@@ -44,12 +44,12 @@
           %a.mdl-navigation__link{:href => "/clubs"} Klubovi
           %a.mdl-navigation__link{:href => "/races"} Utrke
           - if user_signed_in?
-            = link_to racer_path(current_user.try(:racer)), class: 'mdl-navigation__link' do
-              - if current_user.racer.present?
+            - if current_user.racer.present?
+              = link_to racer_path(current_user.try(:racer)), class: 'mdl-navigation__link' do
                 = current_user.racer.try(:first_name)
                 = current_user.racer.try(:last_name)
-              - else
-                = current_user.email
+            - else
+              = current_user.email
 
             = link_to 'Logout', destroy_user_session_path, class: 'mdl-navigation__link'
           - else

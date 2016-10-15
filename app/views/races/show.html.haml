@@ -7,7 +7,7 @@
       Natrag
   - if user_signed_in? && !@racer_has_race_result
     = form_for RaceResult.new do |f|
-      = f.hidden_field :racer_id, value: current_user.racer.id
+      = f.hidden_field :racer_id, value: current_user.racer.try(:id)
       = f.hidden_field :race_id, value: @race.id
       = f.hidden_field :status, value: 1
       .actions
@@ -49,7 +49,7 @@
         %td= race_result.finish_time
         %td= race_result.pretty_status
         %td= race_result.points
-        - if user_signed_in? && current_user.admin && race_result.status < 2
+        - if user_signed_in? && current_user.admin && race_result.status && race_result.status < 2
           %td
             = form_for race_result do |f|
               = f.hidden_field :status, value: 2
