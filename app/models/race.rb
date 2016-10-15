@@ -13,13 +13,17 @@ class Race < ApplicationRecord
   def assign_points
     # za svaku kategoriju
     Racer.categories.each do |category|
-      p category
       # nadi top 25 rezultata
-      race_results.includes(:racer).where({'racers.category': category[1] })
-        .sort{|x,y| x.finish_time <=> y.finish_time}
-        .first(25)
-        .select{ |rr| rr.lap_times.length > 0 }
-        .each_with_index do |rr, index|
+      results = race_results
+      .includes(:racer)
+      .where('racers.category': category)
+      .sort{|x,y| x.finish_time <=> y.finish_time}
+      .select{ |rr| rr.lap_times.length > 0 }
+      .first(25)
+
+      p category
+      p results.count
+      results.each_with_index do |rr, index|
         # podijeli bodove
         p rr
         rr.update!(points: Race.points[index])
