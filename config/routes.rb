@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :race_results do
     collection do
       post :from_timing
+      delete :destroy_from_timing
     end
   end
   resources :races do

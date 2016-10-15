@@ -24,6 +24,7 @@
             %a.mdl-navigation__link{:href => "/racers"} Natjecatelji
             %a.mdl-navigation__link{:href => "/clubs"} Klubovi
             %a.mdl-navigation__link{:href => "/races"} Utrke
+            %a.mdl-navigation__link{:href => "/live"} Live
             - if user_signed_in?
               - if current_user.racer.present?
                 = link_to racer_path(current_user.try(:racer)), class: 'mdl-navigation__link' do
@@ -43,6 +44,7 @@
           %a.mdl-navigation__link{:href => "/racers"} Natjecatelji
           %a.mdl-navigation__link{:href => "/clubs"} Klubovi
           %a.mdl-navigation__link{:href => "/races"} Utrke
+          %a.mdl-navigation__link{:href => "/live"} Live
           - if user_signed_in?
             - if current_user.racer.present?
               = link_to racer_path(current_user.try(:racer)), class: 'mdl-navigation__link' do

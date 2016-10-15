@@ -118,17 +118,17 @@ class RaceResults extends React.Component {
       <div>
         <h2>Trenutni rezultati</h2>
 
-        <label htmlFor="switch1" className="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+        <label htmlFor="switch1" className="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-switch mdl-js-switch mdl-js-ripple-effect">
           <input type="checkbox" id="switch1" className="mdl-switch__input" onClick={this._handleSwitchView} />
           <span className="mdl-switch__label">Prikaz po kategorijama</span>
         </label>
 
-        <label htmlFor="switch2" className="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+        <label htmlFor="switch2" className="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-switch mdl-js-switch mdl-js-ripple-effect">
           <input type="checkbox" id="switch2" className="mdl-switch__input" onClick={this._handleSwitchSize} />
           <span className="mdl-switch__label">Veliki prikaz</span>
         </label>
 
-        <label htmlFor="switch3" className="mdl-switch mdl-js-switch mdl-js-ripple-effect">
+        <label htmlFor="switch3" className="mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-switch mdl-js-switch mdl-js-ripple-effect">
           <input type="checkbox" id="switch3" className="mdl-switch__input" onClick={this._handleSwitchOrder} />
           <span className="mdl-switch__label">Najnoviji prvi</span>
         </label>

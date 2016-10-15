@@ -1,6 +1,6 @@
 class RaceResultsController < ApplicationController
   before_action :set_race_result, only: [:show, :edit, :update, :destroy]
-  before_action :only_admin, only: [:from_timing]
+  before_action :only_admin, only: [:from_timing, :destroy_from_timing]
 
   # GET /race_results
   # GET /race_results.json
@@ -70,6 +70,18 @@ class RaceResultsController < ApplicationController
     race_result = RaceResult.where(race: race, racer: racer).first
     race_result.lap_times << params[:time].to_i/1000
     race_result.status = params[:status]
+    race_result.save!
+    respond_to do |format|
+      format.json { render json: race_result }
+    end
+  end
+
+  # DELETE /race_results/destroy_from_timing
+  def destroy_from_timing
+    race = Race.find(params[:race_id])
+    racer = Racer.find_by(start_number: params[:start_number])
+    race_result = RaceResult.where(race: race, racer: racer).first
+    race_result.lap_times -= ["#{params[:time].to_i/1000}"]
     race_result.save!
     respond_to do |format|
       format.json { render json: race_result }

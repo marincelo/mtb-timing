@@ -56,12 +56,13 @@ class Ajax {
     this.xhr.send(JSON.stringify(data));
   }
 
-  delete() {
+  delete(data) {
     this.xhr.open('DELETE', this.url, true);
     this._setXhrTimeout();
     this.xhr.setRequestHeader('Accept', 'application/json');
     this.xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-    this.xhr.send();
+    this.xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    this.xhr.send(JSON.stringify(data));
   }
 
   _setXhrTimeout() {
