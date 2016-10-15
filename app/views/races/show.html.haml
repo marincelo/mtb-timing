@@ -54,7 +54,7 @@
         %td{ colspan: 7 }
           = category[0].upcase
 
-      - @race.race_results.sort{|x, y| x.finish_time <=> y.finish_time}.each do |race_result|
+      - (@race.race_results.select{|rr| rr.lap_times.length > 0}.sort{|x, y| x.finish_time <=> y.finish_time} + @race.race_results.select{|rr| rr.lap_times.length == 0}).each do |race_result|
         - if race_result.racer.category == category[0]
           %tr
             %td
