@@ -17,11 +17,10 @@ class Race < ApplicationRecord
       race_results.includes(:racer).where({'racers.category': category })
         .sort{|x,y| x.finish_time <=> y.finish_time}
         .first(25)
+        .select{ |rr| rr.lap_times.length > 0 }
         .each_with_index do |rr, index|
         # podijeli bodove
-        if rr.lap_times.length > 0
-          rr.update!(points: Race.points[index])
-        end
+        rr.update!(points: Race.points[index])
       end
     end
   end
