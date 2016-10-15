@@ -105,3 +105,26 @@ option {
     padding-left: 8px !important;
   }
 }
+
+/* category colors */
+.cat-zene {
+  background-color: pink;
+}
+.cat-u16 {
+  background-color: powderblue;
+}
+.cat-17-20 {
+  background-color: cyan;
+}
+.cat-20-30 {
+  background-color: lightgreen;
+}
+.cat-30-40 {
+  background-color: lightyellow;
+}
+.cat-40-50 {
+  background-color: lavender;
+}
+.cat-50 {
+  background-color: mediumorchid;
+}
