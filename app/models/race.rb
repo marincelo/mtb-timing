@@ -14,12 +14,7 @@ class Race < ApplicationRecord
     # za svaku kategoriju
     Racer.categories.each do |category|
       # nadi top 25 rezultata
-      results = race_results
-      .includes(:racer)
-      .where('racers.category': category)
-      .sort{|x,y| x.finish_time <=> y.finish_time}
-      .select{ |rr| rr.lap_times.length > 0 }
-      .first(25)
+      results = race_results.includes(:racer).where('racers.category': category[1]).sort{|x,y| x.finish_time <=> y.finish_time}.select{ |rr| rr.lap_times.length > 0 }.first(25)
 
       p category
       p results.count
