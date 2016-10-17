@@ -4,27 +4,21 @@
 
 .demo-card-event.mdl-card {
   display: inline-block;
-  margin-right: 2em !important;
-  width: 256px;
-  height: 256px;
-  margin: auto;
   background: #efefef;
+  width: 100%;
+  height: 300px;
 }
 .demo-card-event > .mdl-card__actions {
   border-color: rgba(255, 255, 255, 0.2);
 }
 .demo-card-event > .mdl-card__title {
-  align-items: flex-start;
+  height: 250px;
 }
 .demo-card-event > .mdl-card__title > h4 {
-  width: 256px;
-  margin-top: 0;
+  margin: auto;
   text-decoration: none;
 }
 .demo-card-event > .mdl-card__actions {
-  display: flex;
-  box-sizing:border-box;
-  align-items: center;
   text-align: center;
   background: rgb(0, 188, 212);
 }
@@ -39,7 +33,7 @@
 
 .demo-card-event {
   .mdl-button {
-    width: 207px;
+    left: 0;
   }
 }
 

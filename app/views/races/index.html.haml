@@ -1,13 +1,14 @@
-#races
+#races.mdl-grid
   - @races.each do |race|
-    .demo-card-event.mdl-card.mdl-shadow--2dp
-      .mdl-card__title.mdl-card--expand
-        %h4.text-center
-          = race.name
-          %hr
-          %span
-            = l race.date, format: :short
-      .mdl-card__actions.mdl-card--border
-        = link_to race do
-          .mdl-button.mdl-button--raised.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent
-            Detalji
+    .mdl-cell.mdl-cell--3-col.mdl-cell--12-col-phone
+      .demo-card-event.mdl-card.mdl-shadow--2dp
+        .mdl-card__title.mdl-card--expand
+          %h4.text-center
+            = race.name
+            %hr
+            %span
+              = l race.date, format: :short
+        .mdl-card__actions.mdl-card--border
+          = link_to race do
+            .mdl-button.mdl-button--raised.mdl-js-button.mdl-js-ripple-effect.mdl-button--accent
+              Detalji
