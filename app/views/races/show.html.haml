@@ -56,20 +56,19 @@
         %td{ colspan: 7 }
           = category[0].upcase
 
-      - (@race.race_results.select{|rr| rr.lap_times.length > 0}.sort{|x, y| x.finish_time <=> y.finish_time} + @race.race_results.select{|rr| rr.lap_times.length == 0}).each do |race_result|
-        - if race_result.racer.category == category[0]
-          %tr
+      - (@race.race_results.select{|rr| rr.lap_times.length > 0}.sort{|x, y| x.finish_time <=> y.finish_time} + @race.race_results.select{|rr| rr.lap_times.length == 0}.sort{|x, y| y.status <=> x.status}).select{|rr| rr.racer.category == category[0]}.each do |race_result|
+        %tr
+          %td
+            = link_to race_result.racer.start_number, race_result.racer
+          %td= race_result.racer.first_name
+          %td= race_result.racer.last_name
+          %td= race_result.racer.club.try(:name)
+          %td= race_result.finish_time
+          %td= race_result.pretty_status
+          %td= race_result.points
+          - if user_signed_in? && current_user.admin && race_result.status && race_result.status < 2
             %td
-              = link_to race_result.racer.start_number, race_result.racer
-            %td= race_result.racer.first_name
-            %td= race_result.racer.last_name
-            %td= race_result.racer.club.try(:name)
-            %td= race_result.finish_time
-            %td= race_result.pretty_status
-            %td= race_result.points
-            - if user_signed_in? && current_user.admin && race_result.status && race_result.status < 2
-              %td
-                = form_for race_result do |f|
-                  = f.hidden_field :status, value: 2
-                  .actions
-                    = f.submit 'Potvrdi uplatu', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
+              = form_for race_result do |f|
+                = f.hidden_field :status, value: 2
+                .actions
+                  = f.submit 'Potvrdi uplatu', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
