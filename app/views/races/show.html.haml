@@ -64,7 +64,13 @@
           %td= race_result.racer.last_name
           %td= race_result.racer.club.try(:name)
           %td= race_result.finish_time
-          %td= race_result.pretty_status
+          - if @race.ended_at.present? && race_result.status == 1
+            .mdl-tooltip.mdl-tooltip--large{for: "raceResult-#{race_result.id}"}
+              Na iducem startu placa dodatnih 10 kn.
+            %td.shame{id: "raceResult-#{race_result.id}"}
+              = race_result.pretty_status
+          - else
+            %td= race_result.pretty_status
           %td= race_result.points
           - if user_signed_in? && current_user.admin && race_result.status && race_result.status < 2
             %td

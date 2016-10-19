@@ -128,3 +128,12 @@ option {
 .cat-50 {
   background-color: mediumorchid;
 }
+
+.shame {
+  color: rgb(255,82,82) !important;
+  font-weight: bold;
+}
+
+.shame:after {
+  content: '*';
+}
