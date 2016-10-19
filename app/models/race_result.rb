@@ -17,6 +17,12 @@ class RaceResult < ApplicationRecord
       'Na startu'
     elsif status == 3
       'Zavrsio'
+    elsif status == 4
+      'DNF'
+    elsif status == 5
+      'DSQ'
+    elsif status == 6
+      'DNS'
     else
       'Nepoznat'
     end
