@@ -35,7 +35,7 @@ class Racer < ApplicationRecord
       elsif (1997..1999).include? year_of_birth
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth <= 2000 AND year_of_birth >= 1997').order(start_number: :desc).first
         data[:start_number] = racer.present? ? racer.start_number + 1 : 100
-        data[:category] = Racer.categories[:'17-20']
+        data[:category] = Racer.categories[:'16-20']
         # alternative numbers
         if data[:start_number] == 200
           data[:start_number] = 1000
