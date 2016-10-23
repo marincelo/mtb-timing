@@ -7,7 +7,7 @@ class Racer < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :phone_number, presence: true, uniqueness: true
 
-  enum category: [:zene, :u16, :'17-20', :'20-30', :'30-40', :'40-50', :'50+']
+  enum category: [:zene, :u16, :'16-20', :'20-30', :'30-40', :'40-50', :'50+']
 
   default_scope { order(start_number: :asc) }
 
@@ -29,7 +29,7 @@ class Racer < ApplicationRecord
     # male racers
     elsif gender == 2
       if year_of_birth >= 2000
-        racer = Racer.unscoped.where('gender = 2 AND year_of_birth >= 2000').order(start_number: :desc).first
+        racer = Racer.unscoped.where('gender = 2 AND year_of_birth > 2000').order(start_number: :desc).first
         data[:start_number] = racer.present? ? racer.start_number + 1 : 1
         data[:category] = Racer.categories[:u16]
       elsif (1997..1999).include? year_of_birth

@@ -68,7 +68,7 @@ class RaceResults extends React.Component {
 
   _renderByCategory() {
     const newestFirst = this.state.newestFirst;
-    const categories = ['zene', 'u16', '17-20', '20-30', '30-40', '40-50', '50+'];
+    const categories = ['zene', 'u16', '16-20', '20-30', '30-40', '40-50', '50+'];
     let finishedTimes = this.state.race.race_results.filter((a)=>{
       return a.finish_time != '- -'
     });
