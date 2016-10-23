@@ -28,12 +28,12 @@ class Racer < ApplicationRecord
       end
     # male racers
     elsif gender == 2
-      if year_of_birth >= 2000
+      if year_of_birth > 2000
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth > 2000').order(start_number: :desc).first
         data[:start_number] = racer.present? ? racer.start_number + 1 : 1
         data[:category] = Racer.categories[:u16]
       elsif (1997..1999).include? year_of_birth
-        racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 2000 AND year_of_birth >= 1997').order(start_number: :desc).first
+        racer = Racer.unscoped.where('gender = 2 AND year_of_birth <= 2000 AND year_of_birth >= 1997').order(start_number: :desc).first
         data[:start_number] = racer.present? ? racer.start_number + 1 : 100
         data[:category] = Racer.categories[:'17-20']
         # alternative numbers
