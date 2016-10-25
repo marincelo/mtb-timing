@@ -63,5 +63,5 @@
 %br
 = link_to 'Natrag', racers_path, class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
 
-- if user_signed_in? && (current_user.admin || current_user.racer == @racer)
+- if user_signed_in? && current_user.admin
   = link_to 'Izmijeni podatke', edit_racer_path(@racer), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect'
