@@ -5,6 +5,12 @@
   = link_to races_path do
     .mdl-button.mdl-button--raised.mdl-button--accent.mdl-js-button.mdl-js-ripple-effect
       Natrag
+
+  - if user_signed_in? && current_user.admin
+    = link_to race_path(@race, format: "csv") do
+      .mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect
+        Export CSV
+
   - unless @race.ended_at.present?
     - if user_signed_in? && !@racer_has_race_result
       = form_for RaceResult.new do |f|
@@ -38,8 +44,8 @@
     = f.hidden_field :status, value: 1
     = f.submit 'Prijavi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
 
-    %br
-    %br
+  %br
+  %br
 
 %table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
   %thead

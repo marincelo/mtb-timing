@@ -14,6 +14,7 @@ class RacesController < ApplicationController
     respond_to do |format|
       format.html { render :show }
       format.json { render json: @race, include: {race_results: { include: {racer: {include: :club}}, methods: [:finish_time] }} }
+      format.csv { send_data @race.to_csv }
     end
   end
 

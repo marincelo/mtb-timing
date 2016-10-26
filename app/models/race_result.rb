@@ -36,4 +36,9 @@ class RaceResult < ApplicationRecord
       '- -'
     end
   end
+
+  def to_csv
+    # Startni broj  Ime   Prezime   Klub  Vrijeme   Status  Bodovi
+    return [racer.start_number, racer.first_name, racer.last_name, racer.club.try(:name), finish_time, status, points]
+  end
 end
