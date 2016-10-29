@@ -7,7 +7,8 @@ class TempResult extends React.Component {
         this.updateStartNumber = this.updateStartNumber.bind(this);
 
         this.state = {
-          racerNumber: undefined
+          racerNumber: undefined,
+          saved: false
         }
     }
 
@@ -17,7 +18,7 @@ class TempResult extends React.Component {
 
       if(racerNumber) {
         RaceResultActions.newRaceResult(racerNumber, result.time, 0);
-        this.removeTempResult();
+        this.setState({saved: true});
       }
       else {
         alert('Ispuni broj!');
@@ -32,7 +33,6 @@ class TempResult extends React.Component {
     }
 
     removeTempResult() {
-      console.log('removeTempResult');
       RaceResultActions.removeTempResult(this.props.result.time);
     }
 
@@ -53,19 +53,24 @@ class TempResult extends React.Component {
                 { time }
               </td>
               <td>
-                <button
-                  className={`mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect`}
-                  onClick={this.saveResult}
-                >
-                  Spremi
-                </button>
+                {
+                 this.state.saved ?
+                 'Spremljeno'
+                 :
+                  <button
+                    className={`mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect`}
+                    onClick={this.saveResult}
+                  >
+                    Spremi
+                  </button>
+                }
               </td>
               <td>
                 <button
                   className={`mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect`}
                   onClick={this.removeTempResult}
                 >
-                  Ponisti
+                  Makni s liste
                 </button>
               </td>
             </tr>

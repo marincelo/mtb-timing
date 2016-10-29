@@ -23,7 +23,7 @@ class DraftResult extends React.Component {
       '/race_results/from_timing',
       (data) => {
         this.setState({status: 'spremljeno', failed: false})
-        setTimeout(() => { RaceResultActions.removeRaceResult(this.props.result.racerNumber) }, 5*60*1000); // remove after 5 mins
+        // setTimeout(() => { RaceResultActions.removeRaceResult(this.props.result.racerNumber) }, 5*60*1000); // remove after 5 mins
       },
       (error, status) => {
         console.log(error, status);
@@ -47,7 +47,7 @@ class DraftResult extends React.Component {
       '/race_results/destroy_from_timing',
       (data) => {
         this.setState({status: 'izbrisano'})
-        setTimeout(() => { RaceResultActions.removeRaceResult(this.props.result.racerNumber) }, 5*60*1000); // remove after 5 mins
+        // setTimeout(() => { RaceResultActions.removeRaceResult(this.props.result.racerNumber) }, 5*60*1000); // remove after 5 mins
       },
       (error, status) => {
         console.log(error, status);
@@ -90,6 +90,17 @@ class DraftResult extends React.Component {
           >
             Izbrisi
           </button>
+          {
+           !this.state.failed ?
+           null
+           :
+            <button
+              className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect"
+              onClick={() => {RaceResultActions.removeRaceResult(this.props.result.racerNumber)}}
+            >
+              Makni s liste
+            </button>
+          }
         </td>
       </tr>
     );
