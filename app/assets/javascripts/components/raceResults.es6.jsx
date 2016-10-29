@@ -34,10 +34,20 @@ class RaceResults extends React.Component {
         return a.finish_time != '- -'
       }).sort((a, b)=>{
         if(newestFirst){
-          return a.finish_time < b.finish_time
+          if(a.finish_time < b.finish_time)
+            return 1;
+          else if(a.finish_time === b.finish_time)
+            return 0
+          else
+            return -1;
         }
         else {
-          return a.finish_time > b.finish_time
+          if(a.finish_time > b.finish_time)
+            return 1;
+          else if(a.finish_time === b.finish_time)
+            return 0
+          else
+            return -1;
         }
       }).map((raceResult)=>{
         return (<tr key={`race-result-${raceResult.id}`}>
@@ -79,10 +89,20 @@ class RaceResults extends React.Component {
         })
         .sort((a, b)=>{
           if(newestFirst){
-            return a.finish_time < b.finish_time
+            if(a.finish_time < b.finish_time)
+              return 1;
+            else if(a.finish_time === b.finish_time)
+              return 0
+            else
+              return -1;
           }
           else {
-            return a.finish_time > b.finish_time
+            if(a.finish_time > b.finish_time)
+              return 1;
+            else if(a.finish_time === b.finish_time)
+              return 0
+            else
+              return -1;
           }
         }).map((raceResult)=>{
           return (<tr key={`race-result-${raceResult.id}`}>
