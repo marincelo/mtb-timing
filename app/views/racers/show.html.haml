@@ -13,12 +13,13 @@
   - else
     Nema
 
-%h4
-  %b Godina rodenja:
-  = @racer.year_of_birth
-  %br
-  %b Mjesto stanovanja:
-  = @racer.town
+- if user_signed_in?
+  %h4
+    %b Godina rodenja:
+    = @racer.year_of_birth
+    %br
+    %b Mjesto stanovanja:
+    = @racer.town
 %h4
   %b Kategorija:
   = @racer.category.upcase
