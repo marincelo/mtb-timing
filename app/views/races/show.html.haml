@@ -11,7 +11,7 @@
       .mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect
         Export CSV
 
-  - unless @race.ended_at.present?
+  - unless @race.date - 12.hours < DateTime.now
     - if user_signed_in? && !@racer_has_race_result
       = form_for RaceResult.new do |f|
         = f.hidden_field :racer_id, value: current_user.racer.try(:id)
