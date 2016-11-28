@@ -24,7 +24,6 @@ class TimingDashboard extends React.Component {
   createRaceResult(event, status=3) {
     let input = document.getElementById('raceResultInput');
 
-    // save race result action
     if((event.keyCode == 13 || event.type === 'click') && input.value.length) {
       let startNumber = parseInt(input.value);
       if(startNumber) {
