@@ -26,8 +26,9 @@ class TimingDashboard extends React.Component {
 
     if((event.keyCode == 13 || event.type === 'click') && input.value.length) {
       let startNumber = parseInt(input.value);
+      let time = status === 3 ? timeSync.now() : null;
       if(startNumber) {
-        RaceResultActions.newRaceResult(startNumber, timeSync.now(), status);
+        RaceResultActions.newRaceResult(startNumber, time, status);
         input.value = '';
       }
       else {
