@@ -24,7 +24,7 @@ class Racer < ApplicationRecord
       data[:start_number] = racer.present? ? racer.start_number + 1 : 600
       data[:category] = Racer.categories[:zene]
       if data[:start_number] == 700
-        data[:start_number] = 6000
+        data[:start_number] = 6600
       end
     # male racers
     elsif gender == 2
@@ -38,7 +38,7 @@ class Racer < ApplicationRecord
         data[:category] = Racer.categories[:'16-20']
         # alternative numbers
         if data[:start_number] == 200
-          data[:start_number] = 1000
+          data[:start_number] = 1100
         end
       elsif (1987..1996).include? year_of_birth
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1997 AND year_of_birth >= 1987').order(start_number: :desc).first
@@ -46,7 +46,7 @@ class Racer < ApplicationRecord
         data[:category] = Racer.categories[:'20-30']
         # alternative numbers
         if data[:start_number] == 300
-          data[:start_number] = 2000
+          data[:start_number] = 2200
         end
       elsif (1977..1986).include? year_of_birth
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1987 AND year_of_birth >= 1977').order(start_number: :desc).first
@@ -54,7 +54,7 @@ class Racer < ApplicationRecord
         data[:category] = Racer.categories[:'30-40']
         # alternative numbers
         if data[:start_number] == 400
-          data[:start_number] = 3000
+          data[:start_number] = 3300
         end
       elsif (1967..1976).include? year_of_birth
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1977 AND year_of_birth >= 1967').order(start_number: :desc).first
@@ -62,14 +62,14 @@ class Racer < ApplicationRecord
         data[:category] = Racer.categories[:'40-50']
         # alternative numbers
         if data[:start_number] == 500
-          data[:start_number] = 4000
+          data[:start_number] = 4400
         end
       elsif year_of_birth < 1967
         racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1967').order(start_number: :desc).first
         data[:start_number] = racer.present? ? racer.start_number + 1 : 500
         data[:category] = Racer.categories[:'50+']
         if data[:start_number] == 600
-          data[:start_number] = 5000
+          data[:start_number] = 5500
         end
       else
         fail 'Unknown category'

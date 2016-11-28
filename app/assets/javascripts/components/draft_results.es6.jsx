@@ -32,6 +32,7 @@ class DraftResults extends React.Component {
           <thead>
             <tr>
               <td>Startni broj</td>
+              <td>Status utrke</td>
               <td>Vrijeme</td>
               <td>Status</td>
               <td></td>

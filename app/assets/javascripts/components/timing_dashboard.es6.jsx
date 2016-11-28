@@ -21,12 +21,15 @@ class TimingDashboard extends React.Component {
     DraftResultStore.off('draftResultStore.setRace', this.onChange);
   }
 
-  createRaceResult(event) {
-    if(event.keyCode == 13 && event.target.value.length) {
-      let startNumber = parseInt(event.target.value);
+  createRaceResult(event, status=3) {
+    let input = document.getElementById('raceResultInput');
+
+    if((event.keyCode == 13 || event.type === 'click') && input.value.length) {
+      let startNumber = parseInt(input.value);
+      let time = status === 3 ? timeSync.now() : null;
       if(startNumber) {
-        RaceResultActions.newRaceResult(event.target.value, timeSync.now());
-        event.target.value = '';
+        RaceResultActions.newRaceResult(startNumber, time, status);
+        input.value = '';
       }
       else {
         alert('Pogresan broj. Pokusaj ponovno.');
@@ -39,7 +42,27 @@ class TimingDashboard extends React.Component {
       <div className={`${this.state.show ? '' : 'hidden'} mdl-grid`}>
         <div className="mdl-cell mdl-cell--6-col" style={{border: '1px solid #aaa', padding: '1em', marginLeft: '-1em'}}>
           <h4 style={{marginLeft: '20px'}}>Unesi startni broj</h4>
-          <input type="text" id="raceResultInput" onKeyUp={ this.createRaceResult } />
+          <input type="number" min="1" id="raceResultInput" onKeyUp={ this.createRaceResult } />
+          <ul className="list-unstyled">
+            <li
+              className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect"
+              onClick={ (event) => this.createRaceResult(event, 4) }
+            >
+              DNF
+            </li>
+            <li
+              className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect"
+              onClick={ (event) => this.createRaceResult(event, 5) }
+            >
+              DSQ
+            </li>
+            <li
+              className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect"
+              onClick={ (event) => this.createRaceResult(event, 6) }
+            >
+              DNS
+            </li>
+          </ul>
           <hr/>
           <TempResults />
           <hr/>

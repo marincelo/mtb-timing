@@ -11,7 +11,7 @@
       .mdl-button.mdl-js-button.mdl-button--raised.mdl-button--colored.mdl-js-ripple-effect
         Export CSV
 
-  - unless @race.date - 12.hours < DateTime.now
+  - unless @race.date - 1.days < DateTime.now
     - if user_signed_in? && !@racer_has_race_result
       = form_for RaceResult.new do |f|
         = f.hidden_field :racer_id, value: current_user.racer.try(:id)
@@ -26,12 +26,13 @@
     - else
       = link_to 'Login za prijavu', login_racers_path(redirect: "/races/#{@race.id}"), class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
 
-%a{ href: 'http://www.xczld.info/novosti/ii-kolo-uspon-na-prominu-2016-raspis/', target: '_blank' }
+%a{ href: 'http://www.xczld.info/novosti/iii-kolo-xcm-sibenik-950-raspis/', target: '_blank' }
   %h4
     RASPIS UTRKE
 %a{ href: 'http://www.xczld.info/novosti/odluka-o-promjeni-kategorija/', target: '_blank' }
   %h4
     ODLUKA O PROMJENI KATEGORIJA
+
 
 %h4
   Prijavljeni vozaci
@@ -39,7 +40,7 @@
 
 - if user_signed_in? && current_user.admin
   = form_for RaceResult.new do |f|
-    = f.select :racer_id, options_for_select(Racer.where.not(id: @race.race_results.pluck(:racer_id)).collect{|r| [r.full_name, r.id]}), include_blank: true
+    = f.select :racer_id, options_for_select(Racer.where.not(id: @race.race_results.pluck(:racer_id)).collect{|r| ["#{r.start_number} - #{r.full_name}", r.id]}), include_blank: true
     = f.hidden_field :race_id, value: @race.id
     = f.hidden_field :status, value: 1
     = f.submit 'Prijavi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
@@ -50,6 +51,7 @@
 %table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
   %thead
     %tr
+      %th Mjesto
       %th Startni broj
       %th Ime
       %th Prezime
@@ -65,8 +67,10 @@
         %td{ colspan: 7 }
           = category[0].upcase
 
-      - (@race.race_results.select{|rr| rr.lap_times.length > 0}.sort{|x, y| x.finish_time <=> y.finish_time} + @race.race_results.select{|rr| rr.lap_times.length == 0}.sort{|x, y| y.status <=> x.status}).select{|rr| rr.racer.category == category[0]}.each do |race_result|
+      - (@race.race_results.select{|rr| rr.lap_times.length > 0}.sort{|x, y| x.finish_time <=> y.finish_time} + @race.race_results.select{|rr| rr.lap_times.length == 0}.sort{|x, y| y.status <=> x.status}).select{|rr| rr.racer.category == category[0]}.each_with_index do |race_result, index|
         %tr
+          %td
+            = "#{index + 1}."
           %td
             = link_to race_result.racer.start_number, race_result.racer
           %td= race_result.racer.first_name

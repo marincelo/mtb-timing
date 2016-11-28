@@ -59,7 +59,7 @@ class RaceResultForm extends React.Component {
         return (
           <div className="race-result-form">
               <h4>Dodaj rezultat</h4>
-              <p><input type="text" placeholder="Startni broj" onKeyUp={this.updateStartNumber}/></p>
+              <p><input type="number" min="1" placeholder="Startni broj" onKeyUp={this.updateStartNumber}/></p>
               <label htmlFor="">Vrijeme</label>
               <p>
                 <select
