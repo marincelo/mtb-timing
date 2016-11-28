@@ -4,10 +4,26 @@ class DraftResult extends React.Component {
 
     this.uploadResult = this.uploadResult.bind(this);
     this.deleteResult = this.deleteResult.bind(this);
+    this.prettyStatus = this.prettyStatus.bind(this);
 
     this.state = {
       status: 'uploading',
       failed: false
+    }
+  }
+
+  prettyStatus() {
+    switch(this.props.result.status) {
+      case 3:
+        return 'Zavrsio';
+      case 4:
+        return 'DNF';
+      case 5:
+        return 'DSQ';
+      case 6:
+        return 'DNS';
+      default:
+        return 'Prijavljen'
     }
   }
 
@@ -16,7 +32,7 @@ class DraftResult extends React.Component {
       start_number: this.props.result.racerNumber,
       race_id: DraftResultStore.getRaceId(),
       time: this.props.result.time,
-      status: 3
+      status: this.props.result.status
     };
 
     let ajax = new Ajax(
@@ -71,6 +87,7 @@ class DraftResult extends React.Component {
     return (
       <tr>
         <td>{result.racerNumber}</td>
+        <td>{this.prettyStatus()}</td>
         <td>
           {timeSync.humanTime(timeDiff)}
         </td>

@@ -43,7 +43,8 @@ class TempResult extends React.Component {
             <tr>
               <td>
                 <input
-                  type="text"
+                  type="number"
+                  min="1"
                   placeholder="Startni broj"
                   onKeyUp={this.updateStartNumber}
                   style={{width: '100px'}}

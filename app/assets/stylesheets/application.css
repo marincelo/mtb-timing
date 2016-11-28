@@ -137,3 +137,15 @@ option {
 .shame:after {
   content: '*';
 }
+
+.list-unstyled {
+  list-style: none;
+  display: block;
+  padding: 0;
+}
+
+.list-unstyled li {
+  display: inline-block;
+  margin: 0 10px;
+  min-width: 20px;
+}
