@@ -31,7 +31,7 @@ class RaceResults extends React.Component {
   _renderSequential() {
     const newestFirst = this.state.newestFirst;
     return this.state.race.race_results.filter((a)=>{
-        return a.finish_time != '- -'
+        return a.finish_time != '- -' && a.status == 3
       }).sort((a, b)=>{
         if(newestFirst){
           if(a.finish_time < b.finish_time)
@@ -70,8 +70,7 @@ class RaceResults extends React.Component {
           <td>{raceResult.racer.category.toUpperCase()}</td>
           <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
           <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
-          <td>{raceResult.finish_time}</td>
-          <td></td>
+          <td>{this._prettyStatus(raceResult.status)}</td>
         </tr>)
       });
   }
@@ -80,7 +79,7 @@ class RaceResults extends React.Component {
     const newestFirst = this.state.newestFirst;
     const categories = ['zene', 'u16', '16-20', '20-30', '30-40', '40-50', '50+'];
     let finishedTimes = this.state.race.race_results.filter((a)=>{
-      return a.finish_time != '- -'
+      return a.finish_time != '- -' && a.status == 3
     });
 
     return categories.map((category)=>{
@@ -115,6 +114,25 @@ class RaceResults extends React.Component {
           </tr>)
         }));
     });
+  }
+
+  _prettyStatus(status) {
+    switch(status) {
+      case 1:
+        return 'Prijavljen';
+      case 2:
+        return 'Na stazi';
+      case 3:
+        return 'Zavrsio';
+      case 4:
+        return 'DNF';
+      case 5:
+        return 'DSQ';
+      case 6:
+        return 'DNS';
+      default:
+        return 'Prijavljen'
+    }
   }
 
   componentWillMount() {
@@ -188,8 +206,7 @@ class RaceResults extends React.Component {
               <td>Kategorija</td>
               <td>Ime</td>
               <td>Klub</td>
-              <td>Vrijeme</td>
-              <td></td>
+              <td>Status</td>
             </tr>
           </thead>
           <tbody>

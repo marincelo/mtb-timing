@@ -45,6 +45,12 @@ class TimingDashboard extends React.Component {
           <input type="number" min="1" id="raceResultInput" onKeyUp={ this.createRaceResult } />
           <ul className="list-unstyled">
             <li
+              className="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect"
+              onClick={ (event) => this.createRaceResult(event) }
+            >
+              Spremi
+            </li>
+            <li
               className="mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect"
               onClick={ (event) => this.createRaceResult(event, 4) }
             >
