@@ -32,7 +32,7 @@ class RaceResultForm extends React.Component {
       time += seconds*1000;
 
       if(racerNumber && time) {
-        RaceResultActions.newRaceResult(racerNumber, time);
+        RaceResultActions.newRaceResult(racerNumber, time, 3);
       }
       else {
         alert('Ispuni sva polja!');

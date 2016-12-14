@@ -17,7 +17,7 @@ class TempResult extends React.Component {
       const {result} = this.props;
 
       if(racerNumber) {
-        RaceResultActions.newRaceResult(racerNumber, result.time, 0);
+        RaceResultActions.newRaceResult(racerNumber, result.time, 3);
         this.setState({saved: true});
       }
       else {

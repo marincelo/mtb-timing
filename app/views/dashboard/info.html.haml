@@ -2,22 +2,29 @@
   Informacije
 
 %p
-  Za nastup u sezoni 2016/17 je potrebna
-  = link_to 'registracija', new_racer_path
-  = '.'
-%p
-  Nakon unosa vaših podataka automatski će vam se dodijeliti kategorija i natjecateljski broj.
-%p
-  Dodijeljeni natjecateljski broj će biti izrađen sa vašim imenom i prezimenom, a preuzeti ćete ga
-  na prvoj utrci na kojoj nastupite.
-%p
-  Nakon početne registracije, za sve
-  = link_to 'ostale prijave', login_racers_path
-  biti će samo potrebno da unesete vašu email adresu i broj mobitela sa kojim ste se registrirali.
-%p
-  Na stranici ćete moći pregledavati ostale natjecatelje, klubove, njihove rezultate sa prethodnih utrka i slično.
-  Odmah nakon završene utrke moći ćete viditi vaš rezultat, poredak u kategoriji, broj osvojenih bodova, kao i ažuriranu tablicu kategorija i klubova.
+  Ukoliko želite sudjelovati u utrkama potrebno se prijaviti u ligu pod izbornikom
 
-%p.accent
-  %a{ href: 'http://www.xczld.info/kontakt', target: '_blank' }
-    Ukoliko Vaš klub nije na popisu, ili primjetite nekakav nedostatak molimo da nas kontaktirate putem obrasca na ovom linku.
+  = link_to 'Registracija', new_racer_path
+  = '.'
+  Popunite sve tražene podatke,  te nakon unosa istih sustav će vam dodijeliti kategoriju i natjecateljski broj.
+  Personalizirani natjecateljski broj se preuzima na prvoj utrci na kojoj nastupite i vrijedi za sve utrke ovogodišnje lige 2016/2017.
+
+%p
+  Za nastup na pojedinoj utrci potrebna je predprijava na istu. Predprijave i odjave su moguće 24h prije početka
+  = link_to 'utrke', races_path
+  = '.'
+  Da biste izvršili predprijavu za utrku potrebno je biti logiran na stranicu te u izborniku Utrke odabrati "Prijavi se".
+  Ukoliko ste se odjavili sa stranice, za
+  = link_to 'ponovnu prijavu (login)', login_racers_path
+  koristite e-mail adresu i broj mobitela u formatu koji ste unijeli prilikom registracije.
+
+%p
+  Za sve probleme, molimo kontaktirajte administratora putem
+  %a{ href: 'http://www.xczld.info/kontakt/' }
+    web obrasca.
+  Kod problematike prijave na utrku, uvažiti će se samo prijave koje su zaprimljene 24h prije početka utrke.
+
+%p
+  Na mobilnim uređajima stranica se ispravno prikazuje samo na
+  %a{ href: 'https://www.google.com/chrome/browser/mobile/' }
+    Google Chrome web pregledniku.

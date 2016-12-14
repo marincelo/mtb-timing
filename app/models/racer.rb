@@ -1,5 +1,5 @@
 class Racer < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, dependent: :delete
   belongs_to :club
   has_many :race_results, dependent: :destroy
   has_many :races, through: :race_results
@@ -13,8 +13,6 @@ class Racer < ApplicationRecord
 
   before_create :set_start_number
   before_update :check_and_set_start_number
-
-  after_destroy :destroy_user
 
   def get_start_number_and_category
     # female racers
@@ -86,10 +84,6 @@ class Racer < ApplicationRecord
 
   def check_and_set_start_number
     set_start_number if year_of_birth_changed?
-  end
-
-  def destroy_user
-    self.user.destroy!
   end
 
   def full_name
