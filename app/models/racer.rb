@@ -89,4 +89,8 @@ class Racer < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def total_points
+    race_results.sum{|rr| rr.points || 0}
+  end
 end

@@ -4,7 +4,7 @@ class RacersController < ApplicationController
   # GET /racers
   # GET /racers.json
   def index
-    @racers = Racer.all
+    @racers = Racer.includes(:race_results).all
   end
 
   # GET /racers/1

@@ -49,8 +49,7 @@
     %tr
       %th Mjesto
       %th Startni broj
-      %th Ime
-      %th Prezime
+      %th Ime i Prezime
       %th Klub
       %th Vrijeme
       %th Status
@@ -60,7 +59,7 @@
   %tbody
     - Racer.categories.each do |category|
       %tr{ class: 'cat-' + category[0].gsub('+', '') }
-        %td{ colspan: 8 }
+        %td{ colspan: user_signed_in? && current_user.admin ? 8 : 7 }
           = category[0].upcase
 
       - (@race.race_results.select{|rr| rr.lap_times.length > 0}.sort{|x, y| x.finish_time <=> y.finish_time} + @race.race_results.select{|rr| rr.lap_times.length == 0}.sort{|x, y| y.status <=> x.status}).select{|rr| rr.racer.category == category[0]}.each_with_index do |race_result, index|
@@ -70,8 +69,7 @@
               = "#{index + 1}."
           %td
             = link_to race_result.racer.start_number, race_result.racer
-          %td= race_result.racer.first_name
-          %td= race_result.racer.last_name
+          %td= race_result.racer.full_name
           %td= race_result.racer.club.try(:name)
           %td= race_result.finish_time
           - if @race.ended_at.present? && race_result.status == 1
@@ -88,3 +86,8 @@
                 = f.hidden_field :status, value: 2
                 .actions
                   = f.submit 'Potvrdi uplatu', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
+          - else
+            %td
+              = form_for race_result, method: :delete do |f|
+                .actions
+                  = f.submit 'Odjavi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--accent mdl-js-ripple-effect', onclick: "return confirm('Ovo ce izbrisati rezultat iz baze podataka. Molim potvrdi.')"

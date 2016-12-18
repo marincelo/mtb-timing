@@ -7,8 +7,8 @@
     %tr
       %th Broj
       %th Kategorija
-      %th Ime
-      %th Prezime
+      %th Ime i Prezime
+      %th Ukupno bodova
       %th Klub
       - if user_signed_in? && current_user.admin
         %th Email
@@ -17,22 +17,27 @@
         %th
 
   %tbody
-    - @racers.each do |racer|
-      %tr
-        %td
-          = link_to racer.start_number, racer
-        %td
-          = racer.category.try(:upcase)
-        %td= racer.first_name
-        %td= racer.last_name
-        %td= racer.club.try(:name) || '- -'
-        - if user_signed_in? && current_user.admin
-          %td= racer.email
+    - Racer.categories.each do |category|
+      %tr{ class: 'cat-' + category[0].gsub('+', '') }
+        %td{ colspan: 8 }
+          = category[0].upcase
+      - @racers.select{|r| r.category.to_s == category[0]}.sort_by{|r| -r.total_points}.each do |racer|
+        %tr
           %td
-            %a{href: "tel:#{racer.phone_number}"}
-              = racer.phone_number
+            = link_to racer.start_number, racer
           %td
-            = link_to 'Izmijeni', edit_racer_path(racer), class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored', style: 'color: white;'
+            = racer.category.try(:upcase)
+          %td= racer.full_name
           %td
-            = form_for racer, method: :delete do |f|
-              = f.submit 'Izbrisi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'
+            %b= racer.total_points
+          %td= racer.club.try(:name) || '- -'
+          - if user_signed_in? && current_user.admin
+            %td= racer.email
+            %td
+              %a{href: "tel:#{racer.phone_number}"}
+                = racer.phone_number
+            %td
+              = link_to 'Izmijeni', edit_racer_path(racer), class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored', style: 'color: white;'
+            %td
+              = form_for racer, method: :delete do |f|
+                = f.submit 'Izbrisi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'
