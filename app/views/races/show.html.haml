@@ -86,7 +86,7 @@
                 = f.hidden_field :status, value: 2
                 .actions
                   = f.submit 'Potvrdi uplatu', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
-          - else
+          - elsif user_signed_in? && current_user.admin
             %td
               = form_for race_result, method: :delete do |f|
                 .actions
