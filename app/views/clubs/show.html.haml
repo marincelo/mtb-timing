@@ -16,6 +16,7 @@
       %th.mdl-data-table__cell--non-numeric Kategorija
       %th Ime
       %th Prezime
+      %th Bodovi
       - if user_signed_in? && current_user.admin
         %th Email
         %th Broj mobitela
@@ -29,6 +30,7 @@
           = racer.category.try(:upcase)
         %td= racer.first_name
         %td= racer.last_name
+        %td= racer.total_points
         - if user_signed_in? && current_user.admin
           %td= racer.email
           %td

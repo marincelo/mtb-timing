@@ -1,7 +1,8 @@
 class TimeSync {
   constructor() {
     this.ts = timesync.create({
-      server: '/timesync'
+      server: '/timesync',
+      interval: 120000
     });
   }
 
