@@ -30,10 +30,6 @@
   %h4
     RASPIS UTRKE
 
-%h4
-  Prijavljeni vozaci
-  = "(#{@race.race_results.count})"
-
 - if user_signed_in? && current_user.admin
   = form_for RaceResult.new do |f|
     = f.select :racer_id, options_for_select(Racer.where.not(id: @race.race_results.pluck(:racer_id)).collect{|r| ["#{r.start_number} - #{r.full_name}", r.id]}), include_blank: true
@@ -43,6 +39,32 @@
 
   %br
   %br
+
+
+- if @race.ended_at.nil?
+  %h4
+    Start Box
+  %table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp{ style: 'background: #ffe082' }
+    %thead
+      %tr
+        %th Startni broj
+        %th Ime i Prezime
+        %th Klub
+        %th Kategorija
+        %td Bodovi
+    %tbody
+      - @race.start_box_racers.each do |racer|
+        %tr
+          %td
+            = link_to racer.start_number, racer
+          %td= racer.full_name
+          %td= racer.club.try(:name)
+          %td= racer.category.upcase
+          %td= racer.total_points
+
+%h4
+  Prijavljeni vozaci
+  = "(#{@race.race_results.count})"
 
 %table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
   %thead
