@@ -9,6 +9,8 @@ class RacersController < ApplicationController
     else
       @racers = Racer.includes(:race_results).all
     end
+
+    @order = params[:order].present? && params[:order] == 'total_points'
   end
 
   # GET /racers/1
