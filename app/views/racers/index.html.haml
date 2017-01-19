@@ -2,6 +2,22 @@
   Natjecatelji
   = "(#{@racers.count})"
 
+- if user_signed_in? && current_user.admin
+  %label{ for: 'category_select' }
+    Filtriraj po kategoriji
+  %select#category_select
+    %option{ value: 'null', disabled: true, selected: params[:category].nil? }
+      Odaberi kategoriju
+    - Racer.categories.each do |category|
+      %option{ value: category[1], selected: (params[:category].to_i == category[1])}
+        = category[0].upcase
+  %br
+  %br
+  :javascript
+    document.getElementById('category_select').addEventListener('change', function(event){
+      window.location.search = 'category=' + event.target.value;
+    });
+
 %table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
   %thead
     %tr
@@ -19,7 +35,7 @@
   %tbody
     - Racer.categories.each do |category|
       %tr{ class: 'cat-' + category[0].gsub('+', '') }
-        %td{ colspan: 8 }
+        %td{ colspan: 9 }
           = category[0].upcase
       - @racers.select{|r| r.category.to_s == category[0]}.sort_by{|r| -r.total_points}.each do |racer|
         %tr
