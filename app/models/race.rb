@@ -41,11 +41,16 @@ class Race < ApplicationRecord
     box_racers = []
 
     Racer.categories.each do |category|
-      p category
       next if ['u16', 'zene'].include?(category[0])
-      # 1 box place for 10 racers
-      box_places = racers.where(category: category).count/10
-      box_racers << racers.where(category: category).sort_by{|r| -r.total_points}.first(box_places)
+      category_racers = racers.where(category: category)
+      # 2 box places for 1-20 racers
+      if category_racers.count <= 20
+        box_places = 2
+      # 3 box places for 21-30 etc
+      else
+        box_places = category_racers.count/10 + 1
+      end
+      box_racers << category_racers.sort_by{|r| -r.total_points}.first(box_places)
     end
 
     box_racers.flatten
