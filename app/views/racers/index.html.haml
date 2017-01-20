@@ -9,7 +9,7 @@
     %option{ value: 'null', selected: ( params[:category].blank? ) }
       Odaberi kategoriju
     - Racer.categories.each do |category|
-      %option{ value: category[1], selected: ( params[:category].to_i == category[1] )}
+      %option{ value: category[1], selected: ( params[:category] == category[1].to_s )}
         = category[0].upcase
 
   %label{ for: 'racer_order' }
@@ -59,7 +59,7 @@
       %tr{ class: 'cat-' + category[0].gsub('+', '') }
         %td{ colspan: 9 }
           = category[0].upcase
-      - @racers.select{|r| r.category.to_s == category[0]}.sort_by{|r| (@order ? -r.total_points : r.start_number)}.each do |racer|
+      - @racers.select{|r| r.category.to_s == category[0]}.sort_by{|r| (@order ? r.start_number : -r.total_points)}.each do |racer|
         %tr
           %td
             = link_to racer.start_number, racer
