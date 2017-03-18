@@ -5,6 +5,7 @@ class ClubsController < ApplicationController
   # GET /clubs.json
   def index
     @clubs = Club.all
+    @ignored_club_ids = [1, 27, 28, 47, 33, 34, 32, 37, 46, 29, 30, 31, 38]
   end
 
   # GET /clubs/1
