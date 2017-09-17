@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206174307) do
+ActiveRecord::Schema.define(version: 20170917182418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.integer  "race_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["race_id"], name: "index_categories_on_race_id", using: :btree
+  end
 
   create_table "clubs", force: :cascade do |t|
     t.string   "name"
@@ -27,10 +35,14 @@ ActiveRecord::Schema.define(version: 20161206174307) do
     t.integer  "racer_id"
     t.integer  "race_id"
     t.integer  "status"
-    t.text     "lap_times",  default: [],              array: true
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.text     "lap_times",    default: [],              array: true
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "points"
+    t.integer  "start_number"
+    t.integer  "category_id"
+    t.integer  "position"
+    t.index ["category_id"], name: "index_race_results_on_category_id", using: :btree
     t.index ["race_id"], name: "index_race_results_on_race_id", using: :btree
     t.index ["racer_id"], name: "index_race_results_on_racer_id", using: :btree
   end
@@ -53,6 +65,8 @@ ActiveRecord::Schema.define(version: 20161206174307) do
     t.string   "town"
     t.integer  "day_of_birth"
     t.integer  "month_of_birth"
+    t.string   "shirt_size"
+    t.string   "uci_id"
     t.index ["club_id"], name: "index_racers_on_club_id", using: :btree
     t.index ["user_id"], name: "index_racers_on_user_id", using: :btree
   end
@@ -62,11 +76,12 @@ ActiveRecord::Schema.define(version: 20161206174307) do
     t.datetime "date"
     t.integer  "laps"
     t.integer  "easy_laps"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.datetime "started_at"
     t.datetime "ended_at"
     t.string   "description_url"
+    t.datetime "registration_threshold"
   end
 
   create_table "users", force: :cascade do |t|
@@ -87,6 +102,7 @@ ActiveRecord::Schema.define(version: 20161206174307) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "categories", "races"
   add_foreign_key "clubs", "users"
   add_foreign_key "race_results", "racers"
   add_foreign_key "race_results", "races"
