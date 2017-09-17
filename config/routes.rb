@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/live' => 'dashboard#live'
   post '/timesync' => 'dashboard#timesync'
   get '/info' => 'dashboard#info'
+  get '/terms' => 'dashboard#terms'
 
   resources :clubs
   resources :race_results do

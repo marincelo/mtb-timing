@@ -48,26 +48,38 @@
       %span.mdl-textfield__error Unesi ispravan broj u formatu 385911234567!
   .field
     .mdl-textfield.mdl-js-textfield
-      %input#address.mdl-textfield__input{type: 'text', name: 'racer[address]', value: @racer.address}
+      %input#address.mdl-textfield__input{type: 'text', name: 'racer[address]', value: @racer.address, required: true}
       %label.mdl-textfield__label{for: 'address'} Adresa
   .field
     .mdl-textfield.mdl-js-textfield{ style: 'width: 105px; margin-right: 20px;' }
-      %input#zip_code.mdl-textfield__input{type: 'text', name: 'racer[zip_code]', value: @racer.zip_code}
+      %input#zip_code.mdl-textfield__input{type: 'text', name: 'racer[zip_code]', value: @racer.zip_code, required: true}
       %label.mdl-textfield__label{for: 'zip_code'} Postanski broj
     .mdl-textfield.mdl-js-textfield{ style: 'width: 175px' }
-      %input#town.mdl-textfield__input{type: 'text', name: 'racer[town]', value: @racer.town}
+      %input#town.mdl-textfield__input{type: 'text', name: 'racer[town]', value: @racer.town, required: true}
       %label.mdl-textfield__label{for: 'town'} Mjesto stanovanja
+  .field
+    .mdl-textfield.mdl-js-textfield
+      %input#uci_id.mdl-textfield__input{ type: 'text', name: 'racer[uci_id]', value: @racer.uci_id}
+      %label.mdl-textfield__label{for: 'uci_id'} UCI ID
 
   .field
     .mdl-textfield
-      %select{ name: 'racer[club_id]' }
+      %select{ name: 'racer[club_id]', required: true }
         %option{ disabled: true, selected: @racer.club.nil?, value: 0 }
           Klub
-        - Club.all.each do |club|
+        - Club.all.order(:name).each do |club|
           %option{ value: club.id, selected: @racer.club.try(:id) == club.id  }
             = club.name
   .field
     = recaptcha_tags
+
+  .field
+    %label.mdl-checkbox.mdl-js-checkbox.mdl-js-ripple-effect{for: 'accept_terms'}
+      %input#accept_terms.mdl-checkbox__input{type: 'checkbox', required: true}
+      %span.mdl-checkbox__label
+        Ovim prihvaćam
+        %a{href: '/terms', target: '_blank'}
+          Izjavu o oslobađanju organizatora od odgovornosti
 
   %hr
 
