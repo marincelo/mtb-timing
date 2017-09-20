@@ -37,6 +37,7 @@ gem 'haml-rails'
 gem 'react-rails'
 gem 'react-flux-rails'
 gem 'sprockets-es6'
+gem 'babel-transpiler'
 gem 'font-awesome-rails'
 gem 'material_design_lite-rails', '~> 1.3'
 
