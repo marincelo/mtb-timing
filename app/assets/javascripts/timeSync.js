@@ -1,12 +1,19 @@
 class TimeSync {
   constructor() {
-    this.ts = timesync.create({
-      server: '/timesync',
-      interval: 120000
-    });
+    this.ts = undefined;
+  }
+
+  init() {
+    if (!this.ts) {
+      this.ts = timesync.create({
+        server: '/timesync',
+        interval: 120000
+      });
+    }
   }
 
   now() {
+    this.init();
     return parseInt(this.ts.now().toFixed());
   }
 

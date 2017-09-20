@@ -36,10 +36,10 @@ gem 'rack-zippy'
 gem 'haml-rails'
 gem 'react-rails'
 gem 'react-flux-rails'
-gem 'momentjs-rails'
 gem 'sprockets-es6'
 gem 'font-awesome-rails'
 gem 'material_design_lite-rails', '~> 1.3'
+gem 'axios_rails'
 
 gem 'faker'
 gem "recaptcha", require: "recaptcha/rails"
