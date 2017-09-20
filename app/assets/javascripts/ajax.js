@@ -3,23 +3,32 @@ class Ajax {
   constructor(url, success, error) {
     this.url = url;
     this.error = error;
+    this.success = success;
+
+    // bind instance methods
+    this._handleXhrStateChange = this._handleXhrStateChange.bind(this);
+    this._sendRequest = this._sendRequest.bind(this);
 
     this.xhr = new XMLHttpRequest();
     this.xhr.withCredentials = true;
-    this.xhr.onreadystatechange = (() => {
-      if (this.xhr.readyState === 4 && this.xhr.status >= 200 && this.xhr.status < 400) {
-        success(this._getData());
-      } else if (this.xhr.readyState === 4 && this.xhr.status > 399) {
-        if(this.xhr.status === 401 || this.xhr.status === 403) {
-          error(this.xhr.status, 'Unauthorized');
-        } else if (this.xhr.status >= 500) {
-          error(this.xhr.status, 'Internal Server Error');
-        } else {
-          error(this.xhr.status, this._getData());
-        }
-      }
-    });
+
+    this.xhr.onreadystatechange = this._handleXhrStateChange;
   }
+
+  _handleXhrStateChange() {
+    if (this.xhr.readyState === 4 && this.xhr.status >= 200 && this.xhr.status < 400) {
+      this.success(this._getData());
+    }
+    else if (this.xhr.readyState === 4 && this.xhr.status > 399) {
+      if(this.xhr.status === 401 || this.xhr.status === 403) {
+        this.error(this.xhr.status, 'Unauthorized');
+      } else if (this.xhr.status >= 500) {
+        this.error(this.xhr.status, 'Internal Server Error');
+      } else {
+        this.error(this.xhr.status, this._getData());
+      }
+    }
+  };
 
   _getData() {
     try {
@@ -30,39 +39,34 @@ class Ajax {
     }
   }
 
-  get() {
-    this.xhr.open('GET', this.url, true);
+  _sendRequest(type = 'GET', data) {
+    this.xhr.open(type, this.url, true);
     this._setXhrTimeout();
     this.xhr.setRequestHeader('Accept', 'application/json');
     this.xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-    this.xhr.send();
+    this.xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    if (data) {
+      this.xhr.send(JSON.stringify(data));
+    }
+    else {
+      this.xhr.send();
+    }
+  }
+
+  get() {
+    this._sendRequest()
   }
 
   post(data) {
-    this.xhr.open('POST', this.url, true);
-    this._setXhrTimeout();
-    this.xhr.setRequestHeader('Accept', 'application/json');
-    this.xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-    this.xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    this.xhr.send(JSON.stringify(data));
+    this._sendRequest('POST', data)
   }
 
   put(data) {
-    this.xhr.open('PUT', this.url, true);
-    this._setXhrTimeout();
-    this.xhr.setRequestHeader('Accept', 'application/json');
-    this.xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-    this.xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    this.xhr.send(JSON.stringify(data));
+    this._sendRequest('PUT', data)
   }
 
   delete(data) {
-    this.xhr.open('DELETE', this.url, true);
-    this._setXhrTimeout();
-    this.xhr.setRequestHeader('Accept', 'application/json');
-    this.xhr.setRequestHeader('X-CSRF-Token', document.querySelector('meta[name="csrf-token"]').content);
-    this.xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    this.xhr.send(JSON.stringify(data));
+    this._sendRequest('DELETE', data)
   }
 
   _setXhrTimeout() {
