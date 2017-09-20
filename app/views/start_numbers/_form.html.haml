@@ -1,0 +1,22 @@
+= form_for @start_number do |f|
+  - if @start_number.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@start_number.errors.count, "error")} prohibited this start_number from being saved:"
+      %ul
+        - @start_number.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :value
+    = f.number_field :value
+  .field
+    = f.label :tag_id
+    = f.text_field :tag_id
+  .field
+    = f.label :signal_strength
+    = f.number_field :signal_strength
+  .field
+    = f.label :racer
+    = f.text_field :racer
+  .actions
+    = f.submit 'Save'

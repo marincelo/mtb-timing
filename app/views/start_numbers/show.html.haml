@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Value:
+  = @start_number.value
+%p
+  %b Tag:
+  = @start_number.tag_id
+%p
+  %b Signal strength:
+  = @start_number.signal_strength
+%p
+  %b Racer:
+  = @start_number.racer
+
+= link_to 'Edit', edit_start_number_path(@start_number)
+\|
+= link_to 'Back', start_numbers_path
