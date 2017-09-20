@@ -5,8 +5,7 @@ class RaceResults extends React.Component {
     this._handleSwitchView = this._handleSwitchView.bind(this);
     this._handleSwitchSize = this._handleSwitchSize.bind(this);
     this._handleSwitchOrder = this._handleSwitchOrder.bind(this);
-    this._renderSequential = this._renderSequential.bind(this);
-    this._renderByCategory = this._renderByCategory.bind(this);
+    this._raceResultView = this._raceResultView.bind(this);
 
     this.state = {
       race: { race_results: [] },
@@ -66,25 +65,13 @@ class RaceResults extends React.Component {
   }
 
   _getSortingFunction(newestFirst) {
-    if(newestFirst){
-      return (a, b) => {
-        if(a.finish_time < b.finish_time)
-          return 1;
-        else if(a.finish_time === b.finish_time)
-          return 0
-        else
-          return -1;
-      }
-    }
-    else {
-      return (a, b) => {
-        if(a.finish_time > b.finish_time)
-         return 1;
-        else if(a.finish_time === b.finish_time)
-          return 0
-        else
-          return -1;
-      }
+    return (a, b) => {
+      if(a.finish_time < b.finish_time)
+        return newestFirst ? 1 : -1;
+      else if(a.finish_time === b.finish_time)
+        return 0
+      else
+        return newestFirst ? -1 : 1;
     }
   }
 
@@ -94,7 +81,7 @@ class RaceResults extends React.Component {
       <td>{raceResult.racer.category.toUpperCase()}</td>
       <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
       <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
-      <td>{raceResult.finish_time === '- -' ? raceResult.finish_time : this._prettyStatus(raceResult.status)}</td>
+      <td>{raceResult.finish_time === '- -' ? this._prettyStatus(raceResult.status) : raceResult.finish_time}</td>
       <td></td>
       </tr>)
   }
