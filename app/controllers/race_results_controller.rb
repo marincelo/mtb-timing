@@ -69,7 +69,7 @@ class RaceResultsController < ApplicationController
   # POST /race_results/from_timing
   def from_timing
     race = Race.find(params[:race_id])
-    racer = Racer.find_by(start_number: @start_number)
+    racer = @start_number.racer
     race_result = RaceResult.where(race: race, racer: racer).first
     race_result.lap_times << params[:time].to_f/1000 if params[:time]
     race_result.status = params[:status]
@@ -82,7 +82,7 @@ class RaceResultsController < ApplicationController
   # DELETE /race_results/destroy_from_timing
   def destroy_from_timing
     race = Race.find(params[:race_id])
-    racer = Racer.find_by(start_number: @start_number)
+    racer = @start_number.racer
     race_result = RaceResult.where(race: race, racer: racer).first
     race_result.lap_times -= ["#{params[:time].to_f/1000}"]
     race_result.save!

@@ -32,7 +32,7 @@
 
 - if user_signed_in? && current_user.admin
   = form_for RaceResult.new do |f|
-    = f.select :racer_id, options_for_select(Racer.where.not(id: @race.race_results.pluck(:racer_id)).collect{|r| ["#{r.start_number} - #{r.full_name}", r.id]}), include_blank: true
+    = f.select :racer_id, options_for_select(Racer.where.not(id: @race.race_results.pluck(:racer_id)).collect{|r| ["#{r.start_number.value} - #{r.full_name}", r.id]}), include_blank: true
     = f.hidden_field :race_id, value: @race.id
     = f.hidden_field :status, value: 1
     = f.submit 'Prijavi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
@@ -56,7 +56,7 @@
       - @race.start_box_racers.each do |racer|
         %tr
           %td
-            = link_to racer.start_number, racer
+            = link_to racer.start_number.value, racer
           %td= racer.full_name
           %td= racer.club.try(:name)
           %td= racer.category.upcase
@@ -90,7 +90,7 @@
             - if race_result.status == 3
               = "#{index + 1}."
           %td
-            = link_to race_result.racer.start_number, race_result.racer
+            = link_to race_result.racer.start_number.value, race_result.racer
           %td= race_result.racer.full_name
           %td= race_result.racer.club.try(:name)
           %td= race_result.finish_time
