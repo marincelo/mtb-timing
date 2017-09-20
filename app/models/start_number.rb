@@ -1,3 +1,3 @@
 class StartNumber < ApplicationRecord
-  belongs_to :racer
+  belongs_to :racer, optional: true
 end

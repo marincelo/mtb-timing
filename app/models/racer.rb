@@ -1,5 +1,5 @@
 class Racer < ApplicationRecord
-  belongs_to :user, dependent: :delete
+  belongs_to :user, dependent: :delete, optional: true
   belongs_to :club
   has_many :race_results, dependent: :destroy
   has_many :races, through: :race_results
