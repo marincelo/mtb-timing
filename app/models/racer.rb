@@ -3,83 +3,62 @@ class Racer < ApplicationRecord
   belongs_to :club
   has_many :race_results, dependent: :destroy
   has_many :races, through: :race_results
+  has_one :start_number
 
   validates :email, presence: true, uniqueness: true
   validates :phone_number, presence: true, uniqueness: true
 
   enum category: [:zene, :u16, :'16-20', :'20-30', :'30-40', :'40-50', :'50+']
 
-  default_scope { order(start_number: :asc) }
-
   before_create :set_start_number
   before_update :check_and_set_start_number
 
-  def get_start_number_and_category
+  def get_category
     # female racers
-    data = {}
     if gender == 1
-      racer = Racer.unscoped.where(gender: 1).order(start_number: :desc).first
-      data[:start_number] = racer.present? ? racer.start_number + 1 : 600
-      data[:category] = Racer.categories[:zene]
-      if data[:start_number] == 700
-        data[:start_number] = 6600
-      end
+      return Racer.categories[:zene]
     # male racers
     elsif gender == 2
       if year_of_birth > 2001
-        racer = Racer.unscoped.where('gender = 2 AND year_of_birth > 2001').order(start_number: :desc).first
-        data[:start_number] = racer.present? ? racer.start_number + 1 : 1
-        data[:category] = Racer.categories[:u16]
+        return Racer.categories[:u16]
       elsif (1998..2001).include? year_of_birth
-        racer = Racer.unscoped.where('gender = 2 AND year_of_birth <= 2001 AND year_of_birth >= 1998').order(start_number: :desc).first
-        data[:start_number] = racer.present? ? racer.start_number + 1 : 100
-        data[:category] = Racer.categories[:'16-20']
-        # alternative numbers
-        if data[:start_number] == 200
-          data[:start_number] = 1100
-        end
+        return Racer.categories[:'16-20']
       elsif (1988..1997).include? year_of_birth
-        racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1998 AND year_of_birth >= 1988').order(start_number: :desc).first
-        data[:start_number] = racer.present? ? racer.start_number + 1 : 200
-        data[:category] = Racer.categories[:'20-30']
-        # alternative numbers
-        if data[:start_number] == 300
-          data[:start_number] = 2200
-        end
+        return Racer.categories[:'20-30']
       elsif (1978..1987).include? year_of_birth
-        racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1988 AND year_of_birth >= 1978').order(start_number: :desc).first
-        data[:start_number] = racer.present? ? racer.start_number + 1 : 300
-        data[:category] = Racer.categories[:'30-40']
-        # alternative numbers
-        if data[:start_number] == 400
-          data[:start_number] = 3300
-        end
+        return Racer.categories[:'30-40']
       elsif (1968..1977).include? year_of_birth
-        racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1978 AND year_of_birth >= 1968').order(start_number: :desc).first
-        data[:start_number] = racer.present? ? racer.start_number + 1 : 400
-        data[:category] = Racer.categories[:'40-50']
-        # alternative numbers
-        if data[:start_number] == 500
-          data[:start_number] = 4400
-        end
+        return Racer.categories[:'40-50']
       elsif year_of_birth < 1968
-        racer = Racer.unscoped.where('gender = 2 AND year_of_birth < 1968').order(start_number: :desc).first
-        data[:start_number] = racer.present? ? racer.start_number + 1 : 500
-        data[:category] = Racer.categories[:'50+']
-        if data[:start_number] == 600
-          data[:start_number] = 5500
-        end
+        return Racer.categories[:'50+']
       else
         fail 'Unknown category'
       end
     end
-    data
   end
 
   def set_start_number
-    data = get_start_number_and_category
-    self.start_number = data[:start_number]
-    self.category = data[:category]
+    self.category = get_category
+    self.start_number = create_start_number_for_category(self.category)
+  end
+
+  def default_start_numbers
+    [600, 0, 100, 200, 300, 400, 500]
+  end
+
+  def create_start_number_for_category(category)
+    category_index = Racer.categories[category]
+    default_start_number = default_start_numbers[category_index]
+
+    last_start_number = StartNumber.where(value: (default_start_number..default_start_number + 100)).or(StartNumber.where(value: (default_start_number*11..default_start_number*11 + 100))).last
+    start_number_value = last_start_number.present? ? last_start_number.value + 1 : default_start_number
+    # alternate numbers
+    start_number_value = default_start_number*11 if start_number_value == default_start_number + 100
+
+    # HACK for U21 category
+    start_number_value = 1 if start_number_value == 0
+
+    StartNumber.create!(value: start_number_value)
   end
 
   def check_and_set_start_number

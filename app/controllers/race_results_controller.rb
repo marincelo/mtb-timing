@@ -1,6 +1,9 @@
 class RaceResultsController < ApplicationController
   before_action :set_race_result, only: [:show, :edit, :update, :destroy]
   before_action :only_admin, only: [:from_timing, :destroy_from_timing]
+  before_action :set_start_number, only: [:from_timing, :destroy_from_timing]
+
+  protect_from_forgery :except => [:from_device]
 
   # GET /race_results
   # GET /race_results.json
@@ -66,7 +69,7 @@ class RaceResultsController < ApplicationController
   # POST /race_results/from_timing
   def from_timing
     race = Race.find(params[:race_id])
-    racer = Racer.find_by(start_number: params[:start_number])
+    racer = Racer.find_by(start_number: @start_number)
     race_result = RaceResult.where(race: race, racer: racer).first
     race_result.lap_times << params[:time].to_f/1000 if params[:time]
     race_result.status = params[:status]
@@ -79,7 +82,7 @@ class RaceResultsController < ApplicationController
   # DELETE /race_results/destroy_from_timing
   def destroy_from_timing
     race = Race.find(params[:race_id])
-    racer = Racer.find_by(start_number: params[:start_number])
+    racer = Racer.find_by(start_number: @start_number)
     race_result = RaceResult.where(race: race, racer: racer).first
     race_result.lap_times -= ["#{params[:time].to_f/1000}"]
     race_result.save!
@@ -88,10 +91,46 @@ class RaceResultsController < ApplicationController
     end
   end
 
+  # "TAGID"=>" 00 00 00 00 00 00 00 00 00 01 65 19",
+  # "RSSI"=>"60",
+  # "TIME"=>"14.08.2017 13:07:14.36753 +02:00",
+  # "RACEID"=>5
+  def from_device
+    if params[:RACEID]
+      race = Race.find(params[:RACEID])
+    end
+    start_number = StartNumber.find_by!(tag_id: params[:TAGID].strip)
+
+    race_result = RaceResult.find_by(race: race, start_number: start_number)
+    millis = DateTime.strptime(params[:TIME], '%d.%m.%Y %H:%M:%S.%L %:z').to_f
+
+    signal_strength = params[:RSSI].to_i
+
+    # write new result if new signal_strength is larger than existing
+    if signal_strength > race_result.signal_strength
+      race_result.signal_strength = signal_strength
+      race_result.lap_times = [millis]
+      race_result.status = 3
+      race_result.save!
+    end
+
+    respond_to do |format|
+      format.html { render json: race_result }
+      format.json { render json: race_result }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_race_result
       @race_result = RaceResult.find(params[:id])
+    end
+
+    def set_start_number
+      param = params[:race_result][:start_number] || params[:start_number]
+      if param
+        @start_number = StartNumber.find_by!(value: param)
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

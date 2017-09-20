@@ -1,0 +1,27 @@
+%h1 Listing start_numbers
+
+%table
+  %thead
+    %tr
+      %th Value
+      %th Tag
+      %th Signal strength
+      %th Racer
+      %th
+      %th
+      %th
+
+  %tbody
+    - @start_numbers.each do |start_number|
+      %tr
+        %td= start_number.value
+        %td= start_number.tag_id
+        %td= start_number.signal_strength
+        %td= start_number.racer
+        %td= link_to 'Show', start_number
+        %td= link_to 'Edit', edit_start_number_path(start_number)
+        %td= link_to 'Destroy', start_number, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Start number', new_start_number_path

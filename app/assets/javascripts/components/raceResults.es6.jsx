@@ -51,7 +51,7 @@ class RaceResults extends React.Component {
         }
       }).map((raceResult)=>{
         return (<tr key={`race-result-${raceResult.id}`}>
-          <td>{raceResult.racer.start_number}</td>
+          <td>{raceResult.racer.start_number && raceResult.racer.start_number.value}</td>
           <td>{raceResult.racer.category.toUpperCase()}</td>
           <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
           <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
@@ -66,7 +66,7 @@ class RaceResults extends React.Component {
         return a.finish_time === '- -'
       }).map((raceResult)=>{
         return (<tr key={`race-result-${raceResult.id}`}>
-          <td>{raceResult.racer.start_number}</td>
+          <td>{raceResult.racer.start_number && raceResult.racer.start_number.value}</td>
           <td>{raceResult.racer.category.toUpperCase()}</td>
           <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
           <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
@@ -105,7 +105,7 @@ class RaceResults extends React.Component {
           }
         }).map((raceResult)=>{
           return (<tr key={`race-result-${raceResult.id}`}>
-            <td>{raceResult.racer.start_number}</td>
+            <td>{raceResult.racer.start_number && raceResult.racer.start_number.value}</td>
             <td>{raceResult.racer.category.toUpperCase()}</td>
             <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
             <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>

@@ -1,11 +1,12 @@
 class ClubsController < ApplicationController
   before_action :set_club, only: [:show, :edit, :update, :destroy]
+  before_action :only_admin, except: [:index, :show]
 
   # GET /clubs
   # GET /clubs.json
   def index
     @clubs = Club.all
-    @ignored_club_ids = [1, 27, 28, 47, 33, 34, 32, 37, 46, 29, 30, 31, 38]
+    @ignored_club_ids = []
   end
 
   # GET /clubs/1
