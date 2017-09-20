@@ -1,5 +1,6 @@
 class StartNumbersController < ApplicationController
   before_action :set_start_number, only: [:show, :edit, :update, :destroy]
+  before_action :only_admin
 
   # GET /start_numbers
   # GET /start_numbers.json

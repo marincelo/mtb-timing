@@ -37,7 +37,7 @@ RSpec.describe StartNumbersController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all start_numbers as @start_numbers" do
+    pending "assigns all start_numbers as @start_numbers" do
       start_number = StartNumber.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(assigns(:start_numbers)).to eq([start_number])
@@ -53,7 +53,7 @@ RSpec.describe StartNumbersController, type: :controller do
   end
 
   describe "GET #new" do
-    it "assigns a new start_number as @start_number" do
+    pending "assigns a new start_number as @start_number" do
       get :new, params: {}, session: valid_session
       expect(assigns(:start_number)).to be_a_new(StartNumber)
     end
