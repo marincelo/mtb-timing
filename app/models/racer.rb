@@ -50,7 +50,7 @@ class Racer < ApplicationRecord
     category_index = Racer.categories[category]
     default_start_number = default_start_numbers[category_index]
 
-    last_start_number = StartNumber.where(value: (default_start_number..default_start_number + 100)).or(StartNumber.where(value: (default_start_number*11..default_start_number*11 + 100))).last
+    last_start_number = StartNumber.where(value: (default_start_number..default_start_number + 99)).or(StartNumber.where(value: (default_start_number*11..default_start_number*11 + 99))).last
     start_number_value = last_start_number.present? ? last_start_number.value + 1 : default_start_number
     # alternate numbers
     start_number_value = default_start_number*11 if start_number_value == default_start_number + 100
