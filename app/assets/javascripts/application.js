@@ -12,7 +12,6 @@
 //
 //= require material
 //= require vendor/timesync
-//= require axios
 //= require react
 //= require react_ujs
 //= require react-flux
