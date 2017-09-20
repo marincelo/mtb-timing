@@ -4,7 +4,6 @@ class DashboardController < ApplicationController
   before_action :only_admin, only: [:index]
 
   def timesync
-    ts = {"jsonrpc": "2.0", "id": params[:id], "result": (DateTime.now.to_f*1000).to_i}
-    render json: ts
+    render json: {jsonrpc: '2.0', id: params[:id], result: (DateTime.now.to_f*1000).to_i}
   end
 end
