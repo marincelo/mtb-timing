@@ -11,17 +11,18 @@ class RaceResult < ApplicationRecord
   end
 
   def pretty_status
-    if status == 1
+    case status
+    when 1
       'Prijavljen'
-    elsif status == 2
+    when 2
       'Na startu'
-    elsif status == 3
+    when 3
       'Zavrsio'
-    elsif status == 4
+    when 4
       'DNF'
-    elsif status == 5
+    when 5
       'DSQ'
-    elsif status == 6
+    when 6
       'DNS'
     else
       'Nepoznat'
