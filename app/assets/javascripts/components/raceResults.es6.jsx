@@ -30,39 +30,33 @@ class RaceResults extends React.Component {
 
   _renderSequential() {
     const newestFirst = this.state.newestFirst;
-    return this.state.race.race_results.filter((a)=>{
-        return a.finish_time != '- -' && a.status == 3
-      }).sort((a, b)=>{
-        if(newestFirst){
-          if(a.finish_time < b.finish_time)
-            return 1;
-          else if(a.finish_time === b.finish_time)
-            return 0
-          else
-            return -1;
-        }
-        else {
-          if(a.finish_time > b.finish_time)
-            return 1;
-          else if(a.finish_time === b.finish_time)
-            return 0
-          else
-            return -1;
-        }
-      }).map((raceResult)=>{
-        return (<tr key={`race-result-${raceResult.id}`}>
-          <td>{raceResult.racer.start_number && raceResult.racer.start_number.value}</td>
-          <td>{raceResult.racer.category.toUpperCase()}</td>
-          <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
-          <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
-          <td>{raceResult.finish_time}</td>
-          <td></td>
-        </tr>)
-      });
+    const sortingFunction = this._getSortingFunction(newestFirst);
+
+    return this.state.race.race_results
+      .filter(this._filterFinished)
+      .sort(sortingFunction)
+      .map(this._raceResultView);
+  }
+
+  _renderByCategory() {
+    const newestFirst = this.state.newestFirst;
+    const sortingFunction = this._getSortingFunction(newestFirst);
+
+    const categories = ['zene', 'u16', '16-20', '20-30', '30-40', '40-50', '50+'];
+    let finishedTimes = this.state.race.race_results.filter(this._filterFinished);
+
+    return categories.map(category => {
+      return [<tr className={`cat-${category.replace('+', '')}`}><td colSpan="6"><b>{category.toUpperCase()}</b></td></tr>]
+        .concat(finishedTimes.filter((a)=>{
+          return a.racer.category === category;
+        })
+        .sort(sortingFunction)
+        .map(this._raceResultView));
+    });
   }
 
   _renderActive() {
-    return this.state.race.race_results.filter((a)=>{
+    return this.state.race.race_results.filter(a => {
         return a.finish_time === '- -'
       }).map((raceResult)=>{
         return (<tr key={`race-result-${raceResult.id}`}>
@@ -75,45 +69,42 @@ class RaceResults extends React.Component {
       });
   }
 
-  _renderByCategory() {
-    const newestFirst = this.state.newestFirst;
-    const categories = ['zene', 'u16', '16-20', '20-30', '30-40', '40-50', '50+'];
-    let finishedTimes = this.state.race.race_results.filter((a)=>{
-      return a.finish_time != '- -' && a.status == 3
-    });
+  _filterFinished(result) {
+    return result.finish_time !== '- -' && result.status === 3
+  }
 
-    return categories.map((category)=>{
-      return [<tr className={`cat-${category.replace('+', '')}`}><td colSpan="6"><b>{category.toUpperCase()}</b></td></tr>].concat(finishedTimes.filter((a)=>{
-          return a.racer.category === category;
-        })
-        .sort((a, b)=>{
-          if(newestFirst){
-            if(a.finish_time < b.finish_time)
-              return 1;
-            else if(a.finish_time === b.finish_time)
-              return 0
-            else
-              return -1;
-          }
-          else {
-            if(a.finish_time > b.finish_time)
-              return 1;
-            else if(a.finish_time === b.finish_time)
-              return 0
-            else
-              return -1;
-          }
-        }).map((raceResult)=>{
-          return (<tr key={`race-result-${raceResult.id}`}>
-            <td>{raceResult.racer.start_number && raceResult.racer.start_number.value}</td>
-            <td>{raceResult.racer.category.toUpperCase()}</td>
-            <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
-            <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
-            <td>{raceResult.finish_time}</td>
-            <td></td>
-          </tr>)
-        }));
-    });
+  _getSortingFunction(newestFirst) {
+    if(newestFirst){
+      return (a, b) => {
+        if(a.finish_time < b.finish_time)
+          return 1;
+        else if(a.finish_time === b.finish_time)
+          return 0
+        else
+          return -1;
+      }
+    }
+    else {
+      return (a, b) => {
+        if(a.finish_time > b.finish_time)
+         return 1;
+        else if(a.finish_time === b.finish_time)
+          return 0
+        else
+          return -1;
+      }
+    }
+  }
+
+  _raceResultView(raceResult) {
+    return (<tr key={`race-result-${raceResult.id}`}>
+      <td>{raceResult.racer.start_number && raceResult.racer.start_number.value}</td>
+      <td>{raceResult.racer.category.toUpperCase()}</td>
+      <td>{`${raceResult.racer.first_name} ${raceResult.racer.last_name}`}</td>
+      <td>{raceResult.racer && raceResult.racer.club && raceResult.racer.club.name}</td>
+      <td>{raceResult.finish_time}</td>
+      <td></td>
+      </tr>)
   }
 
   _prettyStatus(status) {

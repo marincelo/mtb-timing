@@ -28,12 +28,12 @@
 
     function buildParams() {
       var queryString = '';
-      
+
       var categoryQuery = document.getElementById('category_select').value;
       if(categoryQuery && categoryQuery != 'null') {
         queryString += 'category=' + categoryQuery;
       }
-      
+
       var racerOrderQuery = document.getElementById('racer_order').checked;
       queryString += racerOrderQuery ? '&order=start_number' : '&order=total_points';
 
@@ -62,7 +62,7 @@
       - @racers.select{|r| r.category.to_s == category[0]}.sort_by{|r| (@order ? r.start_number : -r.total_points)}.each do |racer|
         %tr
           %td
-            = link_to racer.start_number, racer
+            = link_to racer.start_number.value, racer
           %td
             = racer.category.try(:upcase)
           %td= racer.full_name

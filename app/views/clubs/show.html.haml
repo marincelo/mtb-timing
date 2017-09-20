@@ -25,7 +25,7 @@
     - @club.racers.each do |racer|
       %tr
         %td.mdl-data-table__cell--non-numeric
-          = link_to racer.start_number, racer
+          = link_to racer.start_number.value, racer
         %td.mdl-data-table__cell--non-numeric
           = racer.category.try(:upcase)
         %td= racer.first_name
