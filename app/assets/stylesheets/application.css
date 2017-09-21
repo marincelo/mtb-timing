@@ -108,25 +108,32 @@ option {
 
 /* category colors */
 .cat-zene {
-  background-color: pink;
+  background-color: pink !important;
+  color: rgba(25, 25, 5, .6) !important;
 }
 .cat-u16 {
-  background-color: powderblue;
+  background-color: powderblue !important;
+  color: rgba(25, 25, 5, .6) !important;
 }
 .cat-16-20 {
-  background-color: cyan;
+  background-color: cyan !important;
+  color: rgba(25, 25, 5, .6) !important;
 }
 .cat-20-30 {
-  background-color: lightgreen;
+  background-color: lightgreen !important;
+  color: rgba(25, 25, 5, .6) !important;
 }
 .cat-30-40 {
-  background-color: lightyellow;
+  background-color: lightyellow !important;
+  color: rgba(25, 25, 5, .6) !important;
 }
 .cat-40-50 {
-  background-color: lavender;
+  background-color: lavender !important;
+  color: rgba(25, 25, 5, .6) !important;
 }
 .cat-50 {
-  background-color: mediumorchid;
+  background-color: mediumorchid !important;
+  color: rgba(25, 25, 5, .6) !important;
 }
 
 .shame {
@@ -148,4 +155,12 @@ option {
   display: inline-block;
   margin: 0 10px;
   min-width: 20px;
+}
+
+.mdl-list__item--two-line {
+  height: 82px;
+}
+
+.mdl-list__item {
+  line-height: 1.3;
 }

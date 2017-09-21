@@ -40,42 +40,38 @@
       window.location.search = queryString;
     }
 
-%table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp
-  %thead
-    %tr
-      %th Broj
-      %th Kategorija
-      %th Ime i Prezime
-      %th Ukupno bodova
-      %th Klub
-      - if user_signed_in? && current_user.admin
-        %th Email
-        %th Broj mobitela
-        %th
-        %th
 
-  %tbody
-    - Racer.categories.each do |category|
-      %tr{ class: 'cat-' + category[0].gsub('+', '') }
-        %td{ colspan: 9 }
-          = category[0].upcase
-      - @racers.select{|r| r.category.to_s == category[0]}.sort_by{|r| (@order ? r.start_number : -r.total_points)}.each do |racer|
-        %tr
-          %td
-            = link_to racer.start_number.value, racer
-          %td
-            = racer.category.try(:upcase)
-          %td= racer.full_name
-          %td
-            %b= racer.total_points
-          %td= racer.club.try(:name) || '- -'
-          - if user_signed_in? && current_user.admin
-            %td= racer.email
-            %td
-              %a{href: "tel:#{racer.phone_number}"}
-                = racer.phone_number
-            %td
-              = link_to 'Izmijeni', edit_racer_path(racer), class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored', style: 'color: white;'
-            %td
-              = form_for racer, method: :delete do |f|
-                = f.submit 'Izbrisi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'
+%ul.demo-list-two.mdl-list
+  - @racers.each do |racer|
+    = link_to racer do
+      %li.mdl-list__item.mdl-list__item--two-line
+        %span.mdl-list__item-primary-content
+          %i.material-icons.mdl-list__item-avatar{ class: 'cat-' + racer.category.gsub('+', '') }
+            directions_bike
+          %span
+            %b= racer.start_number.value
+            = racer.full_name
+
+            - if user_signed_in? && current_user.admin
+              .admin-actions
+                %span
+                  %a.email{ href: "mailto:#{racer.email}" }
+                    = racer.email
+                %span
+                  %a{ href: "tel:#{racer.phone_number}" }
+                    %b= racer.phone_number
+                %span
+                  = link_to 'mode_edit', edit_racer_path(racer), class: 'material-icons', title: 'Izmijeni podatke'
+                %span
+                  = form_for racer, method: :delete do |f|
+                    = f.submit 'delete_forever', class: 'material-icons', title: 'Izbrisi natjecatelja'
+
+          %span.mdl-list__item-sub-title
+            Kategorija
+            %b.category
+              = racer.category
+        %span.mdl-list__item-secondary-content
+          %span.mdl-list__item-secondary-info
+            = racer.club&.name
+          %b.mdl-list__item-secondary-action
+            = racer.total_points

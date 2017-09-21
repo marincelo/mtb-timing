@@ -3,7 +3,7 @@ class Racer < ApplicationRecord
   belongs_to :club
   has_many :race_results, dependent: :destroy
   has_many :races, through: :race_results
-  has_one :start_number
+  has_one :start_number, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
   validates :phone_number, presence: true, uniqueness: true
