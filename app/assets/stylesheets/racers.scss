@@ -1,3 +1,26 @@
 // Place all the styles related to the Racers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.demo-list-two.mdl-list {
+  form {
+    display: inline;
+  }
+
+  a {
+    text-decoration: none !important;
+  }
+
+  .admin-actions {
+    span {
+      margin-left: 1rem;
+    }
+
+    .email {
+      color: rgba(50, 50, 50, .87);
+    }
+  }
+
+  .category {
+    text-transform: uppercase;
+  }
+}
