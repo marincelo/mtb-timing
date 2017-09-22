@@ -18,3 +18,8 @@
 //= require react-flux
 //= require components
 //= require_tree .
+
+
+document.addEventListener('turbolinks:load', function() {
+    componentHandler.upgradeDom();
+});
