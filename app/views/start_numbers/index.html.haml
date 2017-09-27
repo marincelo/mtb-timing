@@ -17,7 +17,7 @@
         %td= start_number.value
         %td= start_number.tag_id
         %td= start_number.signal_strength
-        %td= start_number.racer
+        %td= start_number.racer&.full_name
         %td= link_to 'Show', start_number
         %td= link_to 'Edit', edit_start_number_path(start_number)
         %td= link_to 'Destroy', start_number, :method => :delete, :data => { :confirm => 'Are you sure?' }
