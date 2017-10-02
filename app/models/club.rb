@@ -19,4 +19,8 @@ class Club < ApplicationRecord
     end
     points
   end
+
+  def racers_count
+    racers.count
+  end
 end

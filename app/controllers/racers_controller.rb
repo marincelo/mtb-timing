@@ -7,7 +7,7 @@ class RacersController < ApplicationController
     if params[:category].present?
       @racers = Racer.includes(:race_results).where(category: params[:category].to_i)
     else
-      @racers = Racer.includes(:race_results).order(:category).all
+      @racers = Racer.includes(:race_results, :start_number).all.sort_by{ |r| r.start_number&.value }
     end
 
     @order = params[:order] == 'start_number' if params[:order].present?
