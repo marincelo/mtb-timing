@@ -37,6 +37,14 @@
   }
 }
 
+.mdl-card__title.mdl-card--expand {
+  background-size: cover;
+  h4.text-outline {
+    color: white;
+    text-shadow: 1px 1px 0 black;
+  }
+}
+
 #register {
   color: white;
 }
