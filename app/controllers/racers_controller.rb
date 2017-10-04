@@ -1,5 +1,6 @@
 class RacersController < ApplicationController
   before_action :set_racer, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery unless: -> { request.format.json? }
 
   # GET /racers
   # GET /racers.json
