@@ -1,6 +1,6 @@
 class RacersController < ApplicationController
   before_action :set_racer, only: [:show, :edit, :update, :destroy]
-  protect_from_forgery unless: -> { request.format.json? }
+  protect_from_forgery unless: -> { action_name != 'login' && request.format.json? }
 
   # GET /racers
   # GET /racers.json
@@ -83,11 +83,18 @@ class RacersController < ApplicationController
   def login
     filter = {email: racer_params[:email], phone_number: racer_params[:phone_number]}
     racer = Racer.where(filter).first
+
     if racer.present?
       sign_in racer.user
-      redirect_to(params[:redirect] || races_path)
+      respond_to do |format|
+        format.html { redirect_to(params[:redirect] || races_path) }
+        format.json { render json: racer }
+      end
     else
-      redirect_to login_racers_path, notice: 'Nije uspjelo. Pokusaj opet.'
+      respond_to do |format|
+        format.html { redirect_to login_racers_path, notice: 'Nije uspjelo. Pokusaj opet.' }
+        format.json { render json: {}, status: 401 }
+      end
     end
   end
 
