@@ -17,6 +17,10 @@ class RacersController < ApplicationController
   # GET /racers/1
   # GET /racers/1.json
   def show
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @racer, include: {race_results: { include: :race, methods: :finish_time }, start_number: {}, club: {}} }
+    end
   end
 
   # GET /racers/new
