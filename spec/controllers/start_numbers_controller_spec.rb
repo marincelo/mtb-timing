@@ -53,10 +53,6 @@ RSpec.describe StartNumbersController, type: :controller do
   end
 
   describe "GET #new" do
-    pending "assigns a new start_number as @start_number" do
-      get :new, params: {}, session: valid_session
-      expect(assigns(:start_number)).to be_a_new(StartNumber)
-    end
   end
 
   describe "GET #edit" do

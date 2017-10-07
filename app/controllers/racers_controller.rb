@@ -6,9 +6,9 @@ class RacersController < ApplicationController
   # GET /racers.json
   def index
     if params[:category].present?
-      @racers = Racer.includes(:race_results).where(category: params[:category].to_i)
+      @racers = Racer.includes(:race_results, :start_number, :club).where(category: params[:category].to_i)
     else
-      @racers = Racer.includes(:race_results, :start_number).all.sort_by{ |r| r.start_number&.value }
+      @racers = Racer.includes(:race_results, :start_number, :club).all.sort_by{ |r| r.start_number&.value }
     end
 
     @order = params[:order] == 'start_number' if params[:order].present?
@@ -86,6 +86,7 @@ class RacersController < ApplicationController
 
     if racer.present?
       sign_in racer.user
+
       respond_to do |format|
         format.html { redirect_to(params[:redirect] || races_path) }
         format.json { render json: racer }
@@ -101,7 +102,11 @@ class RacersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_racer
-      @racer = Racer.find(params[:id])
+      if action_name == 'show'
+        @racer = Racer.includes(:race_results, :start_number, :club).find(params[:id])
+      else
+        @racer = Racer.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
