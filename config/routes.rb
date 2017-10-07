@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     collection do
       post :from_timing
       delete :destroy_from_timing
+      match :from_device, via: [:get, :post]
     end
   end
   resources :races do
