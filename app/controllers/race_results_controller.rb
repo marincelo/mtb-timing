@@ -101,7 +101,7 @@ class RaceResultsController < ApplicationController
     end
     start_number = StartNumber.find_by!(tag_id: params[:TAGID].strip)
 
-    race_result = RaceResult.find_by(race: race, start_number: start_number)
+    race_result = RaceResult.find_by(race: race, racer: start_number.racer)
     millis = DateTime.strptime(params[:TIME], '%d.%m.%Y %H:%M:%S.%L %:z').to_f
 
     signal_strength = params[:RSSI].to_i
