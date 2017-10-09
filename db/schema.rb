@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20171009180127) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "points"
-    t.integer "signal_strength"
+    t.integer "signal_strength", default: -1000
     t.index ["race_id"], name: "index_race_results_on_race_id"
     t.index ["racer_id"], name: "index_race_results_on_racer_id"
   end
