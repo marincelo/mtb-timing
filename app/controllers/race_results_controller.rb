@@ -96,10 +96,8 @@ class RaceResultsController < ApplicationController
   # "TIME"=>"14.08.2017 13:07:14.36753 +02:00",
   # "RACEID"=>5
   def from_device
-    if params[:RACEID]
-      race = Race.find(params[:RACEID])
-    end
-    start_number = StartNumber.find_by!(tag_id: params[:TAGID].strip)
+    start_number = StartNumber.includes(:racer).find_by!(tag_id: params[:TAGID].strip)
+    race = Race.find(params[:RACEID])
 
     race_result = RaceResult.find_by(race: race, racer: start_number.racer)
     millis = DateTime.strptime(params[:TIME], '%d.%m.%Y %H:%M:%S.%L %:z').to_f

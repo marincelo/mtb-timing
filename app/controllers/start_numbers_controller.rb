@@ -1,11 +1,11 @@
 class StartNumbersController < ApplicationController
   before_action :set_start_number, only: [:show, :edit, :update, :destroy]
-  # before_action :only_admin
+  before_action :only_admin
 
   # GET /start_numbers
   # GET /start_numbers.json
   def index
-    @start_numbers = StartNumber.all.order(:value)
+    @start_numbers = StartNumber.includes(:racer).all.order(:value)
   end
 
   # GET /start_numbers/1
