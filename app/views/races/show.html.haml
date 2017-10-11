@@ -41,7 +41,7 @@
   %br
 
 
-- if @race.ended_at.nil?
+- if @race.ended_at.nil? && @race.id > 1
   %h4
     Start Box
   %table.wide_table.mdl-data-table.mdl-js-data-table.mdl-shadow--2dp{ style: 'background: #ffe082' }

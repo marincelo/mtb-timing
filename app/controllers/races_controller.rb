@@ -87,7 +87,7 @@ class RacesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_race
       if action_name == 'show'
-        @race = Race.includes(race_results: {racer: :club}).find(params[:id])
+        @race = Race.includes(race_results: {racer: [:club, :start_number]}).find(params[:id])
       else
         @race = Race.find(params[:id])
       end
