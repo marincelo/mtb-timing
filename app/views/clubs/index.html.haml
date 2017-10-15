@@ -12,7 +12,7 @@
         %th
 
   %tbody
-    - @clubs.select{|c| !@ignored_club_ids.include?(c.id) }.sort_by{|c| -c.points}.each_with_index do |club, index|
+    - @clubs.select{|c| !@ignored_club_ids.include?(c.id)}.each_with_index do |club, index|
       %tr
         %td
           = index + 1
@@ -25,7 +25,7 @@
             = form_for club, method: :delete do |f|
               = f.submit 'Izbrisi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'
 
-    - @clubs.select{|c| @ignored_club_ids.include?(c.id) }.sort_by{|c| -c.points}.each_with_index do |club, index|
+    - @clubs.select{|c| @ignored_club_ids.include?(c.id)}.each_with_index do |club, index|
       %tr
         %td
         %td= link_to club.name, club
