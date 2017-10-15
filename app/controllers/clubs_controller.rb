@@ -5,7 +5,7 @@ class ClubsController < ApplicationController
   # GET /clubs
   # GET /clubs.json
   def index
-    @clubs = Club.all
+    @clubs = Club.all.sort_by{|c| -c.points}
     @ignored_club_ids = []
   end
 
