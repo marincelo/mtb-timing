@@ -35,7 +35,7 @@
           %td= link_to 'Izmijeni', edit_club_path(club), class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored', style: 'color: white;'
           %td
             = form_for club, method: :delete do |f|
-              = f.submit 'Izbrisi', class: 'mdl-button mdl-j.sort_by{|c| -c.points}s-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'
+              = f.submit 'Izbrisi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'
 
 - if user_signed_in? && current_user.admin
   %br
