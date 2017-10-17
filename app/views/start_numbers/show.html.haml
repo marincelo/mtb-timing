@@ -11,7 +11,7 @@
   = @start_number.signal_strength
 %p
   %b Racer:
-  = @start_number.racer
+  = @start_number.racer&.full_name
 
 = link_to 'Edit', edit_start_number_path(@start_number)
 \|
