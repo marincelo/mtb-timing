@@ -113,7 +113,7 @@ class RaceResultsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render json: race_result }
+      format.html { render json: race_result, include: {start_number: true, methods: [:finish_time] } }
       format.json { render json: race_result }
     end
   end
