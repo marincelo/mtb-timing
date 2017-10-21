@@ -93,33 +93,31 @@ class RaceResultsController < ApplicationController
 
   # "TAGID"=>" 00 00 00 00 00 00 00 00 00 01 65 19",
   # "RSSI"=>"60",
-  # "TIME"=>"14.08.2017 13:07:14.36753 +02:00",
+  # "TIME"=>"14.08.2017 13:07:14.36753 %2B02:00",
   # "RACEID"=>5
   def from_device
     start_number = StartNumber.includes(:racer).find_by!(tag_id: params[:TAGID].strip)
     race = Race.find(params[:RACEID])
 
     race_result = RaceResult.find_by!(race: race, racer: start_number.racer)
-    millis = DateTime.strptime(params[:TIME], '%d.%m.%Y %H:%M:%S.%L %:z').to_f
+    millis = DateTime.strptime(params[:TIME], '%d.%m.%Y %H:%M:%S.%L %:z').to_f.to_s
 
     signal_strength = params[:RSSI].to_i
 
-    # write new result if new signal_strength is larger than existing
-    if signal_strength > race_result.signal_strength
-      race_result.signal_strength = signal_strength
-      race_result.lap_times = [millis]
-      race_result.status = 3
-      race_result.save!
+    if race_result.finish_time == '- -' || (DateTime.now > (race_result.updated_at + race.lap_delay.minutes))
+      # write new result if new signal_strength is larger than existing
+      # if signal_strength > race_result.signal_strength
+        race_result.signal_strength = signal_strength
+        race_result.lap_times << millis
+        race_result.status = 3
+        race_result.save!
+      # end
     end
 
-    respond_to do |format|
-      format.html { render json: race_result, include: {start_number: true, methods: [:finish_time] } }
-      format.json { render json: race_result }
-    end
+    render json: race_result, include: { racer: { include: [:club, :start_number] } }, methods: [:finish_time]
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_race_result
       @race_result = RaceResult.find(params[:id])
     end

@@ -1,5 +1,6 @@
 class RacesController < ApplicationController
-  before_action :set_race, only: [:show, :edit, :update, :destroy, :add_racer]
+  before_action :only_admin, except: [:index, :show, :get_live]
+  before_action :set_race, only: [:show, :edit, :update, :destroy]
   before_action :check_race_result, only: [:show]
 
   # GET /races
@@ -11,9 +12,19 @@ class RacesController < ApplicationController
   # GET /races/1
   # GET /races/1.json
   def show
+    if user_signed_in? && current_user.admin
+      @racers_for_select = Racer.includes(:start_number)
+        .joins(:start_number)
+        .where.not(id: @race.race_results.pluck(:racer_id))
+        .order('start_numbers.value')
+        .collect{
+          |r| ["#{r.start_number.value} - #{r.full_name}", r.id]
+        }
+    end
+
     respond_to do |format|
       format.html { render :show }
-      format.json { render json: @race, include: {race_results: { include: {racer: {include: [:club, :start_number]}}, methods: [:finish_time] }} }
+      format.json { render json: @race, include: { race_results: { include: { racer: { include: [:club, :start_number] } }, methods: [:finish_time] } } }
       format.csv { send_data @race.to_csv }
     end
   end
@@ -78,11 +89,6 @@ class RacesController < ApplicationController
     end
   end
 
-  def add_racer
-    @race.racers << current_user.racer
-    redirect_to @race
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_race
@@ -95,7 +101,7 @@ class RacesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def race_params
-      params.require(:race).permit(:name, :date, :laps, :easy_laps, :description_url, :picture_url)
+      params.require(:race).permit(:name, :date, :laps, :easy_laps, :description_url, :picture_url, :lap_delay)
     end
 
     def check_race_result
