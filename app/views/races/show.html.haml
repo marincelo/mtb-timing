@@ -32,7 +32,7 @@
 
 - if user_signed_in? && current_user.admin
   = form_for RaceResult.new do |f|
-    = f.select :racer_id, options_for_select(Racer.where.not(id: @race.race_results.pluck(:racer_id)).collect{|r| ["#{r.start_number.value} - #{r.full_name}", r.id]}), include_blank: true
+    = f.select :racer_id, options_for_select(@racers_for_select), include_blank: true
     = f.hidden_field :race_id, value: @race.id
     = f.hidden_field :status, value: 1
     = f.submit 'Prijavi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'
