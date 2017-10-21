@@ -13,7 +13,13 @@ class RacesController < ApplicationController
   # GET /races/1.json
   def show
     if user_signed_in? && current_user.admin
-      @racers_for_select = Racer.includes(:start_number).joins(:start_number).where.not(id: @race.race_results.pluck(:racer_id)).order('start_numbers.value').collect{|r| ["#{r.start_number.value} - #{r.full_name}", r.id]}
+      @racers_for_select = Racer.includes(:start_number)
+        .joins(:start_number)
+        .where.not(id: @race.race_results.pluck(:racer_id))
+        .order('start_numbers.value')
+        .collect{
+          |r| ["#{r.start_number.value} - #{r.full_name}", r.id]
+        }
     end
 
     respond_to do |format|

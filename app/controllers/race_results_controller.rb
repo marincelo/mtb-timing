@@ -114,11 +114,10 @@ class RaceResultsController < ApplicationController
       # end
     end
 
-    render json: race_result
+    render json: race_result, include: { racer: { include: [:club, :start_number] } }, methods: [:finish_time]
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_race_result
       @race_result = RaceResult.find(params[:id])
     end
