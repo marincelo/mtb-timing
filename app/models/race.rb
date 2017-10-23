@@ -26,6 +26,17 @@ class Race < ApplicationRecord
     end
   end
 
+  def assign_clubs_points
+    clubs = racers.includes(:club).collect(&:club).uniq
+    clubs = clubs.sort_by{ |club| club.points_in_race self }
+    points = 1
+
+    clubs.each do |club|
+      club.update!(points: club.points + points)
+      points += 1
+    end
+  end
+
   def to_csv
     CSV.generate() do |csv|
       csv << ['Startni broj', 'Ime', 'Prezime', 'Klub', 'Godiste', 'Prebivaliste', 'Email', 'Mobitel', 'Vrijeme', 'Status', 'Bodovi']
