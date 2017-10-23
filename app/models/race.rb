@@ -16,18 +16,15 @@ class Race < ApplicationRecord
       # nadi top 25 rezultata
       results = race_results.includes(:racer).where(status: 3).where('racers.category': category[1]).sort{|x,y| x.finish_time <=> y.finish_time}.select{ |rr| rr.lap_times.length > 0 }.first(25)
 
-      p category
-      p results.count
       results.each_with_index do |rr, index|
         # podijeli bodove
-        p rr
         rr.update!(points: Race.points[index])
       end
     end
   end
 
   def assign_clubs_points
-    clubs = racers.includes(:club).collect(&:club).uniq
+    clubs = racers.includes(:club).collect(&:club).uniq.select(&:official?)
     clubs = clubs.sort_by{ |club| club.points_in_race self }
     points = 1
 

@@ -66,7 +66,10 @@ class RacesController < ApplicationController
     @race.ended_at = Time.at(params[:ended_at].to_i/1000) if params[:ended_at].present?
     @race.save!
 
-    @race.assign_points if params[:ended_at].present? && @race.ended_at
+    if params[:ended_at].present? && @race.ended_at
+      @race.assign_points
+      @race.assign_clubs_points
+    end
 
     respond_to do |format|
       if @race.update(race_params)
