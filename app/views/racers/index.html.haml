@@ -42,36 +42,37 @@
 
 
 %ul.demo-list-two.mdl-list
-  - @racers.each do |racer|
-    = link_to racer do
-      %li.mdl-list__item.mdl-list__item--two-line
-        %span.mdl-list__item-primary-content
-          %i.material-icons.mdl-list__item-avatar{ class: 'cat-' + racer.category.gsub('+', '') }
-            directions_bike
-          %span
-            %b= racer.start_number.value
-            = racer.full_name
+  - Racer.categories.each do |category|
+    - @racers.where(category: category).sort_by{ |r| params[:order] == 'start_number' ? r.start_number&.value : -r.total_points}.each do |racer|
+      = link_to racer do
+        %li.mdl-list__item.mdl-list__item--two-line
+          %span.mdl-list__item-primary-content
+            %i.material-icons.mdl-list__item-avatar{ class: 'cat-' + racer.category.gsub('+', '') }
+              directions_bike
+            %span
+              %b= racer.start_number.value
+              = racer.full_name
 
-            - if user_signed_in? && current_user.admin
-              .admin-actions
-                %span
-                  %a.email{ href: "mailto:#{racer.email}" }
-                    = racer.email
-                %span
-                  %a{ href: "tel:#{racer.phone_number}" }
-                    %b= racer.phone_number
-                %span
-                  = link_to 'mode_edit', edit_racer_path(racer), class: 'material-icons', title: 'Izmijeni podatke'
-                %span
-                  = form_for racer, method: :delete do |f|
-                    = f.submit 'delete_forever', class: 'material-icons', title: 'Izbrisi natjecatelja'
+              - if user_signed_in? && current_user.admin
+                .admin-actions
+                  %span
+                    %a.email{ href: "mailto:#{racer.email}" }
+                      = racer.email
+                  %span
+                    %a{ href: "tel:#{racer.phone_number}" }
+                      %b= racer.phone_number
+                  %span
+                    = link_to 'mode_edit', edit_racer_path(racer), class: 'material-icons', title: 'Izmijeni podatke'
+                  %span
+                    = form_for racer, method: :delete do |f|
+                      = f.submit 'delete_forever', class: 'material-icons', title: 'Izbrisi natjecatelja'
 
-          %span.mdl-list__item-sub-title
-            Kategorija
-            %b.category
-              = racer.category
-        %span.mdl-list__item-secondary-content
-          %span.mdl-list__item-secondary-info
-            = racer.club&.name
-          %b.mdl-list__item-secondary-action
-            = racer.total_points
+            %span.mdl-list__item-sub-title
+              Kategorija
+              %b.category
+                = racer.category
+          %span.mdl-list__item-secondary-content
+            %span.mdl-list__item-secondary-info
+              = racer.club&.name
+            %b.mdl-list__item-secondary-action
+              = racer.total_points

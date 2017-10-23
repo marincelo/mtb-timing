@@ -8,6 +8,7 @@
       %th Broj clanova
       %th Ukupno bodova
       - if user_signed_in? && current_user.admin
+        %th Sluzbeni klub
         %th
         %th
 
@@ -20,18 +21,7 @@
         %td= club.racers.count
         %td= club.points
         - if user_signed_in? && current_user.admin
-          %td= link_to 'Izmijeni', edit_club_path(club), class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored', style: 'color: white;'
-          %td
-            = form_for club, method: :delete do |f|
-              = f.submit 'Izbrisi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'
-
-    - @clubs.select{|c| @ignored_club_ids.include?(c.id)}.each_with_index do |club, index|
-      %tr
-        %td
-        %td= link_to club.name, club
-        %td= club.racers.count
-        %td --
-        - if user_signed_in? && current_user.admin
+          %td= club.official? ? 'Da' : 'Ne'
           %td= link_to 'Izmijeni', edit_club_path(club), class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored', style: 'color: white;'
           %td
             = form_for club, method: :delete do |f|

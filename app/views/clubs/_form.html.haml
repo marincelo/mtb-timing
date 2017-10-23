@@ -10,8 +10,15 @@
     .mdl-textfield.mdl-js-textfield
       %input#name.mdl-textfield__input{type: 'text', name: 'club[name]', required: true, value: @club.name}
       %label.mdl-textfield__label{for: 'name'} Ime kluba
-  / .field
-  /   = f.label :user
-  /   = f.text_field :user
+
+
+  .field
+    %label.mdl-switch.mdl-js-switch.mdl-js-ripple-effect{:for => "club_official"}
+      = f.check_box :official, { class: 'mdl-switch__input' }
+      %span.mdl-switch__label
+        Sluzbeni klub
+
+  %br
+
   .actions
     = f.submit 'Spremi', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', style: 'color: white;'

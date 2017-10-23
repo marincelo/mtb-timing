@@ -66,11 +66,15 @@ class ClubsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_club
-      @club = Club.find(params[:id])
+      if action_name == 'show'
+        @club = Club.includes(racers: [:start_number, :race_results]).find(params[:id])
+      else
+        @club = Club.find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def club_params
-      params.require(:club).permit(:name, :user_id)
+      params.require(:club).permit(:name, :user_id, :official)
     end
 end

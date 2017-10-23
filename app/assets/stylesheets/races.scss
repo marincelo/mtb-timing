@@ -68,3 +68,21 @@
     color: white;
   }
 }
+
+svg {
+  height: 1.25rem;
+  width: 1.25rem;
+  padding-left: .5rem;
+
+  &.gold {
+    fill: gold;
+  }
+
+  &.silver {
+    fill: silver;
+  }
+
+  &.bronze {
+    fill: #cd7f32;
+  }
+}

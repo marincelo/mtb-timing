@@ -84,11 +84,14 @@
         %td{ colspan: user_signed_in? && current_user.admin ? 8 : 7 }
           = category[0].upcase
 
-      - (@race.race_results.select{|rr| rr.lap_times.length > 0 && rr.status == 3}.sort{|x, y| x.finish_time <=> y.finish_time} + @race.race_results.select{|rr| rr.lap_times.length == 0 && rr.status != 3}.sort{|x, y| y.status <=> x.status}).select{|rr| rr.racer.category == category[0]}.each_with_index do |race_result, index|
+      - (@race.race_results.select{|rr| rr.lap_times.length > 0 && rr.status == 3}.sort{|x, y| x.finish_time <=> y.finish_time} + @race.race_results.select{|rr| rr.status != 3}.sort{|x, y| y.status <=> x.status}).select{|rr| rr.racer.category == category[0]}.each_with_index do |race_result, index|
         %tr
           %td
             - if race_result.status == 3
               = "#{index + 1}."
+
+            - if index <= 2
+              = render partial: 'trophy', locals: { index: index }
           %td
             = link_to race_result.racer.start_number.value, race_result.racer
           %td= race_result.racer.full_name
