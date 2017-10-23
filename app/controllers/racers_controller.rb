@@ -8,10 +8,8 @@ class RacersController < ApplicationController
     if params[:category].present?
       @racers = Racer.includes(:race_results, :start_number, :club).where(category: params[:category].to_i)
     else
-      @racers = Racer.includes(:race_results, :start_number, :club).all.sort_by{ |r| r.start_number&.value }
+      @racers = Racer.includes(:race_results, :start_number, :club).all
     end
-
-    @order = params[:order] == 'start_number' if params[:order].present?
   end
 
   # GET /racers/1
