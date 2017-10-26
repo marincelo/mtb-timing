@@ -6,6 +6,6 @@ class StartNumber < ApplicationRecord
   private
 
   def strip_tag_id
-    self.tag_id = tag_id.strip
+    self.tag_id = tag_id.strip if self.tag_id.present?
   end
 end
