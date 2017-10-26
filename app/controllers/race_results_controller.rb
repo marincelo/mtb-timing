@@ -117,7 +117,8 @@ class RaceResultsController < ApplicationController
     json = {
       finish_time: race_result.finish_time,
       racer_name: race_result.racer.full_name,
-      start_number: race_result.racer.start_number.value
+      start_number: race_result.racer.start_number.value,
+      tag_id: start_number.tag_id
     }
 
     render json: json
