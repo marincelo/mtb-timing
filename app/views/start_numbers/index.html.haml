@@ -5,7 +5,6 @@
     %tr
       %th Value
       %th Tag
-      %th Signal strength
       %th Racer
       %th
       %th
@@ -16,7 +15,6 @@
       %tr
         %td= start_number.value
         %td= start_number.tag_id
-        %td= start_number.signal_strength
         %td= start_number.racer&.full_name
         %td= link_to 'Show', start_number
         %td= link_to 'Edit', edit_start_number_path(start_number)
