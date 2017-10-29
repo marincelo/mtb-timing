@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :start_numbers
+  resources :start_numbers do
+    collection do
+      get :query
+    end
+  end
+
   devise_for :users
   root to: 'dashboard#info'
 
