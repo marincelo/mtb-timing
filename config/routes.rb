@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  resources :start_numbers do
-    collection do
-      get :query
-    end
-  end
-
-  devise_for :users
   root to: 'dashboard#info'
 
   get '/timing' => 'dashboard#index'
@@ -15,6 +8,7 @@ Rails.application.routes.draw do
   get '/terms' => 'dashboard#terms'
 
   resources :clubs
+
   resources :race_results do
     collection do
       post :from_timing
@@ -22,11 +16,13 @@ Rails.application.routes.draw do
       match :from_device, via: [:get, :post]
     end
   end
+
   resources :races do
     collection do
       get :get_live
     end
   end
+
   resources :racers do
     collection do
       get :login, to: 'racers#login_form'
@@ -34,5 +30,9 @@ Rails.application.routes.draw do
     end
   end
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :start_numbers do
+    collection do
+      get :query
+    end
+  end
 end
