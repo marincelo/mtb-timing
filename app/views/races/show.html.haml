@@ -90,8 +90,8 @@
             - if race_result.status == 3
               = "#{index + 1}."
 
-            - if index <= 2
-              = render partial: 'trophy', locals: { index: index }
+              - if index <= 2
+                = render partial: 'trophy', locals: { index: index }
           %td
             = link_to race_result.racer.start_number.value, race_result.racer
           %td= race_result.racer.full_name
