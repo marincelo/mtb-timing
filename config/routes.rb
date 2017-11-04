@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root to: 'dashboard#info'
 
+  devise_for :users
+
   get '/timing' => 'dashboard#index'
   get '/live' => 'dashboard#live'
   post '/timesync' => 'dashboard#timesync'
