@@ -96,7 +96,17 @@
             = link_to race_result.racer.start_number.value, race_result.racer
           %td= race_result.racer.full_name
           %td= race_result.racer.club.try(:name)
-          %td= race_result.finish_time
+
+          - if @race.ended_at.blank?
+            %td= '--'
+          - else
+            - if index.zero?
+              %td
+                = race_result.finish_time
+            -else
+              %td.losers
+                = race_result.finish_delta(category)
+
           - if @race.ended_at.present? && race_result.status == 1
             .mdl-tooltip.mdl-tooltip--large{for: "raceResult-#{race_result.id}"}
               Na iducem startu placa dodatnih 10 kn.
