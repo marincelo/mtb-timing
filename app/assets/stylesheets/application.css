@@ -164,3 +164,7 @@ option {
 .mdl-list__item {
   line-height: 1.3;
 }
+
+.losers {
+  color: red;
+}
