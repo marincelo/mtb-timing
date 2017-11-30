@@ -187,18 +187,21 @@ option {
   }
 
   table, thead, tbody, tr {
-    display: block;
+    display: flex;
+    flex-direction: column;
   }
 
   tr {
+    flex-direction: row;
+    flex-wrap: wrap;
     white-space: initial;
     height: 100px !important;
     border-bottom: 1px solid #dddddd;
   }
 
   th, td {
-    display: inline-block;
-    width: 24%;
+    display: inline-flex;
+    width: 25%;
     border: 0 none !important;
     text-align: left !important;
   }
