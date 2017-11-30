@@ -73,15 +73,16 @@
       %th Startni broj
       %th Ime i Prezime
       %th Klub
-      %th Vrijeme
-      %th Status
       %th Bodovi
+      %th Status
+      %th Vrijeme
+      %th Razlika
       - if user_signed_in? && current_user.admin
         %th
   %tbody
     - Racer.categories.each do |category|
       %tr{ class: 'cat-' + category[0].gsub('+', '') }
-        %td{ colspan: user_signed_in? && current_user.admin ? 8 : 7 }
+        %td{ colspan: user_signed_in? && current_user.admin ? 9 : 8 }
           = category[0].upcase
 
       - (@race.race_results.select{|rr| rr.lap_times.length > 0 && rr.status == 3}.sort{|x, y| x.finish_time <=> y.finish_time} + @race.race_results.select{|rr| rr.status != 3}.sort{|x, y| y.status <=> x.status}).select{|rr| rr.racer.category == category[0]}.each_with_index do |race_result, index|
@@ -94,18 +95,11 @@
                 = render partial: 'trophy', locals: { index: index }
           %td
             = link_to race_result.racer.start_number.value, race_result.racer
-          %td= race_result.racer.full_name
+          %td
+            %b= race_result.racer.full_name
           %td= race_result.racer.club.try(:name)
-
-          - if @race.ended_at.blank?
-            %td= '--'
-          - else
-            - if index.zero?
-              %td
-                = race_result.finish_time
-            -else
-              %td.losers
-                = race_result.finish_delta(category)
+          %td
+            %b= race_result.points
 
           - if @race.ended_at.present? && race_result.status == 1
             .mdl-tooltip.mdl-tooltip--large{for: "raceResult-#{race_result.id}"}
@@ -114,7 +108,18 @@
               = race_result.pretty_status
           - else
             %td= race_result.pretty_status
-          %td= race_result.points
+
+          %td= race_result.finish_time
+
+          - if @race.ended_at.blank?
+            %td= '--'
+          - else
+            - if index.zero?
+              %td
+            -else
+              %td.losers
+                = race_result.finish_delta(category)
+
           - if user_signed_in? && current_user.admin && race_result.status && race_result.status < 2
             %td
               = form_for race_result do |f|

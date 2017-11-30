@@ -32,7 +32,7 @@ class RaceResult < ApplicationRecord
   def finish_time
     if race && lap_times.length > 0
       seconds = Time.at(lap_times.last.to_f) - race.started_at
-      Time.at(seconds).utc.strftime("%H:%M:%S.%L")
+      Time.at(seconds).utc.strftime("%k:%M:%S")
     else
       '- -'
     end
@@ -42,7 +42,7 @@ class RaceResult < ApplicationRecord
     reference_race_result = RaceResult.joins(:racer).where('racers.category': category, race: race, status: 3).order('-points asc').limit(1).first()
     if race && lap_times.length > 0 && status == 3
       seconds = Time.at(lap_times.last.to_f) - Time.at(reference_race_result.lap_times.last.to_f)
-      Time.at(seconds).utc.strftime("+%H:%M:%S.%L")
+      Time.at(seconds).utc.strftime("+%k:%M:%S")
     else
       '- -'
     end

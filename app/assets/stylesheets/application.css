@@ -107,6 +107,12 @@ option {
 }
 
 /* category colors */
+.cat-zene, .cat-u16, .cat-u16-20,
+.cat-20-30, .cat-30-40, .cat-40-50,
+.cat-50 {
+  height: 48px !important;
+}
+
 .cat-zene {
   background-color: pink !important;
   color: rgba(25, 25, 5, .6) !important;
@@ -167,4 +173,33 @@ option {
 
 .losers {
   color: red;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 840px) {
+  .wide_table {
+    margin: 0;
+  }
+
+  .page-content {
+    width: calc(100% - 10px);
+    padding: 0 5px;
+  }
+
+  table, thead, tbody, tr {
+    display: block;
+  }
+
+  tr {
+    white-space: initial;
+    height: 100px !important;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  th, td {
+    display: inline-block;
+    width: 24%;
+    border: 0 none !important;
+    text-align: left !important;
+  }
 }
